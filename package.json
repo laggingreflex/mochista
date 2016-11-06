@@ -1,0 +1,36 @@
+{
+  "name": "mochista",
+  "version": "0.0.0",
+  "description": "Mocha + Istanbul in a single process",
+  "main": "./dist",
+  "bin": "./cli.js",
+  "scripts": {
+    "build": "rimraf dist && babel src -d dist --source-maps"
+  },
+  "repository": "laggingreflex/mochista",
+  "author": "laggingreflex@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "babel-istanbul": "^0.11.0",
+    "bluebird": "^3.4.6",
+    "chokidar": "^1.6.1",
+    "debounce-queue": "^0.0.0",
+    "fs-promise": "^0.5.0",
+    "lodash": "^4.16.4",
+    "mocha": "^3.1.2",
+    "source-map-support": "^0.4.5",
+    "yargs": "^6.3.0",
+    "req-from": "^1.0.1",
+    "globby": "^6.0.0",
+    "normalize-path": "^2.0.1",
+    "micromatch": "^2.3.11"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-preset-es2015-node6": "^0.3.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "eslint": "^3.8.1",
+    "eslint-config-canonical": "^1.8.8",
+    "rimraf": "^2.5.4"
+  }
+}

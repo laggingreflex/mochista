@@ -1,0 +1,7 @@
+{
+  "presets": [
+    "es2015-node6/object-rest",
+    "stage-0"
+  ],
+  "sourceMaps": true
+}

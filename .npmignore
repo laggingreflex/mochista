@@ -1,0 +1,11 @@
+
+.*
+*.*gz
+node_modules
+test
+tests
+tests-coverage
+**/*.test.*
+yarn.lock
+src
+misc
