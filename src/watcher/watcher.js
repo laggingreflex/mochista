@@ -47,14 +47,14 @@ export function onChange( {
   debounce: debounceDelay = 200,
   intersection
 } ) {
-  const debounced = debounce( ( changedFiles ) => {
+  const debounced = debounce( changedFiles => {
     const intRet = {};
     if ( intersection ) {
       for ( const key in intersection )
         intRet[ key ] = _.intersection( intersection[ key ], changedFiles );
     }
     // log.debug( { changedFiles, ...intRet } );
-    run( { changedFiles, ...intRet } );
+    return run( { changedFiles, ...intRet } );
   }, debounceDelay );
   events.forEach( event => watcher
     .on( event, path =>

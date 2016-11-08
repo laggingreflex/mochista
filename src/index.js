@@ -33,6 +33,9 @@ async function main() {
     }
     await report( {...config } );
     log.timeEnd( 'Total run time', 'info' );
+    if ( config.watch ) {
+      log( 'Waiting...' );
+    }
   }
 
   await run();
