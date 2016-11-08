@@ -1,23 +1,18 @@
 import yargs from 'yargs';
-import getOptions from 'mocha/bin/options';
+import getOptions from './mocha-options';
 import { printUsage } from '.../utils/help';
 import { separateBangExcludes } from '.../utils/excludes';
 import defaults from './defaults';
 import checkTestExcludes from './check-test-excludes';
 
-getOptions();
-yargs.parse( process.argv );
-
-const { argv: config } = yargs.options( defaults );
+const mochaOpts = getOptions();
+const config = yargs.options(defaults).parse(mochaOpts || process.argv.slice(2));
 
 if ( config.help ) {
   printUsage( 1 );
 }
 
-config._.shift();
-config._.shift();
-
-if ( config._.length > 1 ) {
+if ( config._.length >= 1 ) {
   config.testFiles = config._;
 }
 
@@ -29,6 +24,6 @@ const { includes: sourceFiles, excludes: sourceFilesExclude } = separateBangExcl
 config.sourceFiles = sourceFiles;
 config.sourceFilesExclude.push( ...sourceFilesExclude );
 
-checkTestExcludes(config);
+checkTestExcludes( config );
 
 export default config;
