@@ -4,6 +4,10 @@
 
 [Mocha] + [Istanbul] in a single process.
 
+Mochista uses Mocha and Istanbul's programatic API to run both in a single process yeilding fastest test results and coverage reports.
+
+Its `--watch` option (like mocha) re-runs modified tests and re-generates coverage (using cache for unmodofied files) instantaneously.
+
 [![][scr]][scr]
 
 ## Features
@@ -12,7 +16,7 @@
 
 * Runs only the tests that were modified.
 
-* Fully compatible with `mocha.opts`; use it as a drop-in replacement.
+* Fully compatible with `mocha.opts`
 
 * Option to exclude files (missing feature in mocha)
 
@@ -25,10 +29,59 @@ npm i -g mochista
 ```
 ## Usage
 ```sh
-mochista
+mochista test/**
 ```
 
-Replace your mocha/istanbul/nyc statements
+### Options
+```
+--root                   Base directory from which watch paths are to be derived.
+                          Default: result of process.cwd()
+
+--test-files,            Files/globs that should be tested by mocha.
+                          Default: test*/**/*.js **/*.{test,spec}.js
+--test-files-exclude,    Files/globs ignored from test-files.
+  --ignore                 Default: **/node_modules/**
+
+--source-files,          Files/globs that should be covered by istanbul.
+  --include                Default: src/**/*.js
+--source-files-exclude,  Files/globs ignored from source-files. (test-files auto excluded)
+  --exclude                Default: node_modules/**
+
+--file-count-limit       Throws error if source/test files exceed this value.
+                          Default: 1000
+
+--watch,                 Watch files for changes.
+  -w                       Default: false
+
+--help,                  Print this and exit.
+  -h, /?
+
+Options from Mocha:
+
+--compilers              Use the given module(s) to compile files.
+                          E.g.: --compilers js:babel-register
+--require                Require the given module(s).
+                          E.g.: --require source-map-support/register tests/_/first.js
+
+--test-reporter,         Reporter to use for Mocha
+  --reporter,              Default: spec
+  -R                       E.g.: --require spec
+
+...and most other mocha options
+
+Options from Istanbul/nyc:
+
+--coverage-reporter,     Reporter(s) to use for Istanbul coverage.
+  --report                 Default: lcov text
+                          E.g.: --report lcov text
+
+--report-dir,            Directory to output coverage reports in.
+  --report                 Default: coverage
+
+...and most other istanbul/nyc options
+```
+
+Replace both your mocha and istanbul/nyc statements
 ```json
 "test": "mocha test/**/*.js src/**/*.{test,spec}.js --compilers js:babel-register",
 "cover": "istanbul cover -x \"test/**/*.js src/**/*.{test,spec}.js\" _mocha -- test/**/*.js src/**/*.{test,spec}.js --compilers js:babel-register",
@@ -38,6 +91,7 @@ with mochista:
 "test": "mochista test/**/*.js src/**/*.{test,spec}.js --compilers js:babel-register"
 ```
 It automatically excludes test files from source files for coverage, so no need to specify `-x …`
+
 
 
 [scr]: misc/scr.gif

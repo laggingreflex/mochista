@@ -29,12 +29,6 @@ const { includes: sourceFiles, excludes: sourceFilesExclude } = separateBangExcl
 config.sourceFiles = sourceFiles;
 config.sourceFilesExclude.push( ...sourceFilesExclude );
 
-// console.log( config );
-// console.log( { testFiles: config.testFiles } );
-// console.log( { testFilesExclude: config.testFilesExclude } );
-// console.log( { sourceFiles: config.sourceFiles } );
-// console.log( { sourceFilesExclude: config.sourceFilesExclude } );
-
 checkTestExcludes(config);
 
 export default config;

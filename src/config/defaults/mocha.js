@@ -4,6 +4,10 @@ defaults.compilers = {
   type: 'array',
   default: []
 };
+defaults.require = {
+  type: 'array',
+  default: []
+};
 defaults.asyncOnly = {
   alias: [ 'A', ],
   type: 'boolean',
@@ -38,15 +42,6 @@ defaults.bail = {
   alias: [ 'b', ],
   type: 'boolean',
   // default: false
-};
-defaults.debug = {
-  alias: [ 'd', ],
-  type: 'boolean',
-  // default: false
-};
-defaults.require = {
-  type: 'array',
-  default: []
 };
 defaults.grep = {
   alias: [ 'g', ],

@@ -47,6 +47,19 @@ defaults.fileCountLimit = {
   type: 'number',
   default: 1000
 };
+
+
+defaults.verbose = {
+  alias: [ 'v', ],
+  type: 'boolean',
+  default: false
+};
+defaults.debug = {
+  alias: [ 'd', ],
+  type: 'boolean',
+  default: false
+};
+
 defaults.help = {
   alias: [ 'h', '?' ],
   type: 'boolean'
