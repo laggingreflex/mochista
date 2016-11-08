@@ -35,10 +35,10 @@ mochista test/**
 ### Options
 ```
 --root                   Base directory from which watch paths are to be derived.
-                          Default: result of process.cwd()
+                           Default: result of process.cwd()
 
 --test-files,            Files/globs that should be tested by mocha.
-                          Default: test*/**/*.js **/*.{test,spec}.js
+                           Default: test*/**/*.js **/*.{test,spec}.js
 --test-files-exclude,    Files/globs ignored from test-files.
   --ignore                 Default: **/node_modules/**
 
@@ -48,7 +48,7 @@ mochista test/**
   --exclude                Default: node_modules/**
 
 --file-count-limit       Throws error if source/test files exceed this value.
-                          Default: 1000
+                           Default: 1000
 
 --watch,                 Watch files for changes.
   -w                       Default: false
@@ -59,13 +59,13 @@ mochista test/**
 Options from Mocha:
 
 --compilers              Use the given module(s) to compile files.
-                          E.g.: --compilers js:babel-register
+                           Eg.: --compilers js:babel-register
 --require                Require the given module(s).
-                          E.g.: --require source-map-support/register tests/_/first.js
+                           Eg.: --require source-map-support/register tests/_/first.js
 
 --test-reporter,         Reporter to use for Mocha
   --reporter,              Default: spec
-  -R                       E.g.: --require spec
+  -R                       Eg.: --require spec
 
 ...and most other mocha options
 
@@ -73,7 +73,7 @@ Options from Istanbul/nyc:
 
 --coverage-reporter,     Reporter(s) to use for Istanbul coverage.
   --report                 Default: lcov text
-                          E.g.: --report lcov text
+                           Eg.: --report lcov text
 
 --report-dir,            Directory to output coverage reports in.
   --report                 Default: coverage
@@ -92,7 +92,30 @@ with mochista:
 ```
 It automatically excludes test files from source files for coverage, so no need to specify `-x …`
 
+## Extras
 
+* You can specify excludes for test-files. Eg.:
+  ```
+  mochista --testFiles test/** --testFilesExclude test/fixtures
+  ```
+
+* Files/globs beginning with `!` are added to their respective excludes. Eg.:
+  ```
+  mochista test/** !test/fixtures --sourceFiles src/** !src/vendor
+  ```
+  is equivalent to
+  ```
+  mochista --testFiles test/** --testFilesExclude test/fixtures --sourceFiles src/** --sourceFilesExclude src/vendor
+  ```
+
+
+* Line beginning with `#` in `mocha.opts` are ignored. Eg.:
+  ```sh
+  --compilers js:babel-register
+  --require source-map-support/register
+  --reporter spec
+  # --debug
+  ```
 
 [scr]: misc/scr.gif
 

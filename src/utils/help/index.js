@@ -32,13 +32,13 @@ export function printUsage( exit ) {
       Options from Mocha:
 
          --compilers              Use the given module(s) to compile files.
-                                    E.g.: --compilers js:babel-register
+                                    Eg.: --compilers js:babel-register
          --require                Require the given module(s).
-                                    E.g.: --require source-map-support/register tests/_/first.js
+                                    Eg.: --require source-map-support/register tests/_/first.js
 
          --test-reporter,         Reporter to use for Mocha
            --reporter,              Default: ${getDefs('testReporter')}
-           -R                       E.g.: --require spec
+           -R                       Eg.: --require spec
 
        ...and most other mocha options
 
@@ -46,7 +46,7 @@ export function printUsage( exit ) {
 
          --coverage-reporter,     Reporter(s) to use for Istanbul coverage.
            --report                 Default: ${getDefs('coverageReporter')}
-                                    E.g.: --report lcov text
+                                    Eg.: --report lcov text
 
          --report-dir,            Directory to output coverage reports in.
            --report                 Default: ${getDefs('reportDir')}

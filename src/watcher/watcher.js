@@ -11,7 +11,8 @@ export default function init( {
   exclude = [],
 } ) {
   assert( root, 'Need a root' );
-  assert( include, 'Need files to watch {include}' );
+  assert( include && include.length, 'Need files to watch {include}' );
+
   const watcher = watch( include, {
     cwd: root,
     ignored: exclude,
