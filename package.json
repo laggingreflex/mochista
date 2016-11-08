@@ -23,7 +23,9 @@
     "req-from": "^1.0.1",
     "globby": "^6.0.0",
     "normalize-path": "^2.0.1",
-    "micromatch": "^2.3.11"
+    "micromatch": "^2.3.11",
+    "debug-logger": "^0.4.1",
+    "require-up": "0.0.3"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",

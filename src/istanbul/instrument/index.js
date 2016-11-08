@@ -13,6 +13,7 @@ export default function instrument( {
   verbose = false,
 } = {} ) {
   global[ coverageVariable ] = global[ coverageVariable ] || {};
+  global[ coverageCacheVariable ] = global[ coverageCacheVariable ] || {};
   global.transformerCache = global.transformerCache || {};
 
   const instrumenter = new Instrumenter( { coverageVariable, preserveComments } );

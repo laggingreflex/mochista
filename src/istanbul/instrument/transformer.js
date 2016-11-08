@@ -1,4 +1,6 @@
 import mm from 'micromatch';
+import log from '.../utils/logger';
+
 export default function transformerFn( {
   transformer,
   cache,
@@ -15,13 +17,12 @@ export default function transformerFn( {
 
     if ( cached ) {
       transformed = cache[ file ];
-      // console.log( 'transformed cache', file );
+      // log.log( 'transformed cache', file );
     }
 
     if ( hasChanged || !transformed ) {
-      console.time( `Instrumenting ${file}` );
+      log.verb( `Instrumenting ${file}` );
       transformed = cache[ file ] = transformer( code, file );
-      console.timeEnd( `Instrumenting ${file}` );
     }
 
     return transformed;

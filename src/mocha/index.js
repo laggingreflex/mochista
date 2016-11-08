@@ -1,5 +1,6 @@
-import initLoad from './init';
-import runner from './runner';
+import load from './load';
+import run from './run';
+import log from '.../utils/logger';
 
 export default async function Mocha( {
   root,
@@ -8,11 +9,7 @@ export default async function Mocha( {
   ...config
 } ) {
   return {
-    async init() {
-      return initLoad( { compilers, requires, root } );
-    },
-    async run( { files } ) {
-      return runner( { files, ...config } );
-    }
+    load: async() => load( { compilers, requires, root } ),
+    run: async( { files } ) => run( { files, ...config } ),
   };
 }

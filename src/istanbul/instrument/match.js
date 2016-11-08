@@ -1,5 +1,5 @@
-// import { matcherFor } from 'babel-istanbul';
 import mm from 'micromatch';
+import log from '.../utils/logger';
 
 export default function matchFn( {
   files,

@@ -1,19 +1,20 @@
 import mm from 'micromatch';
+import log from '.../utils/logger';
 
 export default function resetRequireCache( filesToDelete ) {
-  // console.time( 'Resetting require cache done' );
+  // log.time('Reset require cache');
 
   for ( const cacheFile in require.cache ) {
     for ( const fileToDelete of filesToDelete ) {
       const exists = mm.contains( cacheFile, fileToDelete );
-      // console.log(`${exists} = mm.contains(${cacheFileache}, ${fileToDelete})`);
+      // log.silly(`${exists} = mm.contains(${cacheFileache}, ${fileToDelete})`);
       if ( exists ) {
-        console.log( `Reseting ${cacheFile}` )
+        log.verb( `Resetting ${cacheFile}` )
         delete require.cache[ cacheFile ];
         break;
       }
     }
 
   }
-  // console.timeEnd( 'Resetting require cache done' );
+  // log.timeEnd('Reset require cache', 'info');
 }

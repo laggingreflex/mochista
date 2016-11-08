@@ -19,27 +19,25 @@
 * Built in support for ES6/ES2015+ using [babel-istanbul].
 
 
-## Usage
+## Install
 ```sh
 npm i -g mochista
 ```
+## Usage
 ```sh
 mochista
 ```
 
-Replace all your istanbul and mocha statements
+Replace your mocha/istanbul/nyc statements
 ```json
-"test": "istanbul cover -x test/**/*.mspec.js _mocha -- test/**/*.mspec.js --compilers js:babel-register",
-"tdd": "mocha test/**/*.mspec.js --compilers js:babel-register --check-leaks --reporter min -w",
+"test": "mocha test/**/*.js src/**/*.{test,spec}.js --compilers js:babel-register",
+"cover": "istanbul cover -x \"test/**/*.js src/**/*.{test,spec}.js\" _mocha -- test/**/*.js src/**/*.{test,spec}.js --compilers js:babel-register",
 ```
 with mochista:
 ```json
-"test": "mochista test/**/*.mspec.js --compilers js:babel-register --one-run",
-"tdd" : "mochista test/**/*.mspec.js --compilers js:babel-register --reporter min --check-leaks",
+"test": "mochista test/**/*.js src/**/*.{test,spec}.js --compilers js:babel-register"
 ```
-No need to specify `-x 'test/**/*.mspec.js'` for istanbul, mochista automatically excludes test files from source files for coverage.
-
-Mochista starts in `--watch` mode by default; for single run use `--one-run`.
+It automatically excludes test files from source files for coverage, so no need to specify `-x …`
 
 
 [scr]: misc/scr.gif

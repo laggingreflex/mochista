@@ -1,10 +1,17 @@
-const defaults = {};
+import mocha from './mocha';
+import istanbul from './istanbul';
+
+const defaults = {
+  ...mocha,
+  ...istanbul,
+};
 
 defaults.root = {
   type: 'string',
   default: process.cwd()
 };
 defaults.sourceFiles = {
+  alias: [ 'include', ],
   type: 'array',
   default: [
     // '**/*.js',
@@ -30,27 +37,11 @@ defaults.testFilesExclude = {
   type: 'array',
   default: [ '**/node_modules/**' ]
 };
-defaults.ui = {
-  alias: [ 'u', ],
-  type: 'string',
-  default: 'bdd'
-};
+
 defaults.watch = {
   alias: [ 'w', ],
   type: 'boolean',
   default: false
-};
-defaults.grep = {
-  alias: [ 'g', ],
-  type: 'string'
-};
-defaults.compilers = {
-  type: 'array',
-  default: []
-};
-defaults.require = {
-  type: 'array',
-  default: []
 };
 defaults.fileCountLimit = {
   type: 'number',

@@ -1,39 +1,57 @@
-import { tryRequire } from '../utils/require';
+import Mocha from 'mocha';
+import log from '.../utils/logger';
 
-export default function initLoad( {
-  root,
-  compilers,
-  requires
-} ) {
-  console.log( 'Loading...' );
-  console.time( 'Total initial loading time' );
-  loadCompilers( compilers, root );
-  loadRequires( requires, root );
-  console.timeEnd( 'Total initial loading time' );
-}
-
-export function loadCompilers( compilers, root ) {
-  if ( !compilers.length ) return;
-  console.log( 'Loading compilers...' );
-  console.time( 'Loading compilers finished' );
-  compilers.map( c => c.split( ':' ).pop() ).forEach( r => {
-    console.log( r );
-    console.time( r + ' finished' );
-    tryRequire( r, root );
-    console.timeEnd( r + ' finished' );
-  } );
-  console.timeEnd( 'Loading compilers finished' );
-}
-
-export function loadRequires( requires, root ) {
-  if ( !requires.length ) return;
-  console.log( 'Loading requires...' );
-  console.time( 'Loading requires finished' );
-  requires.forEach( r => {
-    console.log( r );
-    console.time( r + ' finished' );
-    tryRequire( r, root );
-    console.timeEnd( r + ' finished' );
-  } );
-  console.timeEnd( 'Loading requires finished' );
+export default function load( config ) {
+  const mocha = new Mocha( config );
+  if ( config.colors ) {
+    mocha.useColors( true );
+  }
+  if ( config.noColors ) {
+    mocha.useColors( false );
+  }
+  if ( config.inlineDiffs ) {
+    mocha.useInlineDiffs( true );
+  }
+  // if ( config.slow ) {
+  //   mocha.suite.slow( config.slow );
+  // }
+  // if ( config.timeout ) {
+  //   mocha.suite.timeout( config.timeout );
+  // }
+  if ( !config.noTimeouts ) {
+    mocha.enableTimeouts( false );
+  }
+  mocha.suite.bail( config.bail );
+  // if ( config.grep ) {
+  //   mocha.grep( config.grep );
+  // }
+  if ( config.fgrep ) {
+    mocha.fgrep( config.fgrep );
+  }
+  if ( config.invert ) {
+    mocha.invert();
+  }
+  if ( config.checkLeaks ) {
+    mocha.checkLeaks();
+  }
+  // if ( config.fullTrace ) {
+  //   mocha.fullTrace();
+  // }
+  if ( config.growl ) {
+    mocha.growl();
+  }
+  if ( config.asyncOnly ) {
+    mocha.asyncOnly();
+  }
+  if ( config.delay ) {
+    mocha.delay();
+  }
+  if ( config.globals ) {
+    mocha.globals( config.globals );
+  }
+  // if ( config.retries ) {
+  //   mocha.suite.retries( config.retries );
+  // }
+  // mocha.ui( config.ui );
+  return mocha;
 }

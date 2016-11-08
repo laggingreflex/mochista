@@ -1,8 +1,8 @@
-import packageJson from '../../package.json';
+import pkg from '.../package.json';
 
 export function printUsage( exit ) {
   console.log( `
-    ${packageJson.description}
+    ${pkg.description}
 
     Usage: mochist [OPTION] [files]
       ...mocha options

@@ -2,6 +2,7 @@ import { Collector, Reporter } from 'babel-istanbul';
 import fs from 'fs-promise';
 import { promisify } from 'bluebird';
 import _ from 'lodash';
+import log from '.../utils/logger';
 
 export default async function report( {
   coverageVariable = '__cov__',
@@ -16,8 +17,8 @@ export default async function report( {
   const cov = global[ coverageVariable ];
 
   const cache = global[ coverageCacheVariable ];
-  if (cache && Object.keys(cache).length) {
-    _.merge(cov, cache, cov);
+  if ( cache && Object.keys( cache ).length ) {
+    _.merge( cov, cache, cov );
   }
   global[ coverageCacheVariable ] = cov;
 

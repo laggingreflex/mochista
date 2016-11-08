@@ -1,5 +1,6 @@
 import { props } from 'bluebird';
 import _glob from 'globby';
+import log from '.../utils/logger';
 
 export default async function init( {
   root,
@@ -9,6 +10,7 @@ export default async function init( {
   testGlobsExclude,
   fileCountLimit,
 } ) {
+  log( 'Initial files globbing...' );
   return props( {
     testFilesList: glob( {
       root,
@@ -35,8 +37,7 @@ export async function glob( {
   label = 'files',
 } = {} ) {
 
-  console.log( `Globing ${label}...` );
-  console.time( `Globing ${label} finished` );
+  log.verb( `globing ${label}...` );
 
   const files = await _glob( [
     ...include,
@@ -47,12 +48,11 @@ export async function glob( {
   } );
 
   if ( files.length > fileCountLimit ) {
-    console.error( files )
+    log.error( files )
     throw new Error( `ERROR: Too many {${label}: ${files.length}}. Check your include/exclude glob patterns or increase {fileCountLimit: ${fileCountLimit}}` );
   }
 
-  // console.log({[label]: files});
-  console.timeEnd( `Globing ${label} finished` );
+  // log.debug({[label]: files});
 
   return files;
 }

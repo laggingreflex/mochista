@@ -1,7 +1,7 @@
 import yargs from 'yargs';
 import getOptions from 'mocha/bin/options';
-import { printUsage } from '../utils/help';
-import { separateBangExcludes } from '../utils/excludes';
+import { printUsage } from '.../utils/help';
+import { separateBangExcludes } from '.../utils/excludes';
 import defaults from './defaults';
 import checkTestExcludes from './check-test-excludes';
 
