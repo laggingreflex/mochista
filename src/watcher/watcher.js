@@ -44,7 +44,7 @@ export function onChange( {
   watcher,
   events = [ 'add', 'change' ],
   run,
-  debounce: debounceDelay = 200,
+  debounce: debounceDelay = 1000,
   intersection
 } ) {
   const debounced = debounce( changedFiles => {
