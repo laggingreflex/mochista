@@ -37,6 +37,22 @@ export function createLogger( namespace ) {
   }
 
   const logger = debugLogger( namespace );
+
+  logger._err = logger.err;
+  logger.err = ( ...errs ) => {
+    const errObjects = [];
+    errs = errs.map( err => {
+      if ( err && err.message ) {
+        errObjects.push( err );
+        return err.message;
+      } else {
+        return err;
+      }
+    } );
+    logger._err( ...errs );
+    errObjects.forEach( ::logger.debug );
+  }
+
   const log = logger.log;
   log.logger = logger;
   Object.assign( log, logger );
