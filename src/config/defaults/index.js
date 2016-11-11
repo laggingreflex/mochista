@@ -48,15 +48,6 @@ defaults.fileCountLimit = {
   default: 1000
 };
 
-defaults.coverageVariable = {
-  type: 'string',
-  default: '__coverage__'
-};
-defaults.transformerCacheVariable = {
-  type: 'string',
-  default: '__transformer_cache__'
-};
-
 defaults.verbose = {
   alias: [ 'v', ],
   type: 'boolean',

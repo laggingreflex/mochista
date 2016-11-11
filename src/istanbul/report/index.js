@@ -4,26 +4,29 @@ import report from './reporter';
 
 export default async function Report( {
   coverageVariable = '__coverage__',
+  sourceMapCacheVariable,
   reportDir,
   coverageReporter: reporters,
   verbose = false,
   watermarks = true,
 } = {} ) {
   const coverage = global[ coverageVariable ];
-  let map;
+  const sourceMapCache = global[ sourceMapCacheVariable ];
+
+  let codeCoverageMap;
 
   try {
-    map = collect( coverage );
+    codeCoverageMap = collect( { coverage, sourceMapCache } );
   } catch ( err ) {
     log.err( `Couldn't collect coverage.` );
     throw err;
   }
 
   try {
-    await report( map, { reportDir, reporters } );
+    await report( codeCoverageMap, { reportDir, reporters } );
   } catch ( err ) {
     log.err( `Couldn't write coverage.`, err );
   }
 
-  return map;
+  return codeCoverageMap;
 }

@@ -6,6 +6,7 @@ export default function instrument( {
   root,
   coverageVariable,
   transformerCacheVariable,
+  sourceMapCacheVariable,
   cacheDir,
   files,
   preserveComments = true,
@@ -17,7 +18,7 @@ export default function instrument( {
   const hookOpts = { verbose, extensions };
   hookRequire(
     matcher( { files } ),
-    transformer( { root, coverageVariable, transformerCacheVariable, cacheDir, verbose } ),
+    transformer( { root, coverageVariable, transformerCacheVariable, sourceMapCacheVariable, cacheDir, verbose } ),
     hookOpts
   );
 }
