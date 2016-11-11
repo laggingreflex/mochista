@@ -12,7 +12,7 @@ export default async function run( { files, ...config } ) {
   try {
     await promisify( ::mocha.run )();
   } catch ( err ) {
-    if ( isNaN( err ) && err && err.message )
+    if ( !err.message.match( /^[0-9]+$/ ) )
       throw err;
   }
 
