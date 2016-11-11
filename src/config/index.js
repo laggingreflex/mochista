@@ -1,12 +1,11 @@
 import yargs from 'yargs';
-import getOptions from './mocha-options';
+import getMochaOpts from './mocha-options';
 import { printUsage } from '.../utils/help';
 import { separateBangExcludes } from '.../utils/excludes';
 import defaults from './defaults';
 import checkTestExcludes from './check-test-excludes';
 
-const mochaOpts = getOptions();
-const config = yargs.options(defaults).parse(mochaOpts || process.argv.slice(2));
+const config = yargs.options( defaults ).parse( [ ...( getMochaOpts() || [] ), ...process.argv.slice( 2 ) ] );
 
 if ( config.help ) {
   printUsage( 1 );
