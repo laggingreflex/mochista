@@ -1,14 +1,17 @@
-import { mkdirp } from 'fs-promise';
-import { promisify } from 'bluebird';
-import { Reporter } from 'babel-istanbul';
+import { createContext, summarizers } from 'istanbul-lib-report';
+import reports from 'istanbul-reports';
+import log from '.../utils/logger';
 
-export default async function report( coverage, {
-  reportDir = 'coverage',
+export default async function report( coverageMap, {
+  reportDir: dir = 'coverage',
   reporters = [ 'lcov', 'text' ],
 } = {} ) {
-  const reporter = new Reporter();
-  reporter.dir = reportDir;
-  await mkdirp( reportDir );
-  reporter.addAll( reporters );
-  return await promisify( ::reporter.write )( coverage, true );
+  const context = createContext( { dir } );
+  const tree = summarizers.pkg( coverageMap );
+  reporters.forEach( reporter =>
+    tree.visit(
+      reports.create( reporter ),
+      context
+    )
+  );
 }

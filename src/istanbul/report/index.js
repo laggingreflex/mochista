@@ -1,38 +1,29 @@
-import { merge } from 'lodash';
 import log from '.../utils/logger';
-import report from './reporter';
 import collect from './collector';
+import report from './reporter';
 
 export default async function Report( {
-  coverageVariable = '__cov__',
-  coverageCacheVariable = '__cov_cache__',
+  coverageVariable = '__coverage__',
   reportDir,
   coverageReporter: reporters,
   verbose = false,
   watermarks = true,
 } = {} ) {
-  const data = global[ coverageVariable ];
-  let coverage = global[ coverageCacheVariable ];
+  const coverage = global[ coverageVariable ];
+  let map;
 
   try {
-    if ( !coverage || !coverage.add ) {
-      log( `Generating coverage...` );
-      coverage = collect( data );
-    } else {
-      log( `Generating coverage using cache...` );
-      coverage.merge( data );
-    }
+    map = collect( coverage );
   } catch ( err ) {
-    log.err( `Couldn't generate coverage.` );
+    log.err( `Couldn't collect coverage.` );
     throw err;
   }
 
   try {
-    await report( coverage, { reportDir, reporters } );
+    await report( map, { reportDir, reporters } );
   } catch ( err ) {
     log.err( `Couldn't write coverage.`, err );
   }
 
-  global[ coverageCacheVariable ] = coverage;
-  return coverage;
+  return map;
 }

@@ -1,30 +1,68 @@
-import mm from 'micromatch';
+import { resolve, relative } from 'path';
+import md5Hex from 'md5-hex';
+import { readJSONSync, outputJsonSync } from 'fs-extra';
+import { createInstrumenter } from 'istanbul-lib-instrument';
 import log from '.../utils/logger';
+import pkg from '.../package.json';
 
-export default function transformerFn( {
-  transformer,
-  cache,
-  changedFiles
+export default function createTransformerFn( {
+  root,
+  coverageVariable,
+  transformerCacheVariable,
+  cacheDir,
+  disableCache = false,
+  ext = '.js',
+  verbose = true,
 } ) {
-  return ( code, file ) => {
-    let transformed, hasChanged, cached;
+  const cache = global[transformerCacheVariable] = global[transformerCacheVariable] || {};
 
-    cached = cache[ file ];
+  const instrumenter = createInstrumenter( {
+    autoWrap: true,
+    coverageVariable,
+    embedSource: true,
+    noCompact: true,
+    preserveComments: true
+  } );
+  const instrument = instrumenter.instrumentSync.bind(instrumenter);
 
-    for ( const c of changedFiles )
-      if ( hasChanged = mm.contains( file, c ) )
-        break;
+  return function transform( code, file ) {
+    let instrumentedCode, hasChanged, cacheFile, codeHash;
 
-    if ( cached ) {
-      transformed = cache[ file ];
-      // log.log( 'transformed cache', file );
+    cacheFile = resolve( cacheDir, relative( root, file ) ) + '.json';
+    codeHash = md5Hex( code );
+
+    if ( !cache[ file ] /*first-run*/ ) try {
+      const json = readJSONSync( cacheFile );
+      if ( json.hash === codeHash ) {
+        instrumentedCode = json.code;
+        log.vrb( `Instrumented file loaded frm cache:`, file );
+      }
+    } catch ( err ) {
+      log.vrb( `Instrumented file loaded frm cache:`, file );
+      log.sil( `Couldn't read file from cache-dir :`, file, err.message, `(expected if running for the first time ever)` );
     }
 
-    if ( hasChanged || !transformed ) {
-      log.verb( `Instrumenting ${file}` );
-      transformed = cache[ file ] = transformer( code, file );
+    if ( !instrumentedCode && cache[ file ] ) {
+      const json = cache[ file ];
+      if ( json && json.hash === codeHash ) {
+        instrumentedCode = json.code;
+        log.sil( `Instrumented file loaded from mem :`, file );
+      }
     }
 
-    return transformed;
+    if ( !instrumentedCode ) {
+      instrumentedCode = instrument( code, file );
+      log.vrb( `Instrumentation generated for file:`, file );
+    }
+
+    cache[ file ] = { code: instrumentedCode, hash: codeHash };
+    try {
+      outputJsonSync( cacheFile, cache[ file ] );
+      log.sil( `Instrumented file written to cache:`, file );
+    } catch ( err ) {
+      log.vrb( `Couldn't write instrumented cache :`, file, err.message );
+    }
+
+    return instrumentedCode;
   };
 };

@@ -1,33 +1,23 @@
-import { Instrumenter, hook } from 'babel-istanbul';
-import matchFn from './match';
-import transformerFn from './transformer';
+import { hookRequire } from 'istanbul-lib-hook';
+import matcher from './matcher';
+import transformer from './transformer';
 
 export default function instrument( {
   root,
-  coverageVariable = '__cov__',
-  coverageCacheVariable = '__cov_cache__',
+  coverageVariable,
+  transformerCacheVariable,
+  cacheDir,
   files,
-  changedFiles,
   preserveComments = true,
   extensions = [ '.js' ],
-  verbose = false,
+  verbose,
 } = {} ) {
   global[ coverageVariable ] = global[ coverageVariable ] || {};
-  global[ coverageCacheVariable ] = global[ coverageCacheVariable ] || {};
-  global.transformerCache = global.transformerCache || {};
-
-  const instrumenter = new Instrumenter( { coverageVariable, preserveComments } );
-  const transformer = ::instrumenter.instrumentSync;
 
   const hookOpts = { verbose, extensions };
-
-  hook.hookRequire(
-    matchFn( { files } ),
-    transformerFn( {
-      transformer,
-      cache: global.transformerCache,
-      changedFiles,
-    } ),
+  hookRequire(
+    matcher( { files } ),
+    transformer( { root, coverageVariable, transformerCacheVariable, cacheDir, verbose } ),
     hookOpts
   );
 }

@@ -1,7 +1,5 @@
-import { Collector } from 'babel-istanbul';
+import { createCoverageMap } from 'istanbul-lib-coverage';
 
 export default function collect( coverage ) {
-  const collector = new Collector();
-  collector.add( coverage );
-  return collector;
+  return createCoverageMap( coverage );
 }

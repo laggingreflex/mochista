@@ -15,6 +15,7 @@ async function main() {
 
   const mocha = await Mocha( {...config } );
   await mocha.load();
+  await instrument( { files: sourceFiles, ...config } );
 
   async function run( {
     changedFiles = allFiles,
@@ -24,11 +25,9 @@ async function main() {
     log.time( 'Total run time' );
     if ( changedTestFiles.length ) {
       await resetRequireCache( changedFiles );
-      await instrument( { files: changedSourceFiles, changedFiles: changedSourceFiles, ...config } );
       await mocha.run( { files: changedTestFiles } );
     } else {
       await resetRequireCache( [ ...changedFiles, ...testFiles ] );
-      await instrument( { files: changedSourceFiles, changedFiles: changedSourceFiles, ...config } );
       await mocha.run( { files: testFiles } );
     }
     await report( {...config } );

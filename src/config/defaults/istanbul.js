@@ -12,6 +12,12 @@ defaults.reportDir = {
   default: 'coverage'
 };
 
+defaults.cacheDir = {
+  // alias: [],
+  type: 'string',
+  default: '.coverage-cache'
+};
+
 defaults.cache = {
   // alias: [],
   type: 'boolean',
