@@ -22,16 +22,20 @@ async function main() {
     sourceFiles: changedSourceFiles = sourceFiles,
     testFiles: changedTestFiles = testFiles
   } = {} ) {
-    log.time( 'Total run time' );
-    if ( changedTestFiles.length ) {
-      await resetRequireCache( changedFiles );
-      await mocha.run( { files: changedTestFiles } );
-    } else {
-      await resetRequireCache( [ ...changedFiles, ...testFiles ] );
-      await mocha.run( { files: testFiles } );
+    try {
+      log.time( 'Total run time' );
+      if ( changedTestFiles.length ) {
+        await resetRequireCache( changedFiles );
+        await mocha.run( { files: changedTestFiles } );
+      } else {
+        await resetRequireCache( [ ...changedFiles, ...testFiles ] );
+        await mocha.run( { files: testFiles } );
+      }
+      await report( {...config } );
+      log.timeEnd( 'Total run time', 'info' );
+    } catch ( err ) {
+      log.err( err );
     }
-    await report( {...config } );
-    log.timeEnd( 'Total run time', 'info' );
     if ( config.watch ) {
       log( 'Waiting...' );
     }

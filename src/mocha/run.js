@@ -11,8 +11,9 @@ export default async function run( { files, ...config } ) {
 
   try {
     await promisify( ::mocha.run )();
-  } catch ( failures ) {
-
+  } catch ( err ) {
+    if ( isNaN( err ) && err && err.message )
+      throw err;
   }
 
   log.timeEnd( 'Mocha finished in', 'info' );
