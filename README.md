@@ -6,21 +6,35 @@
 
 Mochista uses Mocha and Istanbul's programatic API to run both in a single process yeilding fastest test results and coverage reports.
 
-Its `--watch` option (like mocha) re-runs modified tests and re-generates coverage (using cache for unmodofied files) instantaneously.
+Its `--watch` feature runs modified tests and generates coverage using cache for unmodofied files instantly:
 
 [![][scr]][scr]
 
 ## Features
 
+* Run tests and generate coverage reports
+
 * Like `mocha --watch` but with Istanbul coverage reports.
 
-* Runs only the tests that were modified.
+* Run only modified tests.
 
-* Fully compatible with `mocha.opts`
+* Instrumentation caching on disk and memory for fastest coverage report generation and re-generation.
 
-* Option to exclude files (missing feature in mocha)
+* Supports `mocha.opts` with [extra features](#multiline-mochaopts).
 
-* Built in support for ES6/ES2015+ using [babel-istanbul].
+* [Exclude](#excludes) files from tests in mocha; test files auto-excluded from source for coverage.
+
+* Built in support for ES6/ES2015+ by using [coverage source-maps][istanbul-lib-source-maps].
+
+## Why?
+
+Why not just use [nyc]? It already supports mocha: `nyc --reporter=lcov mocha`
+
+* Agreed. But I wrote mochista more for its `--watch` feature.
+
+Why not just use nodemon or something?
+
+* Multiprocess overhead. `mocha --watch` is so fast on subsequent runs because it does it all in the same process. Mochista builds on this and uses both Mocha and Istanbul's programatic API to do both for all subsequent runs in the same process. And with smart instrumentation caching, Mochista's `--watch` feature aims to be the fastest tool to run tests and generate coverage reports on file modifictaions.
 
 
 ## Install
@@ -29,10 +43,8 @@ npm i -g mochista
 ```
 ## Usage
 ```sh
-mochista test/**
+mochista [OPTIONS] [test-files]
 ```
-
-### Options
 ```
 --root                   Base directory from which watch paths are to be derived.
                            Default: result of process.cwd()
@@ -47,7 +59,7 @@ mochista test/**
 --source-files-exclude,  Files/globs ignored from source-files. (test-files auto excluded)
   --exclude                Default: node_modules/**
 
---file-count-limit       Throws error if source/test files exceed this value.
+--file-count-limit       Throws error if source/test files exceed this value. (handy to detect unnecessary inclusions leak in file-watchers)
                            Default: 1000
 
 --watch,                 Watch for file modification.
@@ -83,47 +95,56 @@ Options from Istanbul/nyc:
 ...and most other istanbul/nyc options
 ```
 
-Replace both your mocha and istanbul/nyc statements
+Replace your mocha and istanbul/nyc statements
 ```json
 "test": "mocha test/**/*.js src/**/*.{test,spec}.js --compilers js:babel-register",
 "cover": "istanbul cover -x \"test/**/*.js src/**/*.{test,spec}.js\" _mocha -- test/**/*.js src/**/*.{test,spec}.js --compilers js:babel-register",
+"nyc": "nyc --reporter=lcov --reporter=text npm test",
 ```
 with mochista:
 ```json
-"test": "mochista test/**/*.js src/**/*.{test,spec}.js --compilers js:babel-register"
+"test": "mochista test/**/*.js src/**/*.{test,spec}.js --compilers js:babel-register",
+"tdd": "npm run test -- --watch",
 ```
-It automatically excludes test files from source files for coverage, so no need to specify `-x …`
 
 ## Extras
 
-* You can specify excludes for test-files. Eg.:
-  ```
-  mochista --testFiles test/** --testFilesExclude test/fixtures
-  ```
+#### Excludes
+You can specify excludes for test-files. Eg.:
+```
+mochista --testFiles test/** --testFilesExclude test/fixtures
+```
+Files/globs beginning with `!` are added to their respective excludes. Eg.:
+```
+mochista test/** !test/fixtures --sourceFiles src/** !src/vendor
+```
+is equivalent to
+```
+mochista --testFiles test/** --testFilesExclude test/fixtures --sourceFiles src/** --sourceFilesExclude src/vendor
+```
+Note: It automatically excludes test files from source files for coverage reports, so no need to do this:
+<strike>
+```
+--test-files test/** --source-files-exclude test/**
+```
+</strike>
 
-* Files/globs beginning with `!` are added to their respective excludes. Eg.:
-  ```
-  mochista test/** !test/fixtures --sourceFiles src/** !src/vendor
-  ```
-  is equivalent to
-  ```
-  mochista --testFiles test/** --testFilesExclude test/fixtures --sourceFiles src/** --sourceFilesExclude src/vendor
-  ```
-
-
-* Line beginning with `#` in `mocha.opts` are ignored. Eg.:
-  ```sh
-  --compilers js:babel-register
-  --require source-map-support/register
-  --reporter spec
-  # --debug
-  ```
+#### Multiline `mocha.opts`
+Line beginning with `#` in `mocha.opts` are ignored. Eg.:
+```sh
+--compilers js:babel-register
+--require source-map-support/register
+--reporter spec
+# --debug
+```
 
 [scr]: misc/scr.gif
 
 [mocha]: http://mochajs.org
 [istanbul]: https://istanbul.js.org
+[nyc]: https://github.com/istanbuljs/nyc
 [babel-istanbul]: https://github.com/jmcriffey/babel-istanbul
+[istanbul-lib-source-maps]: https://github.com/istanbuljs/istanbul-lib-source-maps
 [chokidar]: https://github.com/paulmillr/chokidar
 [watch]: https://github.com/mochajs/mocha/search?q=watch&type=issues
 [exclude files]: https://github.com/mochajs/mocha/search?q=exclude+files&type=issues
