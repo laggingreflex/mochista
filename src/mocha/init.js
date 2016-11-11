@@ -3,6 +3,7 @@ import log from '.../utils/logger';
 
 export default function load( config ) {
   const mocha = new Mocha( config );
+
   if ( config.colors ) {
     mocha.useColors( true );
   }
