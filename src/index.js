@@ -34,7 +34,11 @@ async function main() {
       await report( {...config } );
       log.timeEnd( 'Total run time', 'info' );
     } catch ( err ) {
-      log.err( err );
+      if ( config.watch ) {
+        log.err( err );
+      } else {
+        throw err;
+      }
     }
     if ( config.watch ) {
       log( 'Waiting...' );
