@@ -4,6 +4,7 @@ import { printUsage } from '.../utils/help';
 import { separateBangExcludes } from '.../utils/excludes';
 import defaults from './defaults';
 import checkTestExcludes from './check-test-excludes';
+import fixDuplicates from './fix-duplicates';
 
 const config = yargs.options( defaults ).parse( [ ...( getMochaOpts() || [] ), ...process.argv.slice( 2 ) ] );
 
@@ -24,5 +25,6 @@ config.sourceFiles = sourceFiles;
 config.sourceFilesExclude.push( ...sourceFilesExclude );
 
 checkTestExcludes( config );
+fixDuplicates( config );
 
 export default config;
