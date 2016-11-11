@@ -24,7 +24,7 @@ async function main() {
   } = {} ) {
     try {
       log.time( 'Total run time' );
-      if ( changedTestFiles.length ) {
+      if ( changedTestFiles.length && !config.all ) {
         await resetRequireCache( changedFiles );
         await mocha.run( { files: changedTestFiles } );
       } else {

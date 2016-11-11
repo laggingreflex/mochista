@@ -43,6 +43,11 @@ defaults.watch = {
   type: 'boolean',
   default: false
 };
+defaults.all = {
+  // alias: [ 'A', ],
+  type: 'boolean',
+  default: false
+};
 defaults.fileCountLimit = {
   type: 'number',
   default: 1000

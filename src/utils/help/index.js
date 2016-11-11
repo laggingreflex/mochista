@@ -10,7 +10,7 @@ export function printUsage( exit ) {
          --root                   Base directory from which watch paths are to be derived.
                                     Default: result of process.cwd(): "${getDefs('root')}"
 
-         --test-files,            Files/globs that should be tested by mocha.
+         --test-files             Files/globs that should be tested by mocha.
                                     Default: ${getDefs('testFiles')}
          --test-files-exclude,    Files/globs ignored from test-files.
            --ignore                 Default: ${getDefs('testFilesExclude')}
@@ -23,8 +23,10 @@ export function printUsage( exit ) {
          --file-count-limit       Throws error if source/test files exceed this value.
                                     Default: ${getDefs('fileCountLimit')}
 
-         --watch,                 Watch files for changes.
-           -w                       Default: false
+         --watch,                 Watch for file modification.
+           -w                       Default: ${getDefs('watch')}
+         --all                    Run all tests on any test file modifications.
+                                    Default: ${getDefs('all')}
 
          --help,                  Print this and exit.
            -h, /?

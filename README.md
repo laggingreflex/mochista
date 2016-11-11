@@ -37,7 +37,7 @@ mochista test/**
 --root                   Base directory from which watch paths are to be derived.
                            Default: result of process.cwd()
 
---test-files,            Files/globs that should be tested by mocha.
+--test-files             Files/globs that should be tested by mocha.
                            Default: test*/**/*.js **/*.{test,spec}.js
 --test-files-exclude,    Files/globs ignored from test-files.
   --ignore                 Default: **/node_modules/**
@@ -50,8 +50,10 @@ mochista test/**
 --file-count-limit       Throws error if source/test files exceed this value.
                            Default: 1000
 
---watch,                 Watch files for changes.
+--watch,                 Watch for file modification.
   -w                       Default: false
+--all                    Run all tests on any test file modifications.
+                           Default: false (runs only modified tests; still runs all tests on source modification)
 
 --help,                  Print this and exit.
   -h, /?
