@@ -48,7 +48,7 @@ export async function glob( {
   } );
 
   if ( files.length > fileCountLimit ) {
-    log.error( files )
+    log.verb( files );
     throw new Error( `ERROR: Too many {${label}: ${files.length}}. Check your include/exclude glob patterns or increase {fileCountLimit: ${fileCountLimit}}` );
   }
 

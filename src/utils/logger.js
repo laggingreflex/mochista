@@ -41,16 +41,21 @@ export function createLogger( namespace ) {
   logger._err = logger.err;
   logger.err = ( ...errs ) => {
     const errObjects = [];
-    errs = errs.map( err => {
+    let _logger = ::logger._err;
+    errs = errs.map( ( err, i ) => {
       if ( err && err.message ) {
         errObjects.push( err );
         return err.message;
+      } else if ( i == errs.length - 1 && Object.keys( debugLogger.levels ).includes( err ) ) {
+        _logger = ::logger[ err ];
+        return '__remove__';
       } else {
         return err;
       }
-    } );
+    } ).filter( v => v !== '__remove__' );
+
     logger._err( ...errs );
-    errObjects.forEach( ::logger.debug );
+    _logger( ...errObjects );
   }
 
   const log = logger.log;
