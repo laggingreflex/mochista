@@ -3,12 +3,14 @@ import { watch } from 'chokidar';
 import debounce from 'debounce-queue';
 import normalize from 'normalize-path';
 import _ from 'lodash';
+import anymatch from 'anymatch';
 import log from '.../utils/logger';
 
 export default function init({
   root,
   include,
   exclude = [],
+  onChange
 }) {
   assert(root, 'Need a root');
   assert(include && include.length, 'Need files to watch {include}');
@@ -45,16 +47,14 @@ export function onChange({
   events = ['add', 'change'],
   run,
   debounce: debounceDelay = 1000,
-  intersection
+  separateByGlobs
 }) {
   const debounced = debounce(changedFiles => {
-    const intRet = {};
-    if (intersection) {
-      for (const key in intersection)
-        intRet[key] = _.intersection(intersection[key], changedFiles);
-    }
-    // log.debug( { changedFiles, ...intRet } );
-    return run({ changedFiles, ...intRet });
+    const separatedFiles = {};
+    if (separateByGlobs)
+      for (const key in separateByGlobs)
+        separatedFiles[key] = changedFiles.filter(f => anymatch(separateByGlobs[key], f));
+    return run({ changedFiles, ...separatedFiles });
   }, debounceDelay);
   events.forEach(event => watcher
     .on(event, path =>

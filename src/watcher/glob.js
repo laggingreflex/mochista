@@ -4,22 +4,22 @@ import log from '.../utils/logger';
 
 export default async function init({
   root,
-  sourceGlobs,
-  sourceGlobsExclude,
-  testGlobs,
-  testGlobsExclude,
+  sourceFiles: sourceGlobs,
+  sourceFilesExclude: sourceGlobsExclude,
+  testFiles: testGlobs,
+  testFilesExclude: testGlobsExclude,
   fileCountLimit,
 }) {
   log('Initial files globbing...');
   return props({
-    testFilesList: glob({
+    testFiles: glob({
       root,
       include: testGlobs,
       exclude: testGlobsExclude,
       label: 'testFiles',
       fileCountLimit,
     }),
-    sourceFilesList: glob({
+    sourceFiles: glob({
       root,
       include: sourceGlobs,
       exclude: sourceGlobsExclude.concat(testGlobs),
@@ -47,12 +47,13 @@ export async function glob({
     root,
   });
 
+  if (!files.length) {
+    throw new Error(`ERROR: Couldn't find any {${label}: ${files.length}}. Check your include/exclude glob pattern.`);
+  }
   if (files.length > fileCountLimit) {
     log.verb(files);
     throw new Error(`ERROR: Too many {${label}: ${files.length}}. Check your include/exclude glob patterns or increase {fileCountLimit: ${fileCountLimit}}`);
   }
-
-  // log.debug({[label]: files});
 
   return files;
 }

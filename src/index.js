@@ -4,14 +4,16 @@ import config from '.../config';
 import handleErrors from '.../utils/error';
 import Mocha from './mocha';
 import Watcher from './watcher';
+import initGlobs from './watcher/glob';
 import resetRequireCache from '.../utils/reset-cache';
 import log from '.../utils/logger';
 import { instrument, report } from './istanbul';
 
 
 async function main() {
-  const { testFiles, sourceFiles, watcher, onChange } = await Watcher(config);
+  const { testFiles, sourceFiles } = await initGlobs(config);
   const allFiles = sourceFiles.concat(testFiles);
+  const { watcher, onChange } = await Watcher(config);
 
   const mocha = await Mocha({...config });
   await mocha.load();
@@ -22,6 +24,7 @@ async function main() {
     sourceFiles: changedSourceFiles = sourceFiles,
     testFiles: changedTestFiles = testFiles
   } = {}) {
+    // log.debug({ changedFiles, changedSourceFiles, changedTestFiles });
     try {
       log.time('Total run time');
       if (changedTestFiles.length && !config.all) {
