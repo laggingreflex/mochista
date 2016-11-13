@@ -55,8 +55,8 @@ defaults.fileCountLimit = {
 
 defaults.verbose = {
   alias: ['v'],
-  type: 'boolean',
-  default: false
+  type: 'count',
+  default: 0
 };
 defaults.debug = {
   alias: ['d'],

@@ -32,8 +32,15 @@ export function createLogger(namespace) {
   if (config.debug) {
     debugLogger.debug.enable(namespace + ':debug');
   }
-  if (config.verbose) {
-    debugLogger.debug.enable(namespace + '*');
+  if (config.verbose >= 1) {
+    debugLogger.debug.enable(namespace + ':debug');
+    debugLogger.debug.enable(namespace + ':verbose');
+  }
+  if (config.verbose >= 2) {
+    debugLogger.debug.enable(namespace + ':info');
+  }
+  if (config.verbose >= 3) {
+    debugLogger.debug.enable(namespace + ':*');
   }
 
   const logger = debugLogger(namespace);
