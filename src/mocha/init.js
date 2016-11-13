@@ -1,17 +1,17 @@
 import Mocha from 'mocha';
 import log from '.../utils/logger';
 
-export default function load( config ) {
-  const mocha = new Mocha( config );
+export default function load(config) {
+  const mocha = new Mocha(config);
 
-  if ( config.colors ) {
-    mocha.useColors( true );
+  if (config.colors) {
+    mocha.useColors(true);
   }
-  if ( config.noColors ) {
-    mocha.useColors( false );
+  if (config.noColors) {
+    mocha.useColors(false);
   }
-  if ( config.inlineDiffs ) {
-    mocha.useInlineDiffs( true );
+  if (config.inlineDiffs) {
+    mocha.useInlineDiffs(true);
   }
   // if ( config.slow ) {
   //   mocha.suite.slow( config.slow );
@@ -19,36 +19,36 @@ export default function load( config ) {
   // if ( config.timeout ) {
   //   mocha.suite.timeout( config.timeout );
   // }
-  if ( !config.noTimeouts ) {
-    mocha.enableTimeouts( false );
+  if (!config.noTimeouts) {
+    mocha.enableTimeouts(false);
   }
-  mocha.suite.bail( config.bail );
+  mocha.suite.bail(config.bail);
   // if ( config.grep ) {
   //   mocha.grep( config.grep );
   // }
-  if ( config.fgrep ) {
-    mocha.fgrep( config.fgrep );
+  if (config.fgrep) {
+    mocha.fgrep(config.fgrep);
   }
-  if ( config.invert ) {
+  if (config.invert) {
     mocha.invert();
   }
-  if ( config.checkLeaks ) {
+  if (config.checkLeaks) {
     mocha.checkLeaks();
   }
   // if ( config.fullTrace ) {
   //   mocha.fullTrace();
   // }
-  if ( config.growl ) {
+  if (config.growl) {
     mocha.growl();
   }
-  if ( config.asyncOnly ) {
+  if (config.asyncOnly) {
     mocha.asyncOnly();
   }
-  if ( config.delay ) {
+  if (config.delay) {
     mocha.delay();
   }
-  if ( config.globals ) {
-    mocha.globals( config.globals );
+  if (config.globals) {
+    mocha.globals(config.globals);
   }
   // if ( config.retries ) {
   //   mocha.suite.retries( config.retries );

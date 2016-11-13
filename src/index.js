@@ -10,45 +10,45 @@ import { instrument, report } from './istanbul';
 
 
 async function main() {
-  const { testFiles, sourceFiles, watcher, onChange } = await Watcher( config );
-  const allFiles = sourceFiles.concat( testFiles );
+  const { testFiles, sourceFiles, watcher, onChange } = await Watcher(config);
+  const allFiles = sourceFiles.concat(testFiles);
 
-  const mocha = await Mocha( {...config } );
+  const mocha = await Mocha({...config });
   await mocha.load();
-  await instrument( { files: sourceFiles, ...config } );
+  await instrument({ files: sourceFiles, ...config });
 
-  async function run( {
+  async function run({
     changedFiles = allFiles,
     sourceFiles: changedSourceFiles = sourceFiles,
     testFiles: changedTestFiles = testFiles
-  } = {} ) {
+  } = {}) {
     try {
-      log.time( 'Total run time' );
-      if ( changedTestFiles.length && !config.all ) {
-        await resetRequireCache( changedFiles );
-        await mocha.run( { files: changedTestFiles } );
+      log.time('Total run time');
+      if (changedTestFiles.length && !config.all) {
+        await resetRequireCache(changedFiles);
+        await mocha.run({ files: changedTestFiles });
       } else {
-        await resetRequireCache( [ ...changedFiles, ...testFiles ] );
-        await mocha.run( { files: testFiles } );
+        await resetRequireCache([...changedFiles, ...testFiles]);
+        await mocha.run({ files: testFiles });
       }
-      await report( {...config } );
-      log.timeEnd( 'Total run time', 'info' );
-    } catch ( err ) {
-      if ( config.watch ) {
-        log.err( err );
+      await report({...config });
+      log.timeEnd('Total run time', 'info');
+    } catch (err) {
+      if (config.watch) {
+        log.err(err);
       } else {
         throw err;
       }
     }
-    if ( config.watch ) {
-      log( 'Waiting...' );
+    if (config.watch) {
+      log('Waiting...');
     }
   }
 
   await run();
-  if ( config.watch ) {
-    await onChange( { run } );
+  if (config.watch) {
+    await onChange({ run });
   }
 }
 
-main().catch( handleErrors );
+main().catch(handleErrors);

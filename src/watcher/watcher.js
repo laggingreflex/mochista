@@ -5,58 +5,58 @@ import normalize from 'normalize-path';
 import _ from 'lodash';
 import log from '.../utils/logger';
 
-export default function init( {
+export default function init({
   root,
   include,
   exclude = [],
-} ) {
-  assert( root, 'Need a root' );
-  assert( include && include.length, 'Need files to watch {include}' );
+}) {
+  assert(root, 'Need a root');
+  assert(include && include.length, 'Need files to watch {include}');
 
-  const watcher = watch( include, {
+  const watcher = watch(include, {
     cwd: root,
     ignored: exclude,
-  } );
-  log( 'Readying watcher...' );
-  return new Promise( ( _resolve, _reject ) => {
-    watcher.once( 'ready', resolve );
-    watcher.once( 'error', reject );
+  });
+  log('Readying watcher...');
+  return new Promise((_resolve, _reject) => {
+    watcher.once('ready', resolve);
+    watcher.once('error', reject);
 
-    function reject( error ) {
-      watcher.removeListener( 'ready', resolve );
+    function reject(error) {
+      watcher.removeListener('ready', resolve);
       watcher.close();
-      _reject( error );
+      _reject(error);
     }
 
     function resolve() {
-      watcher.removeListener( 'error', reject );
+      watcher.removeListener('error', reject);
       // log.debug( watcher.getWatched() );
-      _resolve( watcher );
+      _resolve(watcher);
     }
-  } );
+  });
 }
 
-export function createOnChange( watcher ) {
-  return ( opts ) => onChange( { watcher, ...opts } );
+export function createOnChange(watcher) {
+  return (opts) => onChange({ watcher, ...opts });
 }
 
-export function onChange( {
+export function onChange({
   watcher,
-  events = [ 'add', 'change' ],
+  events = ['add', 'change'],
   run,
   debounce: debounceDelay = 1000,
   intersection
-} ) {
-  const debounced = debounce( changedFiles => {
+}) {
+  const debounced = debounce(changedFiles => {
     const intRet = {};
-    if ( intersection ) {
-      for ( const key in intersection )
-        intRet[ key ] = _.intersection( intersection[ key ], changedFiles );
+    if (intersection) {
+      for (const key in intersection)
+        intRet[key] = _.intersection(intersection[key], changedFiles);
     }
     // log.debug( { changedFiles, ...intRet } );
-    return run( { changedFiles, ...intRet } );
-  }, debounceDelay );
-  events.forEach( event => watcher
-    .on( event, path =>
-      debounced( normalize( path ) ) ) );
+    return run({ changedFiles, ...intRet });
+  }, debounceDelay);
+  events.forEach(event => watcher
+    .on(event, path =>
+      debounced(normalize(path))));
 }

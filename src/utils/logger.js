@@ -24,44 +24,44 @@ debugLogger.levels.verb = debugLogger.levels.verbose;
 debugLogger.levels.vrb = debugLogger.levels.verbose;
 debugLogger.levels.err = debugLogger.levels.error;
 
-export function createLogger( namespace ) {
+export function createLogger(namespace) {
   // debugLogger.debug.enable( namespace + '*' );
-  debugLogger.debug.enable( namespace + ':log' );
-  debugLogger.debug.enable( namespace + ':error' );
-  debugLogger.debug.enable( namespace + ':warn' );
-  if ( config.debug ) {
-    debugLogger.debug.enable( namespace + ':debug' );
+  debugLogger.debug.enable(namespace + ':log');
+  debugLogger.debug.enable(namespace + ':error');
+  debugLogger.debug.enable(namespace + ':warn');
+  if (config.debug) {
+    debugLogger.debug.enable(namespace + ':debug');
   }
-  if ( config.verbose ) {
-    debugLogger.debug.enable( namespace + '*' );
+  if (config.verbose) {
+    debugLogger.debug.enable(namespace + '*');
   }
 
-  const logger = debugLogger( namespace );
+  const logger = debugLogger(namespace);
 
   logger._err = logger.err;
-  logger.err = ( ...errs ) => {
+  logger.err = (...errs) => {
     const errObjects = [];
     let _logger = ::logger._err;
-    errs = errs.map( ( err, i ) => {
-      if ( err && err.message ) {
-        errObjects.push( err );
+    errs = errs.map((err, i) => {
+      if (err && err.message) {
+        errObjects.push(err);
         return err.message;
-      } else if ( i == errs.length - 1 && Object.keys( debugLogger.levels ).includes( err ) ) {
-        _logger = ::logger[ err ];
+      } else if (i == errs.length - 1 && Object.keys(debugLogger.levels).includes(err)) {
+        _logger = ::logger[err];
         return '__remove__';
       } else {
         return err;
       }
-    } ).filter( v => v !== '__remove__' );
+    }).filter(v => v !== '__remove__');
 
-    logger._err( ...errs );
-    _logger( ...errObjects );
+    logger._err(...errs);
+    _logger(...errObjects);
   }
 
   const log = logger.log;
   log.logger = logger;
-  Object.assign( log, logger );
+  Object.assign(log, logger);
   return log;
 }
 
-export default createLogger( pkg.name );
+export default createLogger(pkg.name);

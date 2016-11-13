@@ -1,25 +1,25 @@
 import initGlobs from './glob';
 import initWatcher, { createOnChange } from './watcher';
 
-export default async function Watcher( {
+export default async function Watcher({
   root,
   sourceFiles: sourceGlobs,
   sourceFilesExclude: sourceGlobsExclude,
   testFiles: testGlobs,
   testFilesExclude: testGlobsExclude,
   fileCountLimit,
-} = {} ) {
+} = {}) {
 
-  const initGlobsPromise = initGlobs( {
+  const initGlobsPromise = initGlobs({
     root,
     sourceGlobs,
     sourceGlobsExclude,
     testGlobs,
     testGlobsExclude,
     fileCountLimit,
-  } );
+  });
 
-  const initWatcherPromise = initWatcher( {
+  const initWatcherPromise = initWatcher({
     root,
     include: [
       ...sourceGlobs,
@@ -29,26 +29,26 @@ export default async function Watcher( {
       ...sourceGlobsExclude,
       ...testGlobsExclude,
     ],
-  } );
+  });
 
-  const [ { sourceFilesList, testFilesList }, watcher ] = await Promise.all( [
+  const [{ sourceFilesList, testFilesList }, watcher] = await Promise.all([
     initGlobsPromise,
     initWatcherPromise,
-  ] );
+  ]);
 
   return {
     testFiles: testFilesList,
     sourceFiles: sourceFilesList,
     watcher,
-    onChange( opts ) {
-      createOnChange( watcher )( {
+    onChange(opts) {
+      createOnChange(watcher)({
         intersection: {
           testFiles: testFilesList,
           sourceFiles: sourceFilesList,
           ...opts.intersection
         },
         ...opts
-      } );
+      });
     }
   };
 }

@@ -11,7 +11,7 @@ defaults.root = {
   default: process.cwd()
 };
 defaults.sourceFiles = {
-  alias: [ 'include', ],
+  alias: ['include'],
   type: 'array',
   default: [
     // '**/*.js',
@@ -20,7 +20,7 @@ defaults.sourceFiles = {
   ]
 };
 defaults.sourceFilesExclude = {
-  alias: [ 'exclude', ],
+  alias: ['exclude'],
   type: 'array',
   default: [
     'node_modules/**',
@@ -30,21 +30,21 @@ defaults.sourceFilesExclude = {
 };
 defaults.testFiles = {
   type: 'array',
-  default: [ 'test*/**/*.js', '**/*.{test,spec}.js', ]
+  default: ['test*/**/*.js', '**/*.{test,spec}.js']
 };
 defaults.testFilesExclude = {
-  alias: [ 'ignore', ],
+  alias: ['ignore'],
   type: 'array',
-  default: [ '**/node_modules/**' ]
+  default: ['**/node_modules/**']
 };
 
 defaults.watch = {
-  alias: [ 'w', ],
+  alias: ['w'],
   type: 'boolean',
   default: false
 };
 defaults.all = {
-  // alias: [ 'A', ],
+  // alias: [ 'A' ],
   type: 'boolean',
   default: false
 };
@@ -54,18 +54,18 @@ defaults.fileCountLimit = {
 };
 
 defaults.verbose = {
-  alias: [ 'v', ],
+  alias: ['v'],
   type: 'boolean',
   default: false
 };
 defaults.debug = {
-  alias: [ 'd', ],
+  alias: ['d'],
   type: 'boolean',
   default: false
 };
 
 defaults.help = {
-  alias: [ 'h', '?' ],
+  alias: ['h', '?'],
   type: 'boolean'
 };
 

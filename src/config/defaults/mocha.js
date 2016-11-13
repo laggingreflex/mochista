@@ -9,64 +9,64 @@ defaults.require = {
   default: []
 };
 defaults.asyncOnly = {
-  alias: [ 'A', ],
+  alias: ['A'],
   type: 'boolean',
   default: false
 };
 defaults.colors = {
-  // alias: [ 'c', ],
+  // alias: [ 'c' ],
   type: 'boolean',
   // default: true
 };
 defaults.noColors = {
-  // alias: [ 'C', ],
+  // alias: [ 'C' ],
   type: 'boolean',
   // default: true
 };
 defaults.growl = {
-  alias: [ 'G', ],
+  alias: ['G'],
   type: 'boolean',
   // default: true
 };
 defaults.testReporter = {
-  alias: [ 'reporter', 'R', ],
+  alias: ['reporter', 'R'],
   type: 'string',
   default: 'spec'
 };
 defaults.sort = {
-  alias: [ 'S', ],
+  alias: ['S'],
   type: 'boolean',
   // default: false
 };
 defaults.bail = {
-  alias: [ 'b', ],
+  alias: ['b'],
   type: 'boolean',
   // default: false
 };
 defaults.grep = {
-  alias: [ 'g', ],
+  alias: ['g'],
   type: 'string'
 };
 defaults.fgrep = {
-  alias: [ 'f', ],
+  alias: ['f'],
   type: 'string'
 };
 defaults.invert = {
-  alias: [ 'i', ],
+  alias: ['i'],
   type: 'boolean'
 };
 defaults.slow = {
-  alias: [ 's', ],
+  alias: ['s'],
   type: 'number',
   default: 75
 };
 defaults.timeout = {
-  alias: [ 't', ],
+  alias: ['t'],
   type: 'number',
   default: 2000,
 };
 defaults.ui = {
-  alias: [ 'u', ],
+  alias: ['u'],
   type: 'string',
   default: 'bdd'
 };

@@ -2,7 +2,7 @@ import { hookRequire } from 'istanbul-lib-hook';
 import matcher from './matcher';
 import transformer from './transformer';
 
-export default function instrument( {
+export default function instrument({
   root,
   coverageVariable,
   transformerCacheVariable,
@@ -10,15 +10,15 @@ export default function instrument( {
   cacheDir,
   files,
   preserveComments = true,
-  extensions = [ '.js' ],
+  extensions = ['.js'],
   verbose,
-} = {} ) {
-  global[ coverageVariable ] = global[ coverageVariable ] || {};
+} = {}) {
+  global[coverageVariable] = global[coverageVariable] || {};
 
   const hookOpts = { verbose, extensions };
   hookRequire(
-    matcher( { files } ),
-    transformer( { root, coverageVariable, transformerCacheVariable, sourceMapCacheVariable, cacheDir, verbose } ),
+    matcher({ files }),
+    transformer({ root, coverageVariable, transformerCacheVariable, sourceMapCacheVariable, cacheDir, verbose }),
     hookOpts
   );
 }

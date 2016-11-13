@@ -1,7 +1,7 @@
 const defaults = {};
 
 defaults.coverageReporter = {
-  alias: ['report' ],
+  alias: ['report'],
   type: 'array',
   default: ['lcov', 'text']
 };

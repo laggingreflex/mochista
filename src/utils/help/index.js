@@ -1,8 +1,8 @@
 import pkg from '.../package.json';
 import getDefs from './get-defaults';
 
-export function printUsage( exit ) {
-  console.log( `
+export function printUsage(exit) {
+  console.log(`
     ${pkg.description}
 
     Usage: mochista [OPTIONS] [test-files]
@@ -57,8 +57,8 @@ export function printUsage( exit ) {
 
     Examples:
       mochista test/**
-  ` );
-  if ( exit ) {
-    process.exit( 0 );
+  `);
+  if (exit) {
+    process.exit(0);
   }
 }
