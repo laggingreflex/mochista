@@ -15,7 +15,7 @@ export default function createTransformerFn({
   cacheDir,
   disableCache = false,
   ext = '.js',
-  verbose = true,
+  verbose = false,
 }) {
   const transformerCache = global[transformerCacheVariable] = global[transformerCacheVariable] || {};
   const sourceMapCache = global[sourceMapCacheVariable] = global[sourceMapCacheVariable] || createSourceMapStore();

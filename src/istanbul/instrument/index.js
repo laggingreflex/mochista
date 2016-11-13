@@ -11,11 +11,11 @@ export default function instrument({
   files,
   preserveComments = true,
   extensions = ['.js'],
-  verbose,
+  verbose = 0,
 } = {}) {
   global[coverageVariable] = global[coverageVariable] || {};
 
-  const hookOpts = { verbose, extensions };
+  const hookOpts = { extensions, verbose: verbose > 2 };
   hookRequire(
     matcher({ files }),
     transformer({ root, coverageVariable, transformerCacheVariable, sourceMapCacheVariable, cacheDir, verbose }),
