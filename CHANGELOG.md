@@ -1,3 +1,21 @@
+# 0.3.0
+
+## New
+
+* multilevel -vv verbose logging
+[`601c097e`]
+
+## Fixes
+
+* transformer verbosity
+[`47efa958`]
+
+* test watcher handle newly added files
+[`1b8701c6`]
+
+* add/remove files handled properly
+[`bbf3d24b`]
+
 # 0.2.0
 
 ## New
@@ -16,10 +34,10 @@
 
 ## Fixes
 
-* fix: duplicate config options, keep last one
+* duplicate config options, keep last one
 [`bf4d8f95`]
 
-* fix: mocha opts; command line options weren't being processed
+* mocha opts; command line options weren't being processed
 [`d9c02667`]
 
 * better better mocha-optins parsing
