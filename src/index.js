@@ -4,27 +4,32 @@ import config from '.../config';
 import handleErrors from '.../utils/error';
 import Mocha from './mocha';
 import Watcher from './watcher';
-import initGlobs from './watcher/glob';
 import resetRequireCache from '.../utils/reset-cache';
 import log from '.../utils/logger';
 import { instrument, report } from './istanbul';
 
 
 async function main() {
-  const { testFiles, sourceFiles } = await initGlobs(config);
-  const allFiles = sourceFiles.concat(testFiles);
-  const { watcher, onChange } = await Watcher(config);
+  const {
+    watcher,
+    onChange,
+    initialAllFiles,
+    initialTestFiles,
+    initialSourceFiles,
+  } = await Watcher(config);
 
   const mocha = await Mocha({...config });
   await mocha.load();
-  await instrument({ files: sourceFiles, ...config });
+  await instrument({ files: initialSourceFiles, ...config });
 
   async function run({
-    changedFiles = allFiles,
-    sourceFiles: changedSourceFiles = sourceFiles,
-    testFiles: changedTestFiles = testFiles
+    allFiles = initialAllFiles,
+    changedFiles = initialAllFiles,
+    testFiles = initialTestFiles,
+    changedTestFiles = initialTestFiles,
+    sourceFiles = initialSourceFiles,
+    changedSourceFiles = initialSourceFiles,
   } = {}) {
-    // log.debug({ changedFiles, changedSourceFiles, changedTestFiles });
     try {
       log.time('Total run time');
       if (changedTestFiles.length && !config.all) {

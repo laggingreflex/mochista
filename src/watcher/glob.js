@@ -3,14 +3,15 @@ import _glob from 'globby';
 import log from '.../utils/logger';
 
 export default async function init({
-  root,
-  sourceFiles: sourceGlobs,
-  sourceFilesExclude: sourceGlobsExclude,
-  testFiles: testGlobs,
-  testFilesExclude: testGlobsExclude,
-  fileCountLimit,
+  root = process.cwd(),
+  sourceGlobs = [],
+  sourceGlobsExclude = [],
+  testGlobs = [],
+  testGlobsExclude = [],
+  fileCountLimit = 1000,
 }) {
   log('Initial files globbing...');
+
   return props({
     testFiles: glob({
       root,
