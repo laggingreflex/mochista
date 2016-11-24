@@ -31,7 +31,7 @@
     "mocha": "^3.1.2",
     "normalize-path": "^2.0.1",
     "req-from": "^1.0.1",
-    "require-up": "0.1.0",
+    "require-up": "0.1.1",
     "source-map-support": "^0.4.5",
     "yargs": "^6.3.0"
   },
