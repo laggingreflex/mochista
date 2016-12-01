@@ -1,3 +1,4 @@
+import Module from 'module';
 import assert from 'assert';
 import { join } from 'path';
 import reqFrom from 'req-from';
@@ -14,9 +15,8 @@ export function tryRequire(path, root) {
   if (ret) {
     return ret;
   } else {
-    const err = new Error(`Cannot find module '${path}' from '${root}'`);
-    err.code = MODULE_NOT_FOUND;
-    throw err;
+    // Best way to throw in this case is to just call the NodeJS's internal module, so that it shows the "Module not found" as naturally as it does with regular module requires.
+    return (Module.__resolveFilename || Module._resolveFilename)(`${path}' from '${root}`);
   }
 }
 
