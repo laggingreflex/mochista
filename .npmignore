@@ -2,6 +2,7 @@
 .*
 *.*gz
 node_modules
+**/*node_modules*/**
 test
 tests
 tests-coverage
