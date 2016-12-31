@@ -32,8 +32,8 @@ export default async function Watcher({
   const watcher = await initWatcher({
     root,
     include: [
-      ...sourceGlobs,
       ...testGlobs,
+      ...sourceGlobs,
     ],
     exclude: [
       ...sourceGlobsExclude,
@@ -50,13 +50,20 @@ export default async function Watcher({
     events: ['add'],
     separateByGlobs,
     run({
+      changedFiles: addedFiles,
       testFiles: addedTestFiles,
       sourceFiles: addedSourceFiles,
     }) {
-      testFiles.push(...addedTestFiles);
-      sourceFiles.push(...addedSourceFiles);
-      log.vrb(`Added {testFiles: +${addedTestFiles.length}=${testFiles.length}, sourceFiles: +${addedSourceFiles.length}=${sourceFiles.length}}`);
-      log.sil({ addedTestFiles, addedSourceFiles });
+      if (addedTestFiles.length) {
+        testFiles.push(...addedTestFiles);
+        log.vrb(`Added testFiles: +${addedTestFiles.length}=${testFiles.length}`);
+        addedTestFiles.reverse().forEach(f => log.sil('', f))
+      }
+      if (addedSourceFiles.length) {
+        sourceFiles.push(...addedSourceFiles);
+        log.vrb(`Added sourceFiles: +${addedSourceFiles.length}=${sourceFiles.length}`);
+        addedSourceFiles.reverse().forEach(f => log.sil('', f))
+      }
     }
   });
 
@@ -64,13 +71,20 @@ export default async function Watcher({
     events: ['unlink'],
     separateByGlobs,
     run({
+      changedFiles: deletedFiles,
       testFiles: deletedTestFiles,
       sourceFiles: deletedSourceFiles,
     }) {
-      testFiles = testFiles.filter(f => !deletedTestFiles.some(d => mm.contains(f, d)));
-      sourceFiles = sourceFiles.filter(f => !deletedSourceFiles.some(d => mm.contains(f, d)));
-      log.vrb(`Removed {testFiles: -${deletedTestFiles.length}=${testFiles.length}, sourceFiles: -${deletedSourceFiles.length}=${sourceFiles.length}}`);
-      log.sil({ deletedTestFiles, deletedSourceFiles });
+      if (deletedTestFiles.length) {
+        testFiles = testFiles.filter(f => !deletedTestFiles.some(d => mm.contains(f, d)));
+        log.vrb(`Removed testFiles: -${deletedTestFiles.length}=${testFiles.length}`);
+        deletedTestFiles.reverse().forEach(f => log.sil('', f))
+      }
+      if (deletedSourceFiles.length) {
+        sourceFiles = sourceFiles.filter(f => !deletedSourceFiles.some(d => mm.contains(f, d)));
+        log.vrb(`Removed sourceFiles: -${deletedSourceFiles.length}=${sourceFiles.length}`);
+        deletedSourceFiles.reverse().forEach(f => log.sil('', f))
+      }
     }
   });
 
@@ -78,15 +92,31 @@ export default async function Watcher({
     createOnChange(watcher)({
       separateByGlobs,
       run: ({
+        changedFiles,
         testFiles: changedTestFiles,
         sourceFiles: changedSourceFiles,
-      }) => run({
-        allFiles: allFiles(),
-        testFiles,
-        sourceFiles,
-        changedTestFiles,
-        changedSourceFiles,
-      })
+      }) => {
+        if (changedFiles.length) {
+          log.vrb(`Changed files: ${changedFiles.length}/${allFiles().length}`);
+          changedFiles.reverse().forEach(f => log.sil('', f))
+        }
+        if (changedTestFiles.length) {
+          log.vrb(`Changed testFiles: ${changedTestFiles.length}/${testFiles.length}`);
+          changedTestFiles.reverse().forEach(f => log.sil('', f))
+        }
+        if (changedSourceFiles.length) {
+          log.vrb(`Changed sourceFiles: ${changedSourceFiles.length}/${sourceFiles.length}`);
+          changedSourceFiles.reverse().forEach(f => log.sil('', f))
+        }
+        run({
+          allFiles: allFiles(),
+          testFiles,
+          sourceFiles,
+          changedFiles,
+          changedTestFiles,
+          changedSourceFiles,
+        })
+      }
     });
   }
 

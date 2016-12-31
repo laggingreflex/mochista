@@ -1,19 +1,9 @@
-import mm from 'micromatch';
+import path from 'path';
 import log from '.../utils/logger';
 
-export default function createMatcherFn({ files }) {
-  return file => {
-    let r;
-    for (const f of files) {
-      if (r) break;
-      r = mm.contains(file, f);
-      // log.sil( `Checking file for instrumentation:`, file, r );
-    }
-    if (r) {
-      log.sil(`Selected file for instrumentation :`, file);
-    } else {
-      // log.sil( `Skipping file for instrumentation:`, file );
-    }
-    return r;
-  }
+export default function createMatcherFn({ files, root = process.cwd() }) {
+  files = files.map(f => path.resolve(root, f));
+  log.verb(`Instrumenting ${files.length} files`);
+  files.reverse().forEach(f => log.sil('', f));
+  return file => files.includes(file);
 }

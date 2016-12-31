@@ -1,5 +1,6 @@
 import { createContext, summarizers } from 'istanbul-lib-report';
 import reports from 'istanbul-reports';
+import arrify from 'arrify';
 import log from '.../utils/logger';
 
 export default async function report(coverageMap, {
@@ -8,7 +9,7 @@ export default async function report(coverageMap, {
 } = {}) {
   const context = createContext({ dir });
   const tree = summarizers.pkg(coverageMap);
-  reporters.forEach(reporter =>
+  arrify(reporters).forEach(reporter =>
     tree.visit(
       reports.create(reporter),
       context

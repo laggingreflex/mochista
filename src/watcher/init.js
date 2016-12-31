@@ -1,10 +1,15 @@
 import assert from 'assert';
-import { watch } from 'chokidar';
+import { FSWatcher, watch } from 'chokidar';
 import debounce from 'debounce-queue';
 import normalize from 'normalize-path';
-import _ from 'lodash';
 import anymatch from 'anymatch';
 import log from '.../utils/logger';
+
+// temporary patch for chokidar#561
+const org_addToNodeFs = FSWatcher.prototype._addToNodeFs;
+FSWatcher.prototype._addToNodeFs = function patched_addToNodeFs (path, initialAdd, priorWh, depth, target, callback) {
+  org_addToNodeFs.call(this, path, initialAdd, null, depth, target, callback);
+};
 
 export default function init({
   root,
@@ -15,25 +20,46 @@ export default function init({
   assert(root, 'Need a root');
   assert(include && include.length, 'Need files to watch {include}');
 
+  log('Readying watcher...');
+  log.verb(`Include ${include.length} files`)
+  include.forEach(f => log.sil('', f))
+  if (exclude.length) {
+    log.verb(`Exclude ${exclude.length} files`)
+    exclude.forEach(f => log.sil('', f))
+  }
   const watcher = watch(include, {
     cwd: root,
     ignored: exclude,
   });
-  log('Readying watcher...');
-  return new Promise((_resolve, _reject) => {
-    watcher.once('ready', resolve);
-    watcher.once('error', reject);
+  watcher.on('all', (event, path, info) => log.sil('Watcher event:', event, path));
+  return new Promise((resolve, reject) => {
+    watcher.once('ready', _resolve);
+    watcher.once('error', _reject);
+    const timeoutSecs = 3;
+    const timer = setTimeout(timeout, timeoutSecs * 1000);
 
-    function reject(error) {
-      watcher.removeListener('ready', resolve);
+    function _reject(error) {
+      clearTimeout(timer);
+      watcher.removeListener('ready', _resolve);
       watcher.close();
-      _reject(error);
+      reject(error);
     }
 
-    function resolve() {
-      watcher.removeListener('error', reject);
-      // log.debug( watcher.getWatched() );
-      _resolve(watcher);
+    function _resolve() {
+      clearTimeout(timer);
+      watcher.removeListener('error', _reject);
+      const watchedPaths = watcher.getWatched();
+      log.sil(`Watched paths:`, watchedPaths)
+      resolve(watcher);
+    }
+
+    function timeout() {
+      watcher.removeListener('ready', _resolve);
+      watcher.removeListener('error', _reject);
+      log.warn(`Timed out (${timeoutSecs}s) waiting for watcher "ready" event. Proceeding anyway... (report this in case of some weird behavior)`);
+      const watchedPaths = watcher.getWatched();
+      log.sil(`Watched paths:`, watchedPaths)
+      resolve(watcher);
     }
   });
 }

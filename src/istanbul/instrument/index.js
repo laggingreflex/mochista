@@ -15,7 +15,7 @@ export default function instrument({
 } = {}) {
   global[coverageVariable] = global[coverageVariable] || {};
 
-  const hookOpts = { extensions, verbose: verbose > 2 };
+  const hookOpts = { extensions, verbose: verbose > 3 };
   hookRequire(
     matcher({ files }),
     transformer({ root, coverageVariable, transformerCacheVariable, sourceMapCacheVariable, cacheDir, verbose }),

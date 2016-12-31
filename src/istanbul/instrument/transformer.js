@@ -6,6 +6,7 @@ import convertSourceMap from 'convert-source-map';
 import { createSourceMapStore } from 'istanbul-lib-source-maps';
 import log from '.../utils/logger';
 import pkg from '.../package.json';
+import pad from '.../utils/pad';
 
 export default function createTransformerFn({
   root,
@@ -36,40 +37,47 @@ export default function createTransformerFn({
     codeHash = md5Hex(code);
 
     const sourceMap = convertSourceMap.fromSource(code);
-    sourceMapCache.registerMap(file, sourceMap.sourcemap);
+    if (sourceMap) {
+      sourceMapCache.registerMap(file, sourceMap.sourcemap);
+    }
 
     if (!transformerCache[file] /*first-run*/ ) try {
       const json = readJSONSync(cacheFile);
       if (json.hash === codeHash) {
         instrumentedCode = json.code;
-        log.vrb(`Instrumented file loaded frm cache:`, file);
+        log.vrb(pad(39, `Instrumentation loaded from cache for:`), file);
       }
     } catch (err) {
-      log.vrb(`Instrumented file loaded frm cache:`, file);
-      log.sil(`Couldn't read file from cache-dir :`, file, err.message, `(expected if running for the first time ever)`);
+      log.vrb(pad(39, `Instrumentation loaded from cache for:`), file);
+      log.sil(pad(39, `Couldn't read cache from cache-dir for:`), file, err.message, `[this is expected on the first ever run]`);
     }
 
     if (!instrumentedCode && transformerCache[file]) {
       const json = transformerCache[file];
       if (json && json.hash === codeHash) {
         instrumentedCode = json.code;
-        log.sil(`Instrumented file loaded from mem :`, file);
+        log.sil(pad(39, `Instrumentation loaded from memory for:`), file);
       }
     }
 
     if (!instrumentedCode) {
       instrumentedCode = instrument(code, file);
-      log.vrb(`Instrumentation generated for file:`, file);
+      log.vrb(pad(39, `Instrumentation generated for file:`), file);
+      hasChanged = true;
     }
 
     transformerCache[file] = { code: instrumentedCode, hash: codeHash };
-    try {
-      outputJsonSync(cacheFile, transformerCache[file]);
-      log.sil(`Instrumented file written to cache:`, file);
-    } catch (err) {
-      log.vrb(`Couldn't write instrumented cache :`, file, err.message);
+
+    if (hasChanged) {
+      try {
+        outputJsonSync(cacheFile, transformerCache[file]);
+        log.sil(pad(39, `Instrumentation written to cache for:`), file);
+      } catch (err) {
+        log.vrb(pad(39, `Couldn't cache Instrumentation for:`), file, err.message);
+      }
     }
 
     return instrumentedCode;
   };
 };
+

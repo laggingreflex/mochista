@@ -14,28 +14,40 @@ defaults.sourceFiles = {
   alias: ['include'],
   type: 'array',
   default: [
-    // '**/*.js',
-    // './**/*.js',
-    'src/**/*.js',
+    // '**/*.{js,coffee}',
+    // './**/*.{js,coffee}',
+    '{src,lib}/**/*.{js,coffee}',
+    '*.{js,coffee}',
   ]
 };
 defaults.sourceFilesExclude = {
   alias: ['exclude'],
   type: 'array',
   default: [
+    // 'node_modules',
+    // '*node_modules*',
     'node_modules/**',
+    // './node_modules/**',
+    // './**node_modules**/**',
     // '**/node_modules/**',
-    // 'coverage/**',
+    // '**node_modules**/**',
+    // '**/**node_modules**/**',
+    'coverage/**',
   ]
 };
 defaults.testFiles = {
   type: 'array',
-  default: ['test*/**/*.js', '**/*.{test,spec}.js']
+  default: [
+    '*{test,tests}*.{js,coffee}',
+    '{test,tests,__test__,__tests__}/**/*.{js,coffee}',
+    '{src,lib}/**/*.{test,spec}.{js,coffee}'
+  ]
 };
 defaults.testFilesExclude = {
   alias: ['ignore'],
   type: 'array',
-  default: ['**/node_modules/**']
+  default: ['**/node_modules/**'],
+  // default: defaults.sourceFilesExclude.default,
 };
 
 defaults.watch = {
@@ -51,6 +63,12 @@ defaults.all = {
 defaults.fileCountLimit = {
   type: 'number',
   default: 1000
+};
+
+defaults.browserSync = {
+  alias: ['bs'],
+  type: 'boolean',
+  default: false
 };
 
 defaults.verbose = {

@@ -31,9 +31,12 @@
     "mocha": "^3.1.2",
     "normalize-path": "^2.0.1",
     "req-from": "^1.0.1",
-    "require-up": "0.2.0",
+    "require-up": "^0.3.1",
     "source-map-support": "^0.4.5",
-    "yargs": "^6.3.0"
+    "yargs": "^6.3.0",
+    "pad-right": "^0.2.2",
+    "prompt-promise": "^1.0.3",
+    "arrify": "^1.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",

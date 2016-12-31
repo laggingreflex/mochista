@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { props } from 'bluebird';
 import _glob from 'globby';
 import log from '.../utils/logger';
@@ -10,7 +11,7 @@ export default async function init({
   testGlobsExclude = [],
   fileCountLimit = 1000,
 }) {
-  log('Initial files globbing...');
+  log('Globing files...');
 
   return props({
     testFiles: glob({
@@ -38,7 +39,9 @@ export async function glob({
   label = 'files',
 } = {}) {
 
-  log.verb(`globing ${label}...`);
+  const pLabel = _.startCase(label).toLowerCase();
+
+  log.verb(`Globing ${pLabel}...`);
 
   const files = await _glob([
     ...include,
@@ -49,12 +52,15 @@ export async function glob({
   });
 
   if (!files.length) {
-    throw new Error(`ERROR: Couldn't find any {${label}: ${files.length}}. Check your include/exclude glob pattern.`);
+    throw new Error(`ERROR: Couldn't find any {${pLabel}: ${files.length}}. Check your include/exclude glob pattern.`);
   }
   if (files.length > fileCountLimit) {
     log.verb(files);
-    throw new Error(`ERROR: Too many {${label}: ${files.length}}. Check your include/exclude glob patterns or increase {fileCountLimit: ${fileCountLimit}}`);
+    throw new Error(`ERROR: Too many {${pLabel}: ${files.length}}. Check your include/exclude glob patterns or increase {fileCountLimit: ${fileCountLimit}}`);
   }
+
+  log.verb(_.capitalize(pLabel), 'found:', files.length);
+  files.reverse().forEach(f => log.sil('', f));
 
   return files;
 }

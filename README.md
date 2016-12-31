@@ -138,6 +138,64 @@ Line beginning with `#` in `mocha.opts` are ignored. Eg.:
 # --debug
 ```
 
+## Issues
+
+If you're facing issues, use maximum verbosity level to get more info for reporting
+
+```
+-vvv
+```
+
+### Known issues
+
+#### Running only tests that were affected by the changed files
+
+This is something that isn't trivial. [Jest] does a marvelous job at actually detecting which test files need to be run based on analyzing import/requires of each file. Mochista in this regard has a much simpler logic:
+
+* If a test file was changed, it just runs that test file again. Any imports and requires in that test files are loaded from cache by NodeJS default require caching mechanism, other that the test file itself whose cache is reset.
+
+* If a source file was changed, NodeJS require caches for that source file, and all test files are reset, and all tests are run again. Mochista doesn't try to analyze which tests were affected by that source file, it just runs them all.
+
+But resetting the cache for only the changed files may cause undesired behavior in some cases. For example:
+```
+// foo.js
+export default 'This is foo'
+```
+```
+// bar.js
+import foo from './foo'
+export default foo.replace('foo', 'bar')
+```
+```
+// bar.test.js
+import bar from './bar'
+assert(bar === 'This is bar')
+```
+Now suppose you changed `foo.js`:
+```
+// foo.js modified
+export default 'This is fuu' // this should make the above test fail
+```
+assuming `foo.js` is considered a source file which will trigger all tests to be run, the `bar.test.js` test will still (incorrectly) pass! This is because `bar.test.js` and `bar.js` weren't modified, they're still cached by NodeJS which use the previously cached version of `foo.js`.
+
+This is especially troublesome when using babel-rewire. It might fail to re-wire your dependencies.
+
+For this reason there's a third option, enabled by pressing "r" or using the switch `--all`, which resets all require cache for all test and all source files. This is probably the most fool proof way to re-run all tests. It's still a lot faster that running the process again.
+
+#### Chokidar
+
+Mochista uses [chokidar] for watching file changes.
+
+If you see a warning like
+```
+Timed out (3s) waiting for watcher "ready" event.
+```
+It might mean you have specified a glob/dir that doesn't actually contain any files.
+Checkout [chokidar#449]. It will try to continue on after that warning given that other globs were still able to find some files (use `-vvv` for more info). If no files were found it will definitely have thrown an unrecoverable error.
+
+If Mochista fails to monitor the files you specified, try to simplify or reduce the glob patterns specified. See chokidar#561.
+
+
 [scr]: misc/scr.gif
 
 [mocha]: http://mochajs.org
@@ -146,6 +204,8 @@ Line beginning with `#` in `mocha.opts` are ignored. Eg.:
 [babel-istanbul]: https://github.com/jmcriffey/babel-istanbul
 [istanbul-lib-source-maps]: https://github.com/istanbuljs/istanbul-lib-source-maps
 [chokidar]: https://github.com/paulmillr/chokidar
+[chokidar#561]: https://github.com/paulmillr/chokidar/issues/561
+[chokidar#449]: https://github.com/paulmillr/chokidar/issues/449
 [watch]: https://github.com/mochajs/mocha/search?q=watch&type=issues
 [exclude files]: https://github.com/mochajs/mocha/search?q=exclude+files&type=issues
 

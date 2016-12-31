@@ -18,14 +18,14 @@ export default async function Report({
   try {
     codeCoverageMap = collect({ coverage, sourceMapCache });
   } catch (err) {
-    log.err(`Couldn't collect coverage.`, 'verbose');
+    log.err(`Couldn't collect coverage.`, err);
     throw err;
   }
 
   try {
     await report(codeCoverageMap, { reportDir, reporters });
   } catch (err) {
-    log.err(`Couldn't write coverage.`, err, 'verbose');
+    log.err(`Couldn't write coverage.`, err);
   }
 
   return codeCoverageMap;
