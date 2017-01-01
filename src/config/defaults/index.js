@@ -1,16 +1,17 @@
+import _ from 'lodash';
 import mocha from './mocha';
 import istanbul from './istanbul';
 
-const defaults = {
+const defaultConfig = {
   ...mocha,
   ...istanbul,
 };
 
-defaults.root = {
+defaultConfig.root = {
   type: 'string',
   default: process.cwd()
 };
-defaults.sourceFiles = {
+defaultConfig.sourceFiles = {
   alias: ['include'],
   type: 'array',
   default: [
@@ -20,7 +21,7 @@ defaults.sourceFiles = {
     '*.{js,coffee}',
   ]
 };
-defaults.sourceFilesExclude = {
+defaultConfig.sourceFilesExclude = {
   alias: ['exclude'],
   type: 'array',
   default: [
@@ -35,7 +36,7 @@ defaults.sourceFilesExclude = {
     'coverage/**',
   ]
 };
-defaults.testFiles = {
+defaultConfig.testFiles = {
   type: 'array',
   default: [
     '*{test,tests}*.{js,coffee}',
@@ -43,48 +44,50 @@ defaults.testFiles = {
     '{src,lib}/**/*.{test,spec}.{js,coffee}'
   ]
 };
-defaults.testFilesExclude = {
+defaultConfig.testFilesExclude = {
   alias: ['ignore'],
   type: 'array',
   default: ['**/node_modules/**'],
   // default: defaults.sourceFilesExclude.default,
 };
 
-defaults.watch = {
+defaultConfig.watch = {
   alias: ['w'],
   type: 'boolean',
   default: false
 };
-defaults.all = {
+defaultConfig.all = {
   // alias: [ 'A' ],
   type: 'boolean',
   default: false
 };
-defaults.fileCountLimit = {
+defaultConfig.fileCountLimit = {
   type: 'number',
   default: 1000
 };
 
-defaults.browserSync = {
+defaultConfig.browserSync = {
   alias: ['bs'],
   type: 'boolean',
   default: false
 };
 
-defaults.verbose = {
+defaultConfig.verbose = {
   alias: ['v'],
   type: 'count',
   default: 0
 };
-defaults.debug = {
+defaultConfig.debug = {
   alias: ['d'],
   type: 'boolean',
   default: false
 };
 
-defaults.help = {
+defaultConfig.help = {
   alias: ['h', '?'],
   type: 'boolean'
 };
 
-export default defaults;
+export default defaultConfig;
+
+export const defaults = _.mapValues(_.pickBy(defaultConfig, d => !_.isUndefined(d.default)), d => d.default);
