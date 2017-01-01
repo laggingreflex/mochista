@@ -5,7 +5,9 @@ import resetRequireCache from '.../utils/reset-cache';
 import log from '.../utils/logger';
 import { instrument, report } from './istanbul';
 
-export default async function main(config = defaults) {
+export default async function mochista(configArg) {
+  const config = {...defaults, ...configArg };
+
   const {
     watcher,
     onChange,
@@ -19,6 +21,7 @@ export default async function main(config = defaults) {
   await instrument({ files: initialSourceFiles, ...config });
 
   let running = false;
+  let firstTime = true;
 
   async function run({
     allFiles = initialAllFiles,
@@ -53,10 +56,19 @@ export default async function main(config = defaults) {
     }
     if (config.watch) {
       log('Waiting for file changes...');
-      log('Press \'r\' (or \'a\') to re-run all tests');
+      // todo: attach keypress message for file changes here
     }
+
     running = false;
+
+    if (firstTime) {
+      firstTime = false;
+      if (config.watch) {
+        onChange({ run });
+        // todo: should this halt/await forever? context: start-mochista
+      }
+    }
   }
 
-  return { run, onChange };
+  return { watcher, mocha, onChange, run };
 }

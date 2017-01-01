@@ -18,17 +18,20 @@ async function main() {
     return;
   }
 
-  const { run, onChange } = await mochista(config);
+  const { run } = await mochista(config);
+
+  const keyPressLog = () => log('Press \'r\' (or \'a\') to re-run all tests');
 
   await run();
 
-  if (!config.watch) {
+  if (config.watch) {
+    keyPressLog();
+    process.stdin.on('readable', onKeypress);
+  } else {
     process.exit(0);
-    return;
   }
 
-  await onChange({ run });
-  process.stdin.on('readable', async() => {
+  async function onKeypress() {
     const input = process.stdin.read();
     if (!input) {
       return;
@@ -39,10 +42,12 @@ async function main() {
     }
     try {
       await run();
+      keyPressLog();
     } catch (err) {
       console.error(err);
     }
-  });
+  }
 }
+
 
 main().catch(handleErrors);

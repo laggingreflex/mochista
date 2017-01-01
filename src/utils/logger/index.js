@@ -10,7 +10,7 @@ debugLogger.inspectOptions = {
 
 debugLogger.levels = levels;
 
-export function createLogger(namespace) {
+export function createLogger(namespace = pkg.name) {
   debugLogger.debug.enable(namespace + ':log');
   debugLogger.debug.enable(namespace + ':error');
   debugLogger.debug.enable(namespace + ':warn');
@@ -27,6 +27,7 @@ export function createLogger(namespace) {
   if (config.verbose >= 3) {
     debugLogger.debug.enable(namespace + ':*');
   }
+  // debugLogger.debug.enable(namespace + ':*');
 
   const logger = debugLogger(namespace);
 
