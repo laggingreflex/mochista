@@ -13,13 +13,13 @@ export default function load(config) {
   if (config.inlineDiffs) {
     mocha.useInlineDiffs(true);
   }
-  // if ( config.slow ) {
-  //   mocha.suite.slow( config.slow );
+  // if (config.slow) {
+  //   mocha.suite.slow(config.slow);
   // }
-  // if ( config.timeout ) {
-  //   mocha.suite.timeout( config.timeout );
+  // if (config.timeout) {
+  //   mocha.suite.timeout(config.timeout);
   // }
-  if (!config.noTimeouts) {
+  if (config.noTimeouts === false) {
     mocha.enableTimeouts(false);
   }
   mocha.suite.bail(config.bail);
