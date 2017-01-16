@@ -19,9 +19,9 @@ export default function load(config) {
   // if (config.timeout) {
   //   mocha.suite.timeout(config.timeout);
   // }
-  if (config.noTimeouts === false) {
-    mocha.enableTimeouts(false);
-  }
+  // if (config.noTimeouts) {
+  //   mocha.enableTimeouts(false);
+  // }
   mocha.suite.bail(config.bail);
   // if ( config.grep ) {
   //   mocha.grep( config.grep );
