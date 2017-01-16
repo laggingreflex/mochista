@@ -1,18 +1,18 @@
 const defaults = {};
 
-defaults.coverageReporter = {
+defaults['coverage-reporter'] = {
   alias: ['report'],
-  type: 'string',
+  type: 'array',
   default: ['lcov', 'text']
 };
 
-defaults.reportDir = {
+defaults['report-dir'] = {
   // alias: [],
   type: 'string',
   default: 'coverage'
 };
 
-defaults.cacheDir = {
+defaults['cache-dir'] = {
   // alias: [],
   type: 'string',
   default: '.coverage-cache'
@@ -30,21 +30,21 @@ defaults.all = {
   // default: false
 };
 
-defaults.checkCoverage = {
+defaults['check-coverage'] = {
   // alias: [],
   // type: 'boolean',
   // default: false
 };
 
-defaults.coverageVariable = {
+defaults['coverage-variable'] = {
   type: 'string',
   default: '__coverage__'
 };
-defaults.transformerCacheVariable = {
+defaults['transformer-cache-variable'] = {
   type: 'string',
   default: '__transformer_cache__'
 };
-defaults.sourceMapCacheVariable = {
+defaults['source-map-cache-variable'] = {
   type: 'string',
   default: '__source_map_cache__'
 };

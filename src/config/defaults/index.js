@@ -11,7 +11,7 @@ defaultConfig.root = {
   type: 'string',
   default: process.cwd()
 };
-defaultConfig.sourceFiles = {
+defaultConfig['source-files'] = {
   alias: ['include'],
   type: 'array',
   default: [
@@ -21,7 +21,7 @@ defaultConfig.sourceFiles = {
     '*.{js,coffee}',
   ]
 };
-defaultConfig.sourceFilesExclude = {
+defaultConfig['source-files-exclude'] = {
   alias: ['exclude'],
   type: 'array',
   default: [
@@ -36,7 +36,7 @@ defaultConfig.sourceFilesExclude = {
     'coverage/**',
   ]
 };
-defaultConfig.testFiles = {
+defaultConfig['test-files'] = {
   type: 'array',
   default: [
     '*{test,tests}*.{js,coffee}',
@@ -44,7 +44,7 @@ defaultConfig.testFiles = {
     '{src,lib}/**/*.{test,spec}.{js,coffee}'
   ]
 };
-defaultConfig.testFilesExclude = {
+defaultConfig['test-files-exclude'] = {
   alias: ['ignore'],
   type: 'array',
   default: ['**/node_modules/**'],
@@ -61,12 +61,12 @@ defaultConfig.all = {
   type: 'boolean',
   default: false
 };
-defaultConfig.fileCountLimit = {
+defaultConfig['file-count-limit'] = {
   type: 'number',
   default: 1000
 };
 
-defaultConfig.browserSync = {
+defaultConfig['browser-sync'] = {
   alias: ['bs'],
   type: 'boolean',
   default: false

@@ -8,7 +8,7 @@ defaults.require = {
   type: 'array',
   default: []
 };
-defaults.asyncOnly = {
+defaults['async-only'] = {
   alias: ['A'],
   type: 'boolean',
   default: false
@@ -18,7 +18,7 @@ defaults.colors = {
   type: 'boolean',
   // default: true
 };
-defaults.noColors = {
+defaults['no-colors'] = {
   // alias: [ 'C' ],
   type: 'boolean',
   // default: true
@@ -28,7 +28,7 @@ defaults.growl = {
   type: 'boolean',
   // default: true
 };
-defaults.testReporter = {
+defaults['test-reporter'] = {
   alias: ['reporter', 'R'],
   type: 'string',
   default: 'spec'
@@ -70,11 +70,11 @@ defaults.ui = {
   type: 'string',
   default: 'bdd'
 };
-defaults.checkLeaks = {
+defaults['check-leaks'] = {
   type: 'boolean',
   // default: false,
 };
-defaults.fullTrace = {
+defaults['full-trace'] = {
   type: 'boolean',
   // default: false,
 };
@@ -82,15 +82,11 @@ defaults.globals = {
   type: 'array',
   // default: false,
 };
-defaults.globals = {
-  type: 'array',
-  // default: false,
-};
-defaults.noExit = {
+defaults['no-exit'] = {
   type: 'boolean',
   // default: false,
 };
-defaults.noTimeouts = {
+defaults['no-timeouts'] = {
   type: 'boolean',
   // default: false,
 };
