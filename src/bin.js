@@ -3,6 +3,7 @@ import config from './config';
 import log from './utils/logger';
 import handleErrors from './utils/error';
 import mochista from '.';
+import { resetEntireRequireCache } from './utils/reset-cache';
 
 process.stdin.setEncoding('utf8');
 process.stdin.setRawMode(true);
@@ -20,7 +21,7 @@ async function main() {
 
   const { run } = await mochista(config);
 
-  const keyPressLog = () => log('Press \'r\' (or \'a\') to re-run all tests');
+  const keyPressLog = () => log('Press \'r\' to re-run all tests (\'a\' to reset entire cache)');
 
   await run();
 
@@ -39,6 +40,9 @@ async function main() {
     log.verb('You entered:', JSON.stringify(input));
     if (!(input === 'r' || 'a' === input)) {
       return;
+    }
+    if ('a' === input) {
+      resetEntireRequireCache();
     }
     try {
       await run();

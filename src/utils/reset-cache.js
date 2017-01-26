@@ -13,3 +13,12 @@ export default function resetRequireCache(filesToDelete, {root = process.cwd()} 
     }
   }
 }
+
+export function resetEntireRequireCache() {
+  log.warn(`Resetting entire require cache`)
+
+  for (const cacheFile in require.cache) {
+    log.silly('', cacheFile);
+    delete require.cache[cacheFile];
+  }
+}
