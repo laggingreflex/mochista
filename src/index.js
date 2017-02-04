@@ -2,11 +2,12 @@ import { defaults } from './config/defaults';
 import Mocha from './mocha';
 import Watcher from './watcher';
 import resetRequireCache from '.../utils/reset-cache';
-import log from '.../utils/logger';
+import log, { config as configLogger } from '.../utils/logger';
 import { instrument, report } from './istanbul';
 
 export default async function mochista(configArg) {
-  const config = {...defaults, ...configArg };
+  const config = { ...defaults, ...configArg };
+  configLogger(config);
 
   const {
     watcher,
@@ -16,7 +17,7 @@ export default async function mochista(configArg) {
     initialSourceFiles,
   } = await Watcher(config);
 
-  const mocha = await Mocha({...config });
+  const mocha = await Mocha({ ...config });
   await mocha.load();
   await instrument({ files: initialSourceFiles, ...config });
 
@@ -45,7 +46,7 @@ export default async function mochista(configArg) {
         await resetRequireCache(allFiles);
         await mocha.run({ files: testFiles });
       }
-      await report({...config });
+      await report({ ...config });
       log.timeEnd('Total run time', 'info');
     } catch (err) {
       if (config.watch) {
