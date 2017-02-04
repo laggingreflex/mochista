@@ -1,7 +1,7 @@
 import { defaults } from './config/defaults';
 import Mocha from './mocha';
 import Watcher from './watcher';
-import resetRequireCache from '.../utils/reset-cache';
+import resetRequireCache, { resetEntireRequireCache } from '.../utils/reset-cache';
 import log, { config as configLogger } from '.../utils/logger';
 import { instrument, report } from './istanbul';
 
@@ -40,7 +40,11 @@ export default async function mochista(configArg) {
     try {
       log.time('Total run time');
       if (changedTestFiles.length && !config.all) {
-        await resetRequireCache(changedFiles);
+        if (config.all) {
+          await resetEntireRequireCache(changedFiles);
+        } else {
+          await resetRequireCache(changedFiles);
+        }
         await mocha.run({ files: changedTestFiles });
       } else {
         await resetRequireCache(allFiles);
