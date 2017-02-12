@@ -36,11 +36,18 @@ export default function init({
     watcher.once('ready', _resolve);
     watcher.once('error', _reject);
     const timeoutSecs = 3;
-    const timer = setTimeout(timeout, timeoutSecs * 1000);
+    let timer;
+    const extendTimeout = () => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(timeout, timeoutSecs * 1000);
+    }
+    extendTimeout();
+    watcher.on('all', extendTimeout);
 
     function _reject(error) {
       clearTimeout(timer);
       watcher.removeListener('ready', _resolve);
+      watcher.removeListener('all', extendTimeout);
       watcher.close();
       reject(error);
     }
@@ -48,6 +55,7 @@ export default function init({
     function _resolve() {
       clearTimeout(timer);
       watcher.removeListener('error', _reject);
+      watcher.removeListener('all', extendTimeout);
       const watchedPaths = watcher.getWatched();
       log.sil(`Watched paths:`, watchedPaths)
       resolve(watcher);
