@@ -9,11 +9,16 @@ export default async function Report({
   coverageReporter: reporters,
   verbose = false,
   watermarks = true,
+  instrument,
 } = {}) {
   const coverage = global[coverageVariable];
 
   if (!coverage) {
-    throw new Error(`Couldn't collect coverage. \`global['${coverageVariable}']\` was empty. Make sure \`coverageVariable\` is configured properly`);
+    if (instrument === false) {
+      throw new Error(`Couldn't collect coverage. \`global['${coverageVariable}']\` was empty. It seems you've set \`--instrument=false\`, please make sure you're instrumenting code externally (eg. via babel-plugin-istanbul) and that the instrumented code is available in the global coverage variable: ${coverageVariable}`);
+    } else {
+      throw new Error(`Couldn't collect coverage. \`global['${coverageVariable}']\` was empty.`);
+    }
   }
 
   let sourceMapCache;
