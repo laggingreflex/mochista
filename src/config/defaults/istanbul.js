@@ -36,6 +36,11 @@ defaults.checkCoverage = {
   // default: false
 };
 
+defaults.instrument = {
+  type: 'boolean',
+  default: true,
+};
+
 defaults.coverageVariable = {
   type: 'string',
   default: '__coverage__'
@@ -48,6 +53,5 @@ defaults.sourceMapCacheVariable = {
   type: 'string',
   default: '__source_map_cache__'
 };
-
 
 export default defaults;

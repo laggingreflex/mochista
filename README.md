@@ -195,6 +195,12 @@ Checkout [chokidar#449]. It will try to continue on after that warning given tha
 
 If Mochista fails to monitor the files you specified, try to simplify or reduce the glob patterns specified. See chokidar#561.
 
+####  Invalid coverage with babel
+
+In some cases you might see inaccurate coverage reports when using babel: [nyc#501](https://github.com/istanbuljs/nyc/issues/501)
+
+Use [babel-plugin-istanbul] with `--instrument=false` to solve this issue.
+
 
 [scr]: misc/scr.gif
 
@@ -212,4 +218,7 @@ If Mochista fails to monitor the files you specified, try to simplify or reduce 
 [mocha-istanbul]: https://github.com/arikon/mocha-istanbul
 [mocha-lcov-reporter]: https://github.com/StevenLooman/mocha-lcov-reporter
 
+[babel-plugin-istanbul]: https://github.com/istanbuljs/babel-plugin-istanbul
+
 [pita]: http://www.urbandictionary.com/define.php?term=pita
+
