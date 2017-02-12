@@ -17,8 +17,9 @@ export function resetEntireRequireCache() {
   log.warn('Resetting entire require cache');
 
   for (const cacheFile in require.cache) {
+    // if (require.cache.hasOwnProperty(cacheFile) && !cacheFile.includes('node_modules')) {
     if (require.cache.hasOwnProperty(cacheFile)) {
-      log.silly('', cacheFile);
+      log.verb('', cacheFile);
       delete require.cache[cacheFile];
     }
   }
