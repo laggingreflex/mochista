@@ -53,7 +53,7 @@ export default async function mochista(configArg) {
         await resetRequireCache(allFiles);
         await mocha.run({ files: testFiles });
       }
-      await report({ ...config });
+      await report({ ...config, sourceFiles });
       log.timeEnd('Total run time', 'info');
     } catch (err) {
       if (config.watch) {

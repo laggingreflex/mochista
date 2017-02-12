@@ -1,3 +1,4 @@
+import Path from 'path';
 import log from '.../utils/logger';
 import collect from './collector';
 import report from './reporter';
@@ -10,7 +11,11 @@ export default async function Report({
   verbose = false,
   watermarks = true,
   instrument,
+  sourceFiles,
+  root,
 } = {}) {
+  sourceFiles = sourceFiles.map(s => Path.join(root, s));
+
   const coverage = global[coverageVariable];
 
   if (!coverage) {
@@ -18,6 +23,12 @@ export default async function Report({
       throw new Error(`Couldn't collect coverage. \`global['${coverageVariable}']\` was empty. It seems you've set \`--instrument=false\`, please make sure you're instrumenting code externally (eg. via babel-plugin-istanbul) and that the instrumented code is available in the global coverage variable: ${coverageVariable}`);
     } else {
       throw new Error(`Couldn't collect coverage. \`global['${coverageVariable}']\` was empty.`);
+    }
+  }
+
+  for (const file in coverage) {
+    if (!sourceFiles.includes(file)) {
+      delete coverage[file]
     }
   }
 
