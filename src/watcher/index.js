@@ -108,14 +108,18 @@ export default async function Watcher({
           log.vrb(`Changed sourceFiles: ${changedSourceFiles.length}/${sourceFiles.length}`);
           changedSourceFiles.reverse().forEach(f => log.sil('', f))
         }
-        run({
-          allFiles: allFiles(),
-          testFiles,
-          sourceFiles,
-          changedFiles,
-          changedTestFiles,
-          changedSourceFiles,
-        })
+        if (changedTestFiles.length || changedSourceFiles.length) {
+          run({
+            allFiles: allFiles(),
+            testFiles,
+            sourceFiles,
+            changedFiles,
+            changedTestFiles,
+            changedSourceFiles,
+          })
+        } else {
+          log.sil(`No relevant files changed`);
+        }
       }
     });
   }
