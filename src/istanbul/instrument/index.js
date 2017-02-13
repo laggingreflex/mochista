@@ -12,13 +12,14 @@ export default function instrument({
   preserveComments = true,
   extensions = ['.js'],
   verbose = 0,
+  instrument: shouldInstrument,
 } = {}) {
   global[coverageVariable] = global[coverageVariable] || {};
 
   const hookOpts = { extensions, verbose: verbose > 3 };
   hookRequire(
     matcher({ files }),
-    transformer({ root, coverageVariable, transformerCacheVariable, sourceMapCacheVariable, cacheDir, verbose }),
+    transformer({ root, coverageVariable, transformerCacheVariable, sourceMapCacheVariable, cacheDir, verbose, instrument: shouldInstrument }),
     hookOpts
   );
 }
