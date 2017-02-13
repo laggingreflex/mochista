@@ -17,7 +17,6 @@ export default function createTransformerFn({
   disableCache = false,
   ext = '.js',
   verbose = false,
-  instrument: shouldInstrument,
 }) {
   const transformerCache = global[transformerCacheVariable] = global[transformerCacheVariable] || {};
   const sourceMapCache = global[sourceMapCacheVariable] = global[sourceMapCacheVariable] || createSourceMapStore();
@@ -62,14 +61,8 @@ export default function createTransformerFn({
     }
 
     if (!instrumentedCode) {
-      if (shouldInstrument === false) {
-        // assume the code is already instrumented
-        instrumentedCode = code;
-        log.vrb(pad(39, `Instrumentation skipped for file:`), file);
-      } else {
-        instrumentedCode = instrument(code, file);
-        log.vrb(pad(39, `Instrumentation generated for file:`), file);
-      }
+      instrumentedCode = instrument(code, file);
+      log.vrb(pad(39, `Instrumentation generated for file:`), file);
       hasChanged = true;
     }
 
@@ -87,3 +80,4 @@ export default function createTransformerFn({
     return instrumentedCode;
   };
 };
+

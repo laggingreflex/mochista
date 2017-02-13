@@ -20,7 +20,9 @@ export default async function mochista(configArg) {
   const mocha = await Mocha({ ...config });
   await mocha.load();
 
-  await instrument({ files: initialSourceFiles, ...config });
+  if (config.instrument !== false) {
+    await instrument({ files: initialSourceFiles, ...config });
+  }
 
   let running = false;
   let firstTime = true;
