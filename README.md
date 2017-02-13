@@ -201,6 +201,7 @@ In some cases you might see inaccurate coverage reports when using babel: [nyc#5
 
 Use [babel-plugin-istanbul] with `--instrument=false` to solve this issue.
 
+This will however take a hit on speed because it won't be able to cache the instrumentation.
 
 [scr]: misc/scr.gif
 
