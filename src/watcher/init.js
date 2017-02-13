@@ -97,7 +97,7 @@ export function onChange({
       }
     }
     return run({ changedFiles, ...separatedFiles });
-  }, debounceDelay);
+  }, debounceDelay, { sleep: true });
   events.forEach(event => watcher
     .on(event, path =>
       debounced(normalize(path))));
