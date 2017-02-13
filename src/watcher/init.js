@@ -70,7 +70,7 @@ export default function init({
       resolved = true;
       watcher.removeListener('ready', _resolve);
       watcher.removeListener('error', _reject);
-      log.warn(`Timed out (${timeoutSecs}s) waiting for watcher "ready" event. Proceeding anyway... (report this in case of some weird behavior)`);
+      log.warn(`Timed out waiting for watcher "ready" event. Proceeding anyway... (See #chokidar issue in the README)`);
       const watchedPaths = watcher.getWatched();
       log.sil('Watched paths:', watchedPaths);
       resolve(watcher);
