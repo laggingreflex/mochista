@@ -1,6 +1,6 @@
 {
   "name": "mochista",
-  "version": "0.7.6",
+  "version": "0.8.0",
   "description": "Mocha + Istanbul in a single process",
   "main": "./index.js",
   "bin": "./bin.js",
