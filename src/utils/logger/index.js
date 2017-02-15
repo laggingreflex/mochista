@@ -10,23 +10,17 @@ export const config = (config, namespace = pkg.name) => {
     colors: config.noColors ? false : config.colors,
   };
 
-  debugLogger.debug.enable(namespace + ':log');
-  debugLogger.debug.enable(namespace + ':error');
-  debugLogger.debug.enable(namespace + ':warn');
-  if (config.debug) {
-    debugLogger.debug.enable(namespace + ':debug');
-  }
-  if (config.verbose >= 1) {
-    debugLogger.debug.enable(namespace + ':debug');
-    debugLogger.debug.enable(namespace + ':verb');
-  }
-  if (config.verbose >= 2) {
-    debugLogger.debug.enable(namespace + ':info');
-  }
-  if (config.verbose >= 3) {
-    debugLogger.debug.enable(namespace + ':*');
-  }
-  // debugLogger.debug.enable(namespace + ':*');
+  debugLogger.debug.enable(Object.entries({
+    log: true,
+    error: true,
+    warn: true,
+    debug: config.debug || config.verbose >= 1,
+    info: config.verbose >= 2,
+    verbose: config.verbose,
+    silly: config.verbose >= 3,
+    trace: config.verbose >= 3,
+    '*': config.verbose >= 3,
+  }).filter(([, v]) => v).map(([l]) => l).map(e => namespace + ':' + e).join(','));
 };
 
 export function createLogger(namespace = pkg.name, argConfig = {}) {
