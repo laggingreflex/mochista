@@ -39,6 +39,7 @@
     "req-from": "^1.0.1",
     "require-up": "^0.4.0",
     "source-map-support": "^0.4.11",
+    "update-notifier": "^2.1.0",
     "yargs": "^6.6.1-candidate.4"
   },
   "devDependencies": {

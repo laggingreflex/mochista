@@ -6,6 +6,8 @@ require('source-map-support/register');
 require('require-up/register');
 try { require('babel-polyfill'); } catch (noop) {}
 
+require('update-notifier')({ pkg: require('./package.json') }).notify({ defer: false });
+
 try {
   module.exports = require('./dist/bin');
 } catch (err) {
