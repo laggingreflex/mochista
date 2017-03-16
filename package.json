@@ -5,7 +5,8 @@
   "main": "./index.js",
   "bin": "./bin.js",
   "scripts": {
-    "build": "rimraf dist && babel src -d dist --source-maps"
+    "build": "rimraf dist && babel src -d dist --source-maps",
+    "prepublish": "npm run build"
   },
   "repository": "laggingreflex/mochista",
   "author": "laggingreflex@gmail.com",
