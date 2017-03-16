@@ -4,6 +4,7 @@
 
 require('source-map-support/register');
 require('require-up/register');
+try { require('babel-polyfill'); } catch (noop) {}
 
 try {
   module.exports = require('./dist/bin');
