@@ -80,11 +80,3 @@ export default async function mochista(configArg) {
 
   return { watcher, mocha, onChange, run };
 }
-
-
-process.once('close', process.exit);
-process.once('exit', process.exit);
-process.once('uncaughtException', process.exit);
-process.once('SIGTERM', process.exit);
-process.once('SIGINT', process.exit);
-process.once('SIGHUP', process.exit);
