@@ -38,8 +38,11 @@ async function main() {
       return;
     }
     log.verb('You entered:', JSON.stringify(input));
-    if (!(input === 'r' || 'a' === input)) {
+    if (!(input === 'r' || 'a' === input || 'q' === input)) {
       return;
+    }
+    if('q' === input) {
+        process.exit(0);
     }
     if ('a' === input) {
       resetEntireRequireCache();
