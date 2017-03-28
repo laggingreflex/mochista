@@ -37,21 +37,41 @@ async function main() {
     if (!input) {
       return;
     }
-    log.verb('You entered:', JSON.stringify(input));
-    if (!(input === 'r' || 'a' === input || 'q' === input)) {
-      return;
-    }
-    if('q' === input) {
-        process.exit(0);
-    }
-    if ('a' === input) {
-      resetEntireRequireCache();
-    }
-    try {
-      await run();
-      keyPressLog();
-    } catch (err) {
-      console.error(err);
+
+    log.verb(`You entered: ${input} (${JSON.stringify(input)})`);
+
+    const restart = async() => {
+      try {
+        await run();
+        keyPressLog();
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    const exit = () => {
+      log.verb('Exiting');
+      process.exit(0);
+    };
+
+    const inputMapFns = {
+      r: restart,
+      a: () => {
+        resetEntireRequireCache();
+        restart();
+      },
+      q: exit,
+      '♥': exit,
+      '\\u0003': exit,
+      '"\\u0003"': exit,
+    };
+
+    if (inputMapFns[input]) {
+      inputMapFns[input]()
+    } else if (inputMapFns[JSON.stringify(input)]) {
+      inputMapFns[JSON.stringify(input)]()
+    } else {
+      log.silly('Nothing to do for that input');
     }
   }
 }
