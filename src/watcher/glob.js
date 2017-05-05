@@ -52,11 +52,11 @@ export async function glob({
   });
 
   if (!files.length) {
-    throw new Error(`ERROR: Couldn't find any {${pLabel}: ${files.length}}. Check your include/exclude glob pattern.`);
+    throw new Error(`ERROR: Couldn't find any {${pLabel}: ${files.length}}. Check your include/exclude glob pattern.\n{ include: ${include}, exclude: ${exclude} }`);
   }
   if (files.length > fileCountLimit) {
     log.verbose(files);
-    throw new Error(`ERROR: Too many {${pLabel}: ${files.length}}. Check your include/exclude glob patterns or increase {fileCountLimit: ${fileCountLimit}}`);
+    throw new Error(`ERROR: Too many {${pLabel}: ${files.length}}. Check your include/exclude glob patterns or increase {fileCountLimit: ${fileCountLimit}}\n{ include: ${include}, exclude: ${exclude} }`);
   }
 
   log.verbose(_.capitalize(pLabel), 'found:', files.length);
