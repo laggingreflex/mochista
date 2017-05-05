@@ -41,7 +41,7 @@ export async function glob({
 
   const pLabel = _.startCase(label).toLowerCase();
 
-  log.verb(`Globing ${pLabel}...`);
+  log.verbose(`Globing ${pLabel}...`);
 
   const files = await _glob([
     ...include,
@@ -55,12 +55,12 @@ export async function glob({
     throw new Error(`ERROR: Couldn't find any {${pLabel}: ${files.length}}. Check your include/exclude glob pattern.`);
   }
   if (files.length > fileCountLimit) {
-    log.verb(files);
+    log.verbose(files);
     throw new Error(`ERROR: Too many {${pLabel}: ${files.length}}. Check your include/exclude glob patterns or increase {fileCountLimit: ${fileCountLimit}}`);
   }
 
-  log.verb(_.capitalize(pLabel), 'found:', files.length);
-  files.reverse().forEach(f => log.sil('', f));
+  log.verbose(_.capitalize(pLabel), 'found:', files.length);
+  files.reverse().forEach(f => log.silly('', f));
 
   return files;
 }

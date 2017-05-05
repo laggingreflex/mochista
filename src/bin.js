@@ -38,7 +38,7 @@ async function main() {
       return;
     }
 
-    log.verb(`You entered: ${input} (${JSON.stringify(input)})`);
+    log.verbose(`You entered: ${input} (${JSON.stringify(input)})`);
 
     const restart = async() => {
       try {
@@ -50,7 +50,7 @@ async function main() {
     };
 
     const exit = () => {
-      log.verb('Exiting');
+      log.verbose('Exiting');
       process.exit(0);
     };
 

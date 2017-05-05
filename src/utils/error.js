@@ -2,7 +2,7 @@ import config from '.../config';
 import log from '.../utils/logger';
 
 export default function handleErrors(err) {
-  log.err(err);
+  log.error(err);
 
   // process.exit(err.exitcode || 1);
 }

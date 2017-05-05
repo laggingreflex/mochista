@@ -8,7 +8,7 @@ const MODULE_NOT_FOUND = 'MODULE_NOT_FOUND';
 
 export function tryRequire(path, root) {
   assert(path, 'Need a path to require');
-  log.verb(`Requiring '${path}'...`);
+  log.verbose(`Requiring '${path}'...`);
   const ret = requireNative(path)
     || resolveFromRoot(path, root)
     || requireFromRoot(path, root);

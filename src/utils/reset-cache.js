@@ -3,7 +3,7 @@ import log from '.../utils/logger';
 
 export default function resetRequireCache(filesToDelete, { root = process.cwd() } = {}) {
   filesToDelete = filesToDelete.map(f => path.resolve(root, f));
-  log.verb(`Resetting ${filesToDelete.length} files`);
+  log.verbose(`Resetting ${filesToDelete.length} files`);
 
   for (const cacheFile in require.cache) {
     if (filesToDelete.includes(cacheFile)) {
@@ -19,7 +19,7 @@ export function resetEntireRequireCache() {
   for (const cacheFile in require.cache) {
     // if (require.cache.hasOwnProperty(cacheFile) && !cacheFile.includes('node_modules')) {
     if (require.cache.hasOwnProperty(cacheFile)) {
-      log.verb('', cacheFile);
+      log.verbose('', cacheFile);
       delete require.cache[cacheFile];
     }
   }

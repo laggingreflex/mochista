@@ -45,24 +45,24 @@ export default function createTransformerFn({
       const json = readJSONSync(cacheFile);
       if (json.hash === codeHash) {
         instrumentedCode = json.code;
-        log.vrb(pad(39, `Instrumentation loaded from cache for:`), file);
+        log.verbose(pad(39, `Instrumentation loaded from cache for:`), file);
       }
     } catch (err) {
-      log.vrb(pad(39, `Instrumentation loaded from cache for:`), file);
-      log.sil(pad(39, `Couldn't read cache from cache-dir for:`), file, err.message, `[this is expected on the first ever run]`);
+      log.verbose(pad(39, `Instrumentation loaded from cache for:`), file);
+      log.silly(pad(39, `Couldn't read cache from cache-dir for:`), file, err.message, `[this is expected on the first ever run]`);
     }
 
     if (!instrumentedCode && transformerCache[file]) {
       const json = transformerCache[file];
       if (json && json.hash === codeHash) {
         instrumentedCode = json.code;
-        log.sil(pad(39, `Instrumentation loaded from memory for:`), file);
+        log.silly(pad(39, `Instrumentation loaded from memory for:`), file);
       }
     }
 
     if (!instrumentedCode) {
       instrumentedCode = instrument(code, file);
-      log.vrb(pad(39, `Instrumentation generated for file:`), file);
+      log.verbose(pad(39, `Instrumentation generated for file:`), file);
       hasChanged = true;
     }
 
@@ -71,9 +71,9 @@ export default function createTransformerFn({
     if (hasChanged) {
       try {
         outputJsonSync(cacheFile, transformerCache[file]);
-        log.sil(pad(39, `Instrumentation written to cache for:`), file);
+        log.silly(pad(39, `Instrumentation written to cache for:`), file);
       } catch (err) {
-        log.vrb(pad(39, `Couldn't cache Instrumentation for:`), file, err.message);
+        log.verbose(pad(39, `Couldn't cache Instrumentation for:`), file, err.message);
       }
     }
 

@@ -21,17 +21,17 @@ export default function init({
   assert(include && include.length, 'Need files to watch {include}');
 
   log('Readying watcher...');
-  log.verb(`Include ${include.length} files`);
-  include.forEach(f => log.sil('', f));
+  log.verbose(`Include ${include.length} files`);
+  include.forEach(f => log.silly('', f));
   if (exclude.length) {
-    log.verb(`Exclude ${exclude.length} files`);
-    exclude.forEach(f => log.sil('', f));
+    log.verbose(`Exclude ${exclude.length} files`);
+    exclude.forEach(f => log.silly('', f));
   }
   const watcher = watch(include, {
     cwd: root,
     ignored: exclude,
   });
-  watcher.on('all', (event, path, info) => log.sil('Watcher event:', event, path));
+  watcher.on('all', (event, path, info) => log.silly('Watcher event:', event, path));
   return new Promise((resolve, reject) => {
     watcher.once('ready', _resolve);
     watcher.once('error', _reject);
@@ -59,7 +59,7 @@ export default function init({
       watcher.removeListener('error', _reject);
       watcher.removeListener('all', debouncedTimeout);
       const watchedPaths = watcher.getWatched();
-      log.sil('Watched paths:', watchedPaths);
+      log.silly('Watched paths:', watchedPaths);
       resolve(watcher);
     }
 
@@ -72,7 +72,7 @@ export default function init({
       watcher.removeListener('error', _reject);
       log.warn(`Timed out waiting for watcher "ready" event. Proceeding anyway... (See #chokidar issue in the README)`);
       const watchedPaths = watcher.getWatched();
-      log.sil('Watched paths:', watchedPaths);
+      log.silly('Watched paths:', watchedPaths);
       resolve(watcher);
     }
   });

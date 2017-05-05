@@ -36,7 +36,7 @@ export default async function mochista(configArg) {
     changedSourceFiles = initialSourceFiles,
   } = {}) {
     if (running) {
-      log.verb('A previous version is already running');
+      log.verbose('A previous version is already running');
       return;
     }
     running = true;
@@ -57,7 +57,7 @@ export default async function mochista(configArg) {
       log.timeEnd('Total run time', 'info');
     } catch (err) {
       if (config.watch) {
-        log.err(err);
+        log.error(err);
       } else {
         throw err;
       }

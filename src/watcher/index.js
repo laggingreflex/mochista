@@ -56,13 +56,13 @@ export default async function Watcher({
     }) {
       if (addedTestFiles.length) {
         testFiles.push(...addedTestFiles);
-        log.vrb(`Added testFiles: +${addedTestFiles.length}=${testFiles.length}`);
-        addedTestFiles.reverse().forEach(f => log.sil('', f))
+        log.verbose(`Added testFiles: +${addedTestFiles.length}=${testFiles.length}`);
+        addedTestFiles.reverse().forEach(f => log.silly('', f))
       }
       if (addedSourceFiles.length) {
         sourceFiles.push(...addedSourceFiles);
-        log.vrb(`Added sourceFiles: +${addedSourceFiles.length}=${sourceFiles.length}`);
-        addedSourceFiles.reverse().forEach(f => log.sil('', f))
+        log.verbose(`Added sourceFiles: +${addedSourceFiles.length}=${sourceFiles.length}`);
+        addedSourceFiles.reverse().forEach(f => log.silly('', f))
       }
     }
   });
@@ -77,13 +77,13 @@ export default async function Watcher({
     }) {
       if (deletedTestFiles.length) {
         testFiles = testFiles.filter(f => !deletedTestFiles.some(d => mm.contains(f, d)));
-        log.vrb(`Removed testFiles: -${deletedTestFiles.length}=${testFiles.length}`);
-        deletedTestFiles.reverse().forEach(f => log.sil('', f))
+        log.verbose(`Removed testFiles: -${deletedTestFiles.length}=${testFiles.length}`);
+        deletedTestFiles.reverse().forEach(f => log.silly('', f))
       }
       if (deletedSourceFiles.length) {
         sourceFiles = sourceFiles.filter(f => !deletedSourceFiles.some(d => mm.contains(f, d)));
-        log.vrb(`Removed sourceFiles: -${deletedSourceFiles.length}=${sourceFiles.length}`);
-        deletedSourceFiles.reverse().forEach(f => log.sil('', f))
+        log.verbose(`Removed sourceFiles: -${deletedSourceFiles.length}=${sourceFiles.length}`);
+        deletedSourceFiles.reverse().forEach(f => log.silly('', f))
       }
     }
   });
@@ -97,16 +97,16 @@ export default async function Watcher({
         sourceFiles: changedSourceFiles,
       }) => {
         if (changedFiles.length) {
-          log.vrb(`Changed files: ${changedFiles.length}/${allFiles().length}`);
-          changedFiles.reverse().forEach(f => log.sil('', f))
+          log.verbose(`Changed files: ${changedFiles.length}/${allFiles().length}`);
+          changedFiles.reverse().forEach(f => log.silly('', f))
         }
         if (changedTestFiles.length) {
-          log.vrb(`Changed testFiles: ${changedTestFiles.length}/${testFiles.length}`);
-          changedTestFiles.reverse().forEach(f => log.sil('', f))
+          log.verbose(`Changed testFiles: ${changedTestFiles.length}/${testFiles.length}`);
+          changedTestFiles.reverse().forEach(f => log.silly('', f))
         }
         if (changedSourceFiles.length) {
-          log.vrb(`Changed sourceFiles: ${changedSourceFiles.length}/${sourceFiles.length}`);
-          changedSourceFiles.reverse().forEach(f => log.sil('', f))
+          log.verbose(`Changed sourceFiles: ${changedSourceFiles.length}/${sourceFiles.length}`);
+          changedSourceFiles.reverse().forEach(f => log.silly('', f))
         }
         if (changedTestFiles.length || changedSourceFiles.length) {
           run({
@@ -118,7 +118,7 @@ export default async function Watcher({
             changedSourceFiles,
           })
         } else {
-          log.sil(`No relevant files changed`);
+          log.silly(`No relevant files changed`);
         }
       }
     });
