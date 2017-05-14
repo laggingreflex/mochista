@@ -6,7 +6,7 @@
 
 Mochista uses Mocha and Istanbul's programatic API to run both in a single process yeilding fastest test results and coverage reports.
 
-Its `--watch` feature runs modified tests and generates coverage using cache for unmodofied files instantly:
+Its `--watch` feature runs modified tests and generates coverage using cache for unmodified files instantly:
 
 [![][scr]][scr]
 
