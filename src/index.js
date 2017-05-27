@@ -1,3 +1,4 @@
+import Path from 'path';
 import { defaults } from './config/defaults';
 import Mocha from './mocha';
 import Watcher from './watcher';
@@ -52,6 +53,12 @@ export default async function mochista(configArg) {
       } else {
         await resetRequireCache(allFiles);
         await mocha.run({ files: testFiles });
+      }
+      if (config.all) {
+        initialSourceFiles.forEach(file => {
+          log.verbose(`Requiring file: `, file);
+          require(Path.join(config.root, file));
+        });
       }
       await report({ ...config, sourceFiles });
       log.timeEnd('Total run time', 'info');
