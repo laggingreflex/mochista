@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import mocha from './mocha';
 import istanbul from './istanbul';
+import fix from './fix';
 
-const defaultConfig = {
+let defaultConfig = {
   ...mocha,
   ...istanbul,
 };
@@ -66,6 +67,11 @@ defaultConfig.fileCountLimit = {
   default: 1000
 };
 
+defaultConfig.instrument = {
+  type: 'boolean',
+  default: true
+};
+
 defaultConfig.browserSync = {
   alias: ['bs'],
   type: 'boolean',
@@ -87,6 +93,9 @@ defaultConfig.help = {
   alias: ['h', '?'],
   type: 'boolean'
 };
+
+
+defaultConfig = fix(defaultConfig)
 
 export default defaultConfig;
 
