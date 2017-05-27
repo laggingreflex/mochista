@@ -42,8 +42,8 @@ export default async function mochista(configArg) {
     running = true;
     try {
       log.time('Total run time');
-      if (changedTestFiles.length && !config.all) {
-        if (config.all) {
+      if (changedTestFiles.length && !config.runAll) {
+        if (config.runAll) {
           await resetEntireRequireCache(changedFiles);
         } else {
           await resetRequireCache(changedFiles);

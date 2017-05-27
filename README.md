@@ -64,7 +64,7 @@ mochista [OPTIONS] [test-files]
 
 --watch,                 Watch for file modification.
   -w                       Default: false
---all                    Run all tests on any test file modifications.
+--run-all                Run all tests on any test file modifications.
                            Default: false (runs only modified tests; still runs all tests on source modification)
 
 --help,                  Print this and exit.
@@ -180,7 +180,7 @@ assuming `foo.js` is considered a source file which will trigger all tests to be
 
 This is especially troublesome when using babel-rewire. It might fail to re-wire your dependencies.
 
-For this reason there's a third option, enabled by pressing "r" or using the switch `--all`, which resets all require cache for all test and all source files. This is probably the most fool proof way to re-run all tests. It's still a lot faster that running the process again.
+For this reason there's a third option, enabled by pressing "r" or using the switch `--run-all`, which resets all require cache for all test and all source files. This is probably the most fool proof way to re-run all tests. It's still a lot faster that running the process again.
 
 #### Chokidar
 

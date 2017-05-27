@@ -57,8 +57,7 @@ defaultConfig.watch = {
   type: 'boolean',
   default: false
 };
-defaultConfig.all = {
-  // alias: [ 'A' ],
+defaultConfig.runAll = {
   type: 'boolean',
   default: false
 };
