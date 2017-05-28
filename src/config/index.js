@@ -6,7 +6,7 @@ import defaults from './defaults';
 import fix from './fix';
 import merge from './merge';
 
-let config = yargs.options(defaults);
+let config = yargs.options(defaults).argv;
 const mochaOpts = getMochaOpts();
 const argv = fix(yargs.options(defaults).parse(process.argv.slice(2)));
 config = merge(config, mochaOpts, argv);

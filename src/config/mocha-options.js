@@ -22,7 +22,7 @@ export default function getOptions() {
       } catch (err) {}
   }
 
-  if (!opts) return;
+  if (!opts) return {};
 
   try {
     if (opts.match(/[\n\r]/)) {
