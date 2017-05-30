@@ -51,6 +51,11 @@ defaultConfig.testFilesExclude = {
   default: ['**/node_modules/**'],
   // default: defaults.sourceFilesExclude.default,
 };
+defaultConfig.extension = {
+  alias: ['extensions'],
+  type: 'array',
+  default: ['.coffee', '.jsx', '.ts', '.tsx'],
+};
 
 defaultConfig.watch = {
   alias: ['w'],

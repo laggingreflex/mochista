@@ -5,7 +5,7 @@ import fix from './fix';
 
 const args = process.argv;
 
-export default function getOptions() {
+export default function getMochaOptions() {
   let opts, optsPath = args.indexOf('--opts') > -1 && args[args.indexOf('--opts') + 1];
 
   if (optsPath) try {
