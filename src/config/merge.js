@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import arrify from 'arrify';
+import defaults from './defaults';
 
 export default function merge(...configs) {
   const mergedConfig = {};
@@ -7,12 +8,15 @@ export default function merge(...configs) {
     for (const key in newConfig) {
       const oldValue = mergedConfig[key];
       const newValue = newConfig[key];
+      const defaultValue = defaults[key] ? defaults[key].default : undefined;
       if (!(key in mergedConfig)) {
         mergedConfig[key] = newValue
       } else if (_.isArray(newValue) || _.isArray(oldValue)) {
         mergedConfig[key] = arrify(oldValue).concat(arrify(newValue));
       } else if (_.isPlainObject(newValue) && _.isPlainObject(oldValue)) {
         mergedConfig[key] = _.merge({}, oldValue, newValue);
+      } else if (defaultValue === newValue) {
+        mergedConfig[key] = oldValue;
       } else {
         mergedConfig[key] = newValue;
       }
