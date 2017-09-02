@@ -23,8 +23,11 @@ export function tryRequire(path, root) {
 export function requireNative(path) {
   log.silly(`requireNative: {path: '${path}'}`);
   try {
-    return require(path);
+    const ret = require(path);
+    log.silly(`success: requireNative: {path: '${path}'}`);
+    return ret;
   } catch (err) {
+    log.silly(`fail: requireNative: {path: '${path}'}`, err.message);
     if (err.code === MODULE_NOT_FOUND) {
       return false;
     } else {
@@ -38,8 +41,11 @@ export function resolveFromRoot(path, root) {
   const reqPath = join(root, path);
   log.silly(`resolveFromRoot: '${reqPath}'`);
   try {
-    return require(reqPath);
+    const ret = require(reqPath);
+    log.silly(`success: resolveFromRoot: '${reqPath}'`);
+    return ret;
   } catch (err) {
+    log.silly(`fail: resolveFromRoot: '${reqPath}'`, err.message);
     const erRex = path
     .replace(/^[./\\]+/, '')
     .replace(/[\\/]/g, '[\\\\/]');
@@ -56,8 +62,11 @@ export function requireFromRoot(path, root) {
   assert(root, 'Need a root path to require from');
   log.silly(`requireFromRoot: {path: '${path}'} from {root: '${root}'}`);
   try {
-    return reqFrom(root, path);
+    const ret = reqFrom(root, path);
+    log.silly(`success: requireFromRoot: {path: '${path}'} from {root: '${root}'}`);
+    return ret;
   } catch (err) {
+    log.silly(`fail: requireFromRoot: {path: '${path}'} from {root: '${root}'}`, err.message);
     if (err.message === 'missing path') {
       return false;
     } else {
