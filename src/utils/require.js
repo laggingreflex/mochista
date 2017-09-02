@@ -23,7 +23,7 @@ export function tryRequire(path, root) {
 export function requireNative(path) {
   log.silly(`requireNative: {path: '${path}'}`);
   try {
-    return module.require(path);
+    return require(path);
   } catch (err) {
     if (err.code === MODULE_NOT_FOUND) {
       return false;
@@ -38,7 +38,7 @@ export function resolveFromRoot(path, root) {
   const reqPath = join(root, path);
   log.silly(`resolveFromRoot: '${reqPath}'`);
   try {
-    return module.require(reqPath);
+    return require(reqPath);
   } catch (err) {
     const erRex = path
     .replace(/^[./\\]+/, '')
