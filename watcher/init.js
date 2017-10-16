@@ -79,7 +79,7 @@ module.exports = function init({
 }
 
 module.exports.createOnChange = function (watcher) {
-  return (opts) => onChange({ watcher, ...opts });
+  return (opts) => module.exports.onChange({ watcher, ...opts });
 }
 
 module.exports.onChange = function ({

@@ -6,8 +6,8 @@ module.exports = function initLoad({
   compilers,
   requires
 }) {
-  loadCompilers(compilers, root);
-  loadRequires(requires, root);
+  module.exports.loadCompilers(compilers, root);
+  module.exports.loadRequires(requires, root);
 }
 
 module.exports.loadCompilers = function (compilers, root) {
