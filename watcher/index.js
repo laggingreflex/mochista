@@ -3,7 +3,7 @@ const initWatcher, { createOnChange } = require('./init');
 const initGlobs = require('./glob');
 const log = require('.../utils/logger');
 
-export default async function Watcher({
+module.exports = async function Watcher({
   root,
   sourceFiles: sourceGlobs,
   sourceFilesExclude: sourceGlobsExclude,

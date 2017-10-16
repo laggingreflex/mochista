@@ -1,7 +1,7 @@
 const { tryRequire } = require('.../utils/require');
 const log = require('.../utils/logger');
 
-export default function initLoad({
+module.exports = function initLoad({
   root,
   compilers,
   requires

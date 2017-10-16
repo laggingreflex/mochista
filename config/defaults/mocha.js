@@ -95,4 +95,4 @@ defaults.noTimeouts = {
   // default: false,
 };
 
-export default defaults;
+module.exports = defaults;

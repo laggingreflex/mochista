@@ -1,7 +1,7 @@
 const Mocha = require('mocha');
 const log = require('.../utils/logger');
 
-export default function load(config) {
+module.exports = function load(config) {
   const mocha = new Mocha(config);
 
   if (config.colors) {

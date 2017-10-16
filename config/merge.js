@@ -2,7 +2,7 @@ const _ = require('lodash');
 const arrify = require('arrify');
 const defaults = require('./defaults');
 
-export default function merge(...configs) {
+module.exports = function merge(...configs) {
   const mergedConfig = {};
   for (const newConfig of configs) {
     for (const key in newConfig) {

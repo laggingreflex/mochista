@@ -1,6 +1,6 @@
 const levels = require('./levels');
 
-export default function modErr(logger) {
+module.exports = function modErr(logger) {
   logger._err = logger.err;
   logger.err = (...errs) => {
     const errObjects = [];

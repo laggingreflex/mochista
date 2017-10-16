@@ -2,7 +2,7 @@ const { hookRequire } = require('istanbul-lib-hook');
 const matcher = require('./matcher');
 const transformer = require('./transformer');
 
-export default function instrument({
+module.exports = function instrument({
   root,
   coverageVariable,
   transformerCacheVariable,

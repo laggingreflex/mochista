@@ -36,4 +36,4 @@ export function createLogger(namespace = pkg.name, argConfig = {}) {
   return log;
 }
 
-export default createLogger(pkg.name);
+module.exports = createLogger(pkg.name);

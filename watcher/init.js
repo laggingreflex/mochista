@@ -11,7 +11,7 @@ FSWatcher.prototype._addToNodeFs = function patched_addToNodeFs(path, initialAdd
   org_addToNodeFs.call(this, path, initialAdd, null, depth, target, callback);
 };
 
-export default function init({
+module.exports = function init({
   root,
   include,
   exclude = [],

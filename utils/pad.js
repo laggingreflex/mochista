@@ -1,7 +1,7 @@
 const ority = require('ority');
 const pad = require('pad-right');
 
-export default (...args) => {
+module.exports = (...args) => {
   let { str, len } = ority(args, [{
     str: 'string',
     len: 'number'

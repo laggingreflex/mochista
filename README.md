@@ -159,12 +159,12 @@ This is something that isn't trivial. [Jest] does a marvelous job at actually de
 But resetting the cache for only the changed files may cause undesired behavior in some cases. For example:
 ```
 // foo.js
-export default 'This is foo'
+module.exports = 'This is foo'
 ```
 ```
 // bar.js
 const foo = require('./foo')
-export default foo.replace('foo', 'bar')
+module.exports = foo.replace('foo', 'bar')
 ```
 ```
 // bar.test.js
@@ -174,7 +174,7 @@ assert(bar === 'This is bar')
 Now suppose you changed `foo.js`:
 ```
 // foo.js modified
-export default 'This is fuu' // this should make the above test fail
+module.exports = 'This is fuu' // this should make the above test fail
 ```
 assuming `foo.js` is considered a source file which will trigger all tests to be run, the `bar.test.js` test will still (incorrectly) pass! This is because `bar.test.js` and `bar.js` weren't modified, they're still cached by NodeJS which use the previously cached version of `foo.js`.
 

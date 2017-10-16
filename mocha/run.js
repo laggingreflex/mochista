@@ -2,7 +2,7 @@ const { promisify } = require('bluebird');
 const init = require('./init');
 const log = require('.../utils/logger');
 
-export default async function run({ files, ...config }) {
+module.exports = async function run({ files, ...config }) {
   log('Running mocha...');
   log.time('Mocha finished in');
 

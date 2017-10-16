@@ -38,4 +38,4 @@ levels.verb = levels.verbose;
 levels.vrb = levels.verbose;
 levels.err = levels.error;
 
-export default levels;
+module.exports = levels;

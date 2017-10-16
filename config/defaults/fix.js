@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const arrify = require('arrify');
 
-export default function fix(defaults) {
+module.exports = function fix(defaults) {
   defaults = duplicateAliases(defaults);
   return defaults;
 }

@@ -3,7 +3,7 @@ const log = require('.../utils/logger');
 const collect = require('./collector');
 const report = require('./reporter');
 
-export default async function Report({
+module.exports = async function Report({
   coverageVariable = '__coverage__',
   sourceMapCacheVariable,
   reportDir,

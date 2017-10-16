@@ -2,7 +2,7 @@ const load = require('./load');
 const run = require('./run');
 const log = require('.../utils/logger');
 
-export default async function Mocha({
+module.exports = async function Mocha({
   root,
   compilers,
   require: requires,

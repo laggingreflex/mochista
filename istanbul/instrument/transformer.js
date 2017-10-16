@@ -8,7 +8,7 @@ const log = require('.../utils/logger');
 const pkg = require('.../package.json');
 const pad = require('.../utils/pad');
 
-export default function createTransformerFn({
+module.exports = function createTransformerFn({
   root,
   coverageVariable,
   transformerCacheVariable,

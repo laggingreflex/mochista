@@ -96,6 +96,6 @@ defaultConfig.help = {
 
 defaultConfig = fix(defaultConfig)
 
-export default defaultConfig;
+module.exports = defaultConfig;
 
 export const defaults = _.mapValues(_.pickBy(defaultConfig, d => !_.isUndefined(d.default)), d => d.default);

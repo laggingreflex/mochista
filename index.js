@@ -7,7 +7,7 @@ const resetRequireCache, { resetEntireRequireCache } = require('.../utils/reset-
 const log, { config as configLogger } = require('.../utils/logger');
 const { instrument, report } = require('./istanbul');
 
-export default async function mochista(configArg) {
+module.exports = async function mochista(configArg) {
   const config = { ...defaults, ...configArg };
   configLogger(config);
 

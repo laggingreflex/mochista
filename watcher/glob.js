@@ -3,7 +3,7 @@ const { props } = require('bluebird');
 const _glob = require('globby');
 const log = require('.../utils/logger');
 
-export default async function init({
+module.exports = async function init({
   root = process.cwd(),
   sourceGlobs = [],
   sourceGlobsExclude = [],

@@ -3,7 +3,7 @@ const reports = require('istanbul-reports');
 const arrify = require('arrify');
 const log = require('.../utils/logger');
 
-export default async function report(coverageMap, {
+module.exports = async function report(coverageMap, {
   reportDir: dir = 'coverage',
   reporters = ['lcov', 'text'],
 } = {}) {

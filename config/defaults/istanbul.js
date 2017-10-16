@@ -54,4 +54,4 @@ defaults.sourceMapCacheVariable = {
   default: '__source_map_cache__'
 };
 
-export default defaults;
+module.exports = defaults;

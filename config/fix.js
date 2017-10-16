@@ -2,7 +2,7 @@ const _ = require('lodash');
 const arrify = require('arrify');
 const defaults = require('./defaults');
 
-export default function fix(config) {
+module.exports = function fix(config) {
   config = fixArrays(config);
   config = fixDuplicates(config);
   config = fixSourceAndTestFiles(config);

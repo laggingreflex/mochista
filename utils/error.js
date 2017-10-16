@@ -1,7 +1,7 @@
 const config = require('.../config');
 const log = require('.../utils/logger');
 
-export default function handleErrors(err) {
+module.exports = function handleErrors(err) {
   log.error(err);
 
   // process.exit(err.exitcode || 1);

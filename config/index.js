@@ -16,4 +16,4 @@ if (config.help) {
   printUsage(1);
 }
 
-export default config;
+module.exports = config;
