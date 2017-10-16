@@ -4,13 +4,13 @@ module.exports = function modErr(logger) {
   logger._err = logger.err;
   logger.err = (...errs) => {
     const errObjects = [];
-    let _logger = ::logger._err;
+    let _logger = logger._err.bind(logger);
     errs = errs.map((err, i) => {
       if (err && err.message) {
         errObjects.push(err);
         return err.message;
       } else if (i == errs.length - 1 && Object.keys(levels).includes(err)) {
-        _logger = ::logger[err];
+        _logger = logger[err].bind(logger);
         return '__remove__';
       } else {
         return err;

@@ -7,5 +7,5 @@ module.exports = function handleErrors(err) {
   // process.exit(err.exitcode || 1);
 }
 
-process.on('unhandledRejection', handleErrors);
-process.on('uncaughtException', handleErrors);
+process.on('unhandledRejection', module.exports);
+process.on('uncaughtException', module.exports);

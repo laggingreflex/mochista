@@ -33,7 +33,7 @@
     "require-up": "^0.4.0",
     "source-map-support": "^0.4.11",
     "update-notifier": "^2.1.0",
-    "yargs": "^8.0.1",
+    "yargs": "^9.1.0",
     "yargs-parser": "^7.0.0"
   },
   "devDependencies": {

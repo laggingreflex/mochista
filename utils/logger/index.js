@@ -24,7 +24,7 @@ module.exports.config = (config, namespace = pkg.name) => {
 };
 
 module.exports.createLogger = function (namespace = pkg.name, argConfig = {}) {
-  config(argConfig, namespace);
+  module.exports.config(argConfig, namespace);
 
   const logger = debugLogger(namespace);
 
@@ -36,4 +36,4 @@ module.exports.createLogger = function (namespace = pkg.name, argConfig = {}) {
   return log;
 }
 
-module.exports = createLogger(pkg.name);
+module.exports = module.exports.createLogger(pkg.name);

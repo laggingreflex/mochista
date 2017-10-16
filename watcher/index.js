@@ -1,5 +1,5 @@
 const mm = require('micromatch');
-const initWatcher, { createOnChange } = require('./init');
+const initWatcher = require('./init');
 const initGlobs = require('./glob');
 const log = require('../utils/logger');
 
@@ -46,7 +46,7 @@ module.exports = async function Watcher({
     sourceFiles: sourceGlobs.concat(testGlobs.map(g => `!${g}`)),
   };
 
-  createOnChange(watcher)({
+  initWatcher.createOnChange(watcher)({
     events: ['add'],
     separateByGlobs,
     run({
@@ -67,7 +67,7 @@ module.exports = async function Watcher({
     }
   });
 
-  createOnChange(watcher)({
+  initWatcher.createOnChange(watcher)({
     events: ['unlink'],
     separateByGlobs,
     run({
@@ -89,7 +89,7 @@ module.exports = async function Watcher({
   });
 
   function onChangeCreator({ run }) {
-    createOnChange(watcher)({
+    initWatcher.createOnChange(watcher)({
       separateByGlobs,
       run: ({
         changedFiles,

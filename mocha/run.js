@@ -10,7 +10,7 @@ module.exports = async function run({ files, ...config }) {
   mocha.files = files;
 
   try {
-    await promisify(::mocha.run)();
+    await promisify(mocha.run.bind(mocha))();
   } catch (err) {
     if (!err.message.match(/^[0-9]+$/))
       throw err;
