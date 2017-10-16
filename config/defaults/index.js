@@ -15,12 +15,13 @@ defaultConfig.root = {
 defaultConfig.sourceFiles = {
   alias: ['include'],
   type: 'array',
-  default: [
-    // '**/*.{js,coffee}',
-    // './**/*.{js,coffee}',
-    '{src,lib}/**/*.{js,coffee}',
-    '*.{js,coffee}',
-  ]
+  default: ['**/*.js', ],
+  // default: [
+  //   // '**/*.{js,coffee}',
+  //   // './**/*.{js,coffee}',
+  //   '{src,lib}/**/*.{js,coffee}',
+  //   '*.{js,coffee}',
+  // ]
 };
 defaultConfig.sourceFilesExclude = {
   alias: ['exclude'],
@@ -29,21 +30,26 @@ defaultConfig.sourceFilesExclude = {
     // 'node_modules',
     // '*node_modules*',
     'node_modules/**',
+    '.git/**',
     // './node_modules/**',
     // './**node_modules**/**',
     // '**/node_modules/**',
     // '**node_modules**/**',
     // '**/**node_modules**/**',
     'coverage/**',
-  ]
+  ],
 };
 defaultConfig.testFiles = {
   type: 'array',
   default: [
-    '*{test,tests}*.{js,coffee}',
-    '{test,tests,__test__,__tests__}/**/*.{js,coffee}',
-    '{src,lib}/**/*.{test,spec}.{js,coffee}'
-  ]
+    '**/*test.js',
+    '*test*/**/*.js',
+  ],
+  // default: [
+  //   '*{test,tests}*.{js,coffee}',
+  //   '{test,tests,__test__,__tests__}/**/*.{js,coffee}',
+  //   '{src,lib}/**/*.{test,spec}.{js,coffee}',
+  // ],
 };
 defaultConfig.testFilesExclude = {
   alias: ['ignore'],
