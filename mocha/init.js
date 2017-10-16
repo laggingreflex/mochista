@@ -1,5 +1,5 @@
-import Mocha from 'mocha';
-import log from '.../utils/logger';
+const Mocha = require('mocha');
+const log = require('.../utils/logger');
 
 export default function load(config) {
   const mocha = new Mocha(config);

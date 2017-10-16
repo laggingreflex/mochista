@@ -1,7 +1,7 @@
-import { createContext, summarizers } from 'istanbul-lib-report';
-import reports from 'istanbul-reports';
-import arrify from 'arrify';
-import log from '.../utils/logger';
+const { createContext, summarizers } = require('istanbul-lib-report');
+const reports = require('istanbul-reports');
+const arrify = require('arrify');
+const log = require('.../utils/logger');
 
 export default async function report(coverageMap, {
   reportDir: dir = 'coverage',

@@ -1,7 +1,7 @@
-import Path from 'path';
-import log from '.../utils/logger';
-import collect from './collector';
-import report from './reporter';
+const Path = require('path');
+const log = require('.../utils/logger');
+const collect = require('./collector');
+const report = require('./reporter');
 
 export default async function Report({
   coverageVariable = '__coverage__',

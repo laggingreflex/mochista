@@ -1,4 +1,4 @@
-import levels from './levels';
+const levels = require('./levels');
 
 export default function modErr(logger) {
   logger._err = logger.err;

@@ -1,5 +1,5 @@
-import _ from 'lodash';
-import arrify from 'arrify';
+const _ = require('lodash');
+const arrify = require('arrify');
 
 export default function fix(defaults) {
   defaults = duplicateAliases(defaults);

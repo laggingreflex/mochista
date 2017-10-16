@@ -2,12 +2,12 @@
 
 import 'require-up/register';
 // require('update-notifier')({ pkg: require('./package.json') }).notify({ defer: false });
-import { spawn } from 'child_process';
-import config from './config';
-import log from './utils/logger';
-import handleErrors from './utils/error';
-import mochista from '.';
-import { resetEntireRequireCache } from './utils/reset-cache';
+const { spawn } = require('child_process');
+const config = require('./config');
+const log = require('./utils/logger');
+const handleErrors = require('./utils/error');
+const mochista = require('.');
+const { resetEntireRequireCache } = require('./utils/reset-cache');
 
 process.stdin.setEncoding('utf8');
 process.stdin.setRawMode(true);

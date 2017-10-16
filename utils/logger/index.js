@@ -1,7 +1,7 @@
-import debugLogger from 'debug-logger';
-import pkg from '.../package.json';
-import levels from './levels';
-import modErr from './err';
+const debugLogger = require('debug-logger');
+const pkg = require('.../package.json');
+const levels = require('./levels');
+const modErr = require('./err');
 
 debugLogger.levels = levels;
 

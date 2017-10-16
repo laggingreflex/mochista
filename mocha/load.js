@@ -1,5 +1,5 @@
-import { tryRequire } from '.../utils/require';
-import log from '.../utils/logger';
+const { tryRequire } = require('.../utils/require');
+const log = require('.../utils/logger');
 
 export default function initLoad({
   root,

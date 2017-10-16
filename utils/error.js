@@ -1,5 +1,5 @@
-import config from '.../config';
-import log from '.../utils/logger';
+const config = require('.../config');
+const log = require('.../utils/logger');
 
 export default function handleErrors(err) {
   log.error(err);

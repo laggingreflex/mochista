@@ -1,6 +1,6 @@
-import { hookRequire } from 'istanbul-lib-hook';
-import matcher from './matcher';
-import transformer from './transformer';
+const { hookRequire } = require('istanbul-lib-hook');
+const matcher = require('./matcher');
+const transformer = require('./transformer');
 
 export default function instrument({
   root,

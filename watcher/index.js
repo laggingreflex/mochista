@@ -1,7 +1,7 @@
-import mm from 'micromatch';
-import initWatcher, { createOnChange } from './init';
-import initGlobs from './glob';
-import log from '.../utils/logger';
+const mm = require('micromatch');
+const initWatcher, { createOnChange } = require('./init');
+const initGlobs = require('./glob');
+const log = require('.../utils/logger');
 
 export default async function Watcher({
   root,

@@ -1,7 +1,7 @@
-import fs from 'fs';
-import yargs from 'yargs';
-import defaults from './defaults';
-import fix from './fix';
+const fs = require('fs');
+const yargs = require('yargs');
+const defaults = require('./defaults');
+const fix = require('./fix');
 
 const args = process.argv;
 

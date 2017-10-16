@@ -1,6 +1,6 @@
-import load from './load';
-import run from './run';
-import log from '.../utils/logger';
+const load = require('./load');
+const run = require('./run');
+const log = require('.../utils/logger');
 
 export default async function Mocha({
   root,

@@ -1,6 +1,6 @@
-import { promisify } from 'bluebird';
-import init from './init';
-import log from '.../utils/logger';
+const { promisify } = require('bluebird');
+const init = require('./init');
+const log = require('.../utils/logger');
 
 export default async function run({ files, ...config }) {
   log('Running mocha...');

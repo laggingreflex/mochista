@@ -1,12 +1,12 @@
-import { resolve, relative } from 'path';
-import md5Hex from 'md5-hex';
-import { readJSONSync, outputJsonSync } from 'fs-extra';
-import { createInstrumenter } from 'istanbul-lib-instrument';
-import convertSourceMap from 'convert-source-map';
-import { createSourceMapStore } from 'istanbul-lib-source-maps';
-import log from '.../utils/logger';
-import pkg from '.../package.json';
-import pad from '.../utils/pad';
+const { resolve, relative } = require('path');
+const md5Hex = require('md5-hex');
+const { readJSONSync, outputJsonSync } = require('fs-extra');
+const { createInstrumenter } = require('istanbul-lib-instrument');
+const convertSourceMap = require('convert-source-map');
+const { createSourceMapStore } = require('istanbul-lib-source-maps');
+const log = require('.../utils/logger');
+const pkg = require('.../package.json');
+const pad = require('.../utils/pad');
 
 export default function createTransformerFn({
   root,

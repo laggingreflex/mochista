@@ -1,7 +1,7 @@
-import _ from 'lodash';
-import mocha from './mocha';
-import istanbul from './istanbul';
-import fix from './fix';
+const _ = require('lodash');
+const mocha = require('./mocha');
+const istanbul = require('./istanbul');
+const fix = require('./fix');
 
 let defaultConfig = {
   ...mocha,

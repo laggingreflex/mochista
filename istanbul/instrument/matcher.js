@@ -1,5 +1,5 @@
-import path from 'path';
-import log from '.../utils/logger';
+const path = require('path');
+const log = require('.../utils/logger');
 
 export default function createMatcherFn({ files, root = process.cwd() }) {
   files = files.map(f => path.resolve(root, f));

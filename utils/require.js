@@ -1,8 +1,8 @@
-import Module from 'module';
-import assert from 'assert';
-import { join } from 'path';
-import reqFrom from 'req-from';
-import log from '.../utils/logger';
+const Module = require('module');
+const assert = require('assert');
+const { join } = require('path');
+const reqFrom = require('req-from');
+const log = require('.../utils/logger');
 
 const MODULE_NOT_FOUND = 'MODULE_NOT_FOUND';
 

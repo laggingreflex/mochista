@@ -1,4 +1,4 @@
-import { createCoverageMap } from 'istanbul-lib-coverage';
+const { createCoverageMap } = require('istanbul-lib-coverage');
 
 export default function collect({ coverage, sourceMapCache }) {
   let codeCoverageMap;

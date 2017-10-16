@@ -1,5 +1,5 @@
-import ority from 'ority';
-import pad from 'pad-right';
+const ority = require('ority');
+const pad = require('pad-right');
 
 export default (...args) => {
   let { str, len } = ority(args, [{

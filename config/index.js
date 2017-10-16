@@ -1,10 +1,10 @@
-import _ from 'lodash';
-import yargs from 'yargs';
-import getMochaOpts from './mocha-options';
-import { printUsage } from '.../utils/help';
-import defaults from './defaults';
-import fix from './fix';
-import merge from './merge';
+const _ = require('lodash');
+const yargs = require('yargs');
+const getMochaOpts = require('./mocha-options');
+const { printUsage } = require('.../utils/help');
+const defaults = require('./defaults');
+const fix = require('./fix');
+const merge = require('./merge');
 
 let config = yargs.options(defaults).argv;
 const mochaOpts = getMochaOpts();

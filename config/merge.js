@@ -1,6 +1,6 @@
-import _ from 'lodash';
-import arrify from 'arrify';
-import defaults from './defaults';
+const _ = require('lodash');
+const arrify = require('arrify');
+const defaults = require('./defaults');
 
 export default function merge(...configs) {
   const mergedConfig = {};

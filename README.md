@@ -163,12 +163,12 @@ export default 'This is foo'
 ```
 ```
 // bar.js
-import foo from './foo'
+const foo = require('./foo')
 export default foo.replace('foo', 'bar')
 ```
 ```
 // bar.test.js
-import bar from './bar'
+const bar = require('./bar')
 assert(bar === 'This is bar')
 ```
 Now suppose you changed `foo.js`:

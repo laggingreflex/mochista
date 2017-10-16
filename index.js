@@ -1,11 +1,11 @@
 import 'require-up/register';
-import Path from 'path';
-import { defaults } from './config/defaults';
-import Mocha from './mocha';
-import Watcher from './watcher';
-import resetRequireCache, { resetEntireRequireCache } from '.../utils/reset-cache';
-import log, { config as configLogger } from '.../utils/logger';
-import { instrument, report } from './istanbul';
+const Path = require('path');
+const { defaults } = require('./config/defaults');
+const Mocha = require('./mocha');
+const Watcher = require('./watcher');
+const resetRequireCache, { resetEntireRequireCache } = require('.../utils/reset-cache');
+const log, { config as configLogger } = require('.../utils/logger');
+const { instrument, report } = require('./istanbul');
 
 export default async function mochista(configArg) {
   const config = { ...defaults, ...configArg };

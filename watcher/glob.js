@@ -1,7 +1,7 @@
-import _ from 'lodash';
-import { props } from 'bluebird';
-import _glob from 'globby';
-import log from '.../utils/logger';
+const _ = require('lodash');
+const { props } = require('bluebird');
+const _glob = require('globby');
+const log = require('.../utils/logger');
 
 export default async function init({
   root = process.cwd(),

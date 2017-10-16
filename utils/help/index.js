@@ -1,5 +1,5 @@
-import pkg from '.../package.json';
-import getDefs from './get-defaults';
+const pkg = require('.../package.json');
+const getDefs = require('./get-defaults');
 
 export function printUsage(exit) {
   console.log(`
