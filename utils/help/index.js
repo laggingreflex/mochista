@@ -1,7 +1,7 @@
 const pkg = require('../../package.json');
 const getDefs = require('./get-defaults');
 
-export function printUsage(exit) {
+module.exports.printUsage = function (exit) {
   console.log(`
     ${pkg.description}
 

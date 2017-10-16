@@ -6,7 +6,7 @@ const log = require('./logger');
 
 const MODULE_NOT_FOUND = 'MODULE_NOT_FOUND';
 
-export function tryRequire(path, root) {
+module.exports.tryRequire = function (path, root) {
   assert(path, 'Need a path to require');
   log.verbose(`Requiring '${path}'...`);
   const ret = requireNative(path)
@@ -20,7 +20,7 @@ export function tryRequire(path, root) {
   }
 }
 
-export function requireNative(path) {
+module.exports.requireNative = function (path) {
   log.silly(`requireNative: {path: '${path}'}`);
   try {
     const ret = require(path);
@@ -36,7 +36,7 @@ export function requireNative(path) {
   }
 }
 
-export function resolveFromRoot(path, root) {
+module.exports.resolveFromRoot = function (path, root) {
   assert(root, 'Need a root path to require from');
   const reqPath = join(root, path);
   log.silly(`resolveFromRoot: '${reqPath}'`);
@@ -58,7 +58,7 @@ export function resolveFromRoot(path, root) {
   }
 }
 
-export function requireFromRoot(path, root) {
+module.exports.requireFromRoot = function (path, root) {
   assert(root, 'Need a root path to require from');
   log.silly(`requireFromRoot: {path: '${path}'} from {root: '${root}'}`);
   try {

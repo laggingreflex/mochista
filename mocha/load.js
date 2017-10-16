@@ -10,7 +10,7 @@ module.exports = function initLoad({
   loadRequires(requires, root);
 }
 
-export function loadCompilers(compilers, root) {
+module.exports.loadCompilers = function (compilers, root) {
   if (!compilers.length) return;
   log('Loading compilers...');
   // log.time( 'Compilers loaded in' );
@@ -18,7 +18,7 @@ export function loadCompilers(compilers, root) {
   // log.timeEnd( 'Compilers loaded in', 'info' );
 }
 
-export function loadRequires(requires, root) {
+module.exports.loadRequires = function (requires, root) {
   if (!requires.length) return;
   log('Loading requires...');
   // log.time( 'Requires loaded in' );

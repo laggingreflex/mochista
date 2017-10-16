@@ -78,11 +78,11 @@ module.exports = function init({
   });
 }
 
-export function createOnChange(watcher) {
+module.exports.createOnChange = function (watcher) {
   return (opts) => onChange({ watcher, ...opts });
 }
 
-export function onChange({
+module.exports.onChange = function ({
   watcher,
   events = ['add', 'change'],
   run,

@@ -13,7 +13,7 @@ module.exports = function resetRequireCache(filesToDelete, { root = process.cwd(
   }
 }
 
-export function resetEntireRequireCache() {
+module.exports.resetEntireRequireCache = function () {
   log.warn('Resetting entire require cache');
 
   for (const cacheFile in require.cache) {
