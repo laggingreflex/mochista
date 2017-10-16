@@ -4,10 +4,6 @@
   "description": "Mocha + Istanbul in a single process",
   "main": "./index.js",
   "bin": "./bin.js",
-  "scripts": {
-    "build": "rimraf dist && babel src -d dist --source-maps",
-    "prepublish": "npm run build"
-  },
   "repository": "laggingreflex/mochista",
   "dependencies": {
     "anymatch": "^1.3.0",

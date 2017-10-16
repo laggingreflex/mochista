@@ -1,22 +1,83 @@
 #!/usr/bin/env node
 
-/* eslint-disable import/no-unassigned-import, import/no-commonjs, import/unambiguous, global-require, no-catch-shadow */
+import 'require-up/register';
+// require('update-notifier')({ pkg: require('./package.json') }).notify({ defer: false });
+import { spawn } from 'child_process';
+import config from './config';
+import log from './utils/logger';
+import handleErrors from './utils/error';
+import mochista from '.';
+import { resetEntireRequireCache } from './utils/reset-cache';
 
-require('source-map-support/register');
-require('require-up/register');
-try { require('babel-polyfill'); } catch (noop) {}
+process.stdin.setEncoding('utf8');
+process.stdin.setRawMode(true);
 
-require('update-notifier')({ pkg: require('./package.json') }).notify({ defer: false });
+async function main() {
+  if (config.bs) {
+    const [cmd, ...args] = `browser-sync start --server ${config.reportDir}/lcov-report --files ${config.reportDir}/lcov-report/**/*.html`
+    .split(/[\s]+/g);
+    spawn(cmd, args, {
+      stdio: 'inherit',
+      shell: true
+    });
+    return;
+  }
 
-try {
-  module.exports = require('./dist/bin');
-} catch (err) {
-  console.error(err);
-  console.error('Couldn\'t require "dist/bin", trying "src/bin"...');
-  try {
-    module.exports = require('./src/bin');
-  } catch (err) {
-    console.error(err);
-    console.error('Couldn\'t require "src" either. Try compiling or use with \'babel-register\' or `--harmony` flag');
+  const { run } = await mochista(config);
+
+  const keyPressLog = () => log('Press \'r\' to re-run all tests (\'a\' to reset entire cache)');
+
+  await run();
+
+  if (config.watch) {
+    keyPressLog();
+    process.stdin.on('readable', onKeypress);
+  } else {
+    process.exit(0);
+  }
+
+  async function onKeypress() {
+    const input = process.stdin.read();
+    if (!input) {
+      return;
+    }
+
+    log.verbose(`You entered: ${input} (${JSON.stringify(input)})`);
+
+    const restart = async() => {
+      try {
+        await run();
+        keyPressLog();
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    const exit = () => {
+      log.verbose('Exiting');
+      process.exit(0);
+    };
+
+    const inputMapFns = {
+      r: restart,
+      a: () => {
+        resetEntireRequireCache();
+        restart();
+      },
+      q: exit,
+      '♥': exit,
+      '\\u0003': exit,
+      '"\\u0003"': exit,
+    };
+
+    if (inputMapFns[input]) {
+      inputMapFns[input]()
+    } else if (inputMapFns[JSON.stringify(input)]) {
+      inputMapFns[JSON.stringify(input)]()
+    } else {
+      log.silly('Nothing to do for that input');
+    }
   }
 }
+
+main().catch(handleErrors);
