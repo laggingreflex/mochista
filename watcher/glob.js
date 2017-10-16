@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const { props } = require('bluebird');
 const _glob = require('globby');
-const log = require('.../utils/logger');
+const log = require('../utils/logger');
 
 module.exports = async function init({
   root = process.cwd(),

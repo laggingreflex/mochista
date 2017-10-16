@@ -1,5 +1,5 @@
 const Mocha = require('mocha');
-const log = require('.../utils/logger');
+const log = require('../utils/logger');
 
 module.exports = function load(config) {
   const mocha = new Mocha(config);

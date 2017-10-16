@@ -1,6 +1,6 @@
 const load = require('./load');
 const run = require('./run');
-const log = require('.../utils/logger');
+const log = require('../utils/logger');
 
 module.exports = async function Mocha({
   root,

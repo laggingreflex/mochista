@@ -1,7 +1,7 @@
 const mm = require('micromatch');
 const initWatcher, { createOnChange } = require('./init');
 const initGlobs = require('./glob');
-const log = require('.../utils/logger');
+const log = require('../utils/logger');
 
 module.exports = async function Watcher({
   root,

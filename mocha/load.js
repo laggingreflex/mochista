@@ -1,5 +1,5 @@
-const { tryRequire } = require('.../utils/require');
-const log = require('.../utils/logger');
+const { tryRequire } = require('../utils/require');
+const log = require('../utils/logger');
 
 module.exports = function initLoad({
   root,

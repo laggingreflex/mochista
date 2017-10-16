@@ -1,10 +1,9 @@
-require('require-up/register');
 const Path = require('path');
 const { defaults } = require('./config/defaults');
 const Mocha = require('./mocha');
 const Watcher = require('./watcher');
-const resetRequireCache = require('.../utils/reset-cache');
-const log = require('.../utils/logger');
+const resetRequireCache = require('./utils/reset-cache');
+const log = require('./utils/logger');
 const { instrument, report } = require('./istanbul');
 
 module.exports = async function mochista(configArg) {

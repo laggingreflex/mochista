@@ -1,4 +1,4 @@
-const pkg = require('.../package.json');
+const pkg = require('../../package.json');
 const getDefs = require('./get-defaults');
 
 export function printUsage(exit) {

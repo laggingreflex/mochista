@@ -1,5 +1,5 @@
 const Path = require('path');
-const log = require('.../utils/logger');
+const log = require('../../utils/logger');
 const collect = require('./collector');
 const report = require('./reporter');
 

@@ -4,9 +4,9 @@ const { readJSONSync, outputJsonSync } = require('fs-extra');
 const { createInstrumenter } = require('istanbul-lib-instrument');
 const convertSourceMap = require('convert-source-map');
 const { createSourceMapStore } = require('istanbul-lib-source-maps');
-const log = require('.../utils/logger');
-const pkg = require('.../package.json');
-const pad = require('.../utils/pad');
+const log = require('../../utils/logger');
+const pkg = require('../../package.json');
+const pad = require('../../utils/pad');
 
 module.exports = function createTransformerFn({
   root,

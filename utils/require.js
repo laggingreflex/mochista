@@ -2,7 +2,7 @@ const Module = require('module');
 const assert = require('assert');
 const { join } = require('path');
 const reqFrom = require('req-from');
-const log = require('.../utils/logger');
+const log = require('./logger');
 
 const MODULE_NOT_FOUND = 'MODULE_NOT_FOUND';
 

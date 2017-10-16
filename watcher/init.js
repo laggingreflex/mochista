@@ -3,7 +3,7 @@ const { FSWatcher, watch } = require('chokidar');
 const debounce = require('debounce-queue');
 const normalize = require('normalize-path');
 const anymatch = require('anymatch');
-const log = require('.../utils/logger');
+const log = require('../utils/logger');
 
 // temporary patch for chokidar#561
 const org_addToNodeFs = FSWatcher.prototype._addToNodeFs;

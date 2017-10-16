@@ -1,5 +1,5 @@
 const {get } = require('lodash');
-const defaults = require('.../config/defaults');
+const defaults = require('../../config/defaults');
 
 module.exports = function getDefaultss(option) {
   let def = get(defaults, `${option}.default`);

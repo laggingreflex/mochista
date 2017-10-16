@@ -1,7 +1,7 @@
 const { createContext, summarizers } = require('istanbul-lib-report');
 const reports = require('istanbul-reports');
 const arrify = require('arrify');
-const log = require('.../utils/logger');
+const log = require('../../utils/logger');
 
 module.exports = async function report(coverageMap, {
   reportDir: dir = 'coverage',

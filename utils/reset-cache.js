@@ -1,5 +1,5 @@
 const path = require('path');
-const log = require('.../utils/logger');
+const log = require('./logger');
 
 module.exports = function resetRequireCache(filesToDelete, { root = process.cwd() } = {}) {
   filesToDelete = filesToDelete.map(f => path.resolve(root, f));

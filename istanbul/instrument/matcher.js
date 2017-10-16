@@ -1,5 +1,5 @@
 const path = require('path');
-const log = require('.../utils/logger');
+const log = require('../../utils/logger');
 
 module.exports = function createMatcherFn({ files, root = process.cwd() }) {
   files = files.map(f => path.resolve(root, f));

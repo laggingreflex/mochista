@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const yargs = require('yargs');
 const getMochaOpts = require('./mocha-options');
-const { printUsage } = require('.../utils/help');
+const { printUsage } = require('../utils/help');
 const defaults = require('./defaults');
 const fix = require('./fix');
 const merge = require('./merge');

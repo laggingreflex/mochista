@@ -1,5 +1,5 @@
-const config = require('.../config');
-const log = require('.../utils/logger');
+const config = require('../config');
+const log = require('./logger');
 
 module.exports = function handleErrors(err) {
   log.error(err);

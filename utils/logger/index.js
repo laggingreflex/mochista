@@ -1,5 +1,5 @@
 const debugLogger = require('debug-logger');
-const pkg = require('.../package.json');
+const pkg = require('../../package.json');
 const levels = require('./levels');
 const modErr = require('./err');
 
