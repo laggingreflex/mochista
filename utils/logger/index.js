@@ -5,7 +5,7 @@ const modErr = require('./err');
 
 debugLogger.levels = levels;
 
-module.exports.config = (config, namespace = pkg.name) => {
+function config(config, namespace = pkg.name) {
   debugLogger.inspectOptions = {
     colors: config.noColors ? false : config.colors,
   };
@@ -23,8 +23,8 @@ module.exports.config = (config, namespace = pkg.name) => {
   }).filter(([, v]) => v).map(([l]) => l).map(e => namespace + ':' + e).join(','));
 };
 
-module.exports.createLogger = function (namespace = pkg.name, argConfig = {}) {
-  module.exports.config(argConfig, namespace);
+function createLogger(namespace = pkg.name, argConfig = {}) {
+  config(argConfig, namespace);
 
   const logger = debugLogger(namespace);
 
@@ -36,4 +36,6 @@ module.exports.createLogger = function (namespace = pkg.name, argConfig = {}) {
   return log;
 }
 
-module.exports = module.exports.createLogger(pkg.name);
+module.exports = createLogger(pkg.name);
+module.exports.config = config;
+module.exports.createLogger = createLogger;

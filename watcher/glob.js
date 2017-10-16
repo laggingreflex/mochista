@@ -31,7 +31,7 @@ module.exports = async function init({
   });
 }
 
-export async function glob({
+async function glob({
   root,
   include = [],
   exclude = [],
@@ -64,3 +64,5 @@ export async function glob({
 
   return files;
 }
+
+module.exports.glob = glob;
