@@ -5,7 +5,7 @@ const modErr = require('./err');
 
 debugLogger.levels = levels;
 
-export const config = (config, namespace = pkg.name) => {
+module.exports.config = (config, namespace = pkg.name) => {
   debugLogger.inspectOptions = {
     colors: config.noColors ? false : config.colors,
   };

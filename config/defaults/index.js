@@ -98,4 +98,4 @@ defaultConfig = fix(defaultConfig)
 
 module.exports = defaultConfig;
 
-export const defaults = _.mapValues(_.pickBy(defaultConfig, d => !_.isUndefined(d.default)), d => d.default);
+module.exports.defaults = _.mapValues(_.pickBy(defaultConfig, d => !_.isUndefined(d.default)), d => d.default);
