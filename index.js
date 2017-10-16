@@ -1,15 +1,15 @@
-import 'require-up/register';
+require('require-up/register');
 const Path = require('path');
 const { defaults } = require('./config/defaults');
 const Mocha = require('./mocha');
 const Watcher = require('./watcher');
-const resetRequireCache, { resetEntireRequireCache } = require('.../utils/reset-cache');
-const log, { config as configLogger } = require('.../utils/logger');
+const resetRequireCache = require('.../utils/reset-cache');
+const log = require('.../utils/logger');
 const { instrument, report } = require('./istanbul');
 
 module.exports = async function mochista(configArg) {
   const config = { ...defaults, ...configArg };
-  configLogger(config);
+  log.config(config);
 
   const {
     watcher,
@@ -46,7 +46,7 @@ module.exports = async function mochista(configArg) {
       log.time('Total run time');
       if (changedTestFiles.length && !config.runAll) {
         if (config.runAll) {
-          await resetEntireRequireCache(changedFiles);
+          await resetRequireCache.resetEntireRequireCache(changedFiles);
         } else {
           await resetRequireCache(changedFiles);
         }

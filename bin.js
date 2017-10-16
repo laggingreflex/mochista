@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import 'require-up/register';
-// require('update-notifier')({ pkg: require('./package.json') }).notify({ defer: false });
+require('update-notifier')({ pkg: require('./package.json') }).notify({ defer: false });
+
 const { spawn } = require('child_process');
 const config = require('./config');
 const log = require('./utils/logger');
