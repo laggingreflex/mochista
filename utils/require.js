@@ -6,7 +6,9 @@ const log = require('./logger');
 
 const MODULE_NOT_FOUND = 'MODULE_NOT_FOUND';
 
-module.exports.tryRequire = function (path, root) {
+const _ = exports;
+
+const tryRequire = _.tryRequire = function(path, root) {
   assert(path, 'Need a path to require');
   log.verbose(`Requiring '${path}'...`);
   const ret = requireNative(path)
@@ -18,9 +20,9 @@ module.exports.tryRequire = function (path, root) {
     // Best way to throw in this case is to just call the NodeJS's internal module, so that it shows the "Module not found" as naturally as it does with regular module requires.
     return (Module.__resolveFilename || Module._resolveFilename)(`${path}' from '${root}`);
   }
-}
+};
 
-module.exports.requireNative = function (path) {
+const requireNative = _.requireNative = function(path) {
   log.silly(`requireNative: {path: '${path}'}`);
   try {
     const ret = require(path);
@@ -34,9 +36,9 @@ module.exports.requireNative = function (path) {
       throw err;
     }
   }
-}
+};
 
-module.exports.resolveFromRoot = function (path, root) {
+const resolveFromRoot = _.resolveFromRoot = function(path, root) {
   assert(root, 'Need a root path to require from');
   const reqPath = join(root, path);
   log.silly(`resolveFromRoot: '${reqPath}'`);
@@ -47,8 +49,8 @@ module.exports.resolveFromRoot = function (path, root) {
   } catch (err) {
     log.silly(`fail: resolveFromRoot: '${reqPath}'`, err.message);
     const erRex = path
-    .replace(/^[./\\]+/, '')
-    .replace(/[\\/]/g, '[\\\\/]');
+      .replace(/^[./\\]+/, '')
+      .replace(/[\\/]/g, '[\\\\/]');
     if (err.code === MODULE_NOT_FOUND && err.message.match(erRex)) {
       return false;
     } else {
@@ -56,9 +58,9 @@ module.exports.resolveFromRoot = function (path, root) {
       throw err;
     }
   }
-}
+};
 
-module.exports.requireFromRoot = function (path, root) {
+const requireFromRoot = _.requireFromRoot = function(path, root) {
   assert(root, 'Need a root path to require from');
   log.silly(`requireFromRoot: {path: '${path}'} from {root: '${root}'}`);
   try {
@@ -74,5 +76,4 @@ module.exports.requireFromRoot = function (path, root) {
       throw err;
     }
   }
-}
-
+};
