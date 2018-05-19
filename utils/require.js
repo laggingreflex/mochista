@@ -8,12 +8,12 @@ const MODULE_NOT_FOUND = 'MODULE_NOT_FOUND';
 
 const _ = exports;
 
-const tryRequire = _.tryRequire = function(path, root) {
+const tryRequire = _.tryRequire = function (path, root) {
   assert(path, 'Need a path to require');
   log.verbose(`Requiring '${path}'...`);
-  const ret = requireNative(path)
-    || resolveFromRoot(path, root)
-    || requireFromRoot(path, root);
+  const ret = requireNative(path) ||
+    resolveFromRoot(path, root) ||
+    requireFromRoot(path, root);
   if (ret) {
     return ret;
   } else {
@@ -22,7 +22,7 @@ const tryRequire = _.tryRequire = function(path, root) {
   }
 };
 
-const requireNative = _.requireNative = function(path) {
+const requireNative = _.requireNative = function (path) {
   log.silly(`requireNative: {path: '${path}'}`);
   try {
     const ret = require(path);
@@ -38,7 +38,7 @@ const requireNative = _.requireNative = function(path) {
   }
 };
 
-const resolveFromRoot = _.resolveFromRoot = function(path, root) {
+const resolveFromRoot = _.resolveFromRoot = function (path, root) {
   assert(root, 'Need a root path to require from');
   const reqPath = join(root, path);
   log.silly(`resolveFromRoot: '${reqPath}'`);
@@ -60,7 +60,7 @@ const resolveFromRoot = _.resolveFromRoot = function(path, root) {
   }
 };
 
-const requireFromRoot = _.requireFromRoot = function(path, root) {
+const requireFromRoot = _.requireFromRoot = function (path, root) {
   assert(root, 'Need a root path to require from');
   log.silly(`requireFromRoot: {path: '${path}'} from {root: '${root}'}`);
   try {

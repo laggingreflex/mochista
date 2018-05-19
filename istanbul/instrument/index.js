@@ -2,7 +2,7 @@ const { hookRequire } = require('istanbul-lib-hook');
 const matcher = require('./matcher');
 const transformer = require('./transformer');
 
-module.exports = function instrument({
+module.exports = function instrument ({
   root,
   coverageVariable,
   transformerCacheVariable,
@@ -11,7 +11,7 @@ module.exports = function instrument({
   files,
   preserveComments = true,
   extensions = ['.js'],
-  verbose = 0,
+  verbose = 0
 } = {}) {
   global[coverageVariable] = global[coverageVariable] || {};
 
@@ -21,4 +21,4 @@ module.exports = function instrument({
     transformer({ root, coverageVariable, transformerCacheVariable, sourceMapCacheVariable, cacheDir, verbose }),
     hookOpts
   );
-}
+};

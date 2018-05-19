@@ -3,7 +3,7 @@ const log = require('../../utils/logger');
 const collect = require('./collector');
 const report = require('./reporter');
 
-module.exports = async function Report({
+module.exports = async function Report ({
   coverageVariable = '__coverage__',
   sourceMapCacheVariable,
   reportDir,
@@ -12,7 +12,7 @@ module.exports = async function Report({
   watermarks = true,
   instrument,
   sourceFiles,
-  root,
+  root
 } = {}) {
   sourceFiles = sourceFiles.map(s => Path.join(root, s));
 
@@ -28,7 +28,7 @@ module.exports = async function Report({
 
   for (const file in coverage) {
     if (!sourceFiles.includes(file)) {
-      delete coverage[file]
+      delete coverage[file];
     }
   }
 
@@ -53,4 +53,4 @@ module.exports = async function Report({
   }
 
   return codeCoverageMap;
-}
+};

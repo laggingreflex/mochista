@@ -8,7 +8,7 @@ const log = require('../../utils/logger');
 const pkg = require('../../package.json');
 const pad = require('../../utils/pad');
 
-module.exports = function createTransformerFn({
+module.exports = function createTransformerFn ({
   root,
   coverageVariable,
   transformerCacheVariable,
@@ -16,7 +16,7 @@ module.exports = function createTransformerFn({
   cacheDir,
   disableCache = false,
   ext = '.js',
-  verbose = false,
+  verbose = false
 }) {
   const transformerCache = global[transformerCacheVariable] = global[transformerCacheVariable] || {};
   const sourceMapCache = global[sourceMapCacheVariable] = global[sourceMapCacheVariable] || createSourceMapStore();
@@ -30,7 +30,7 @@ module.exports = function createTransformerFn({
   });
   const instrument = instrumenter.instrumentSync.bind(instrumenter);
 
-  return function transform(code, file) {
+  return function transform (code, file) {
     let instrumentedCode, hasChanged, cacheFile, codeHash;
 
     cacheFile = resolve(cacheDir, relative(root, file)) + '.json';
@@ -41,15 +41,17 @@ module.exports = function createTransformerFn({
       sourceMapCache.registerMap(file, sourceMap.sourcemap);
     }
 
-    if (!transformerCache[file] /*first-run*/ ) try {
-      const json = readJSONSync(cacheFile);
-      if (json.hash === codeHash) {
-        instrumentedCode = json.code;
+    if (!transformerCache[file] /* first-run */) {
+      try {
+        const json = readJSONSync(cacheFile);
+        if (json.hash === codeHash) {
+          instrumentedCode = json.code;
+          log.verbose(pad(39, `Instrumentation loaded from cache for:`), file);
+        }
+      } catch (err) {
         log.verbose(pad(39, `Instrumentation loaded from cache for:`), file);
+        log.silly(pad(39, `Couldn't read cache from cache-dir for:`), file, err.message, `[this is expected on the first ever run]`);
       }
-    } catch (err) {
-      log.verbose(pad(39, `Instrumentation loaded from cache for:`), file);
-      log.silly(pad(39, `Couldn't read cache from cache-dir for:`), file, err.message, `[this is expected on the first ever run]`);
     }
 
     if (!instrumentedCode && transformerCache[file]) {
@@ -80,4 +82,3 @@ module.exports = function createTransformerFn({
     return instrumentedCode;
   };
 };
-

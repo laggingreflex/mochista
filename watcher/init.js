@@ -7,11 +7,11 @@ const log = require('../utils/logger');
 
 // temporary patch for chokidar#561
 const org_addToNodeFs = FSWatcher.prototype._addToNodeFs;
-FSWatcher.prototype._addToNodeFs = function patched_addToNodeFs(path, initialAdd, priorWh, depth, target, callback) {
+FSWatcher.prototype._addToNodeFs = function patched_addToNodeFs (path, initialAdd, priorWh, depth, target, callback) {
   org_addToNodeFs.call(this, path, initialAdd, null, depth, target, callback);
 };
 
-module.exports = function init({
+module.exports = function init ({
   root,
   include,
   exclude = [],
@@ -29,7 +29,7 @@ module.exports = function init({
   }
   const watcher = watch(include, {
     cwd: root,
-    ignored: exclude,
+    ignored: exclude
   });
   watcher.on('all', (event, path, info) => log.silly('Watcher event:', event, path));
   return new Promise((resolve, reject) => {
@@ -40,7 +40,7 @@ module.exports = function init({
     const debouncedTimeout = debounce(timeout, timeoutSecs * 1000);
     watcher.on('all', debouncedTimeout);
 
-    function _reject(error) {
+    function _reject (error) {
       if (resolved) {
         return;
       }
@@ -51,7 +51,7 @@ module.exports = function init({
       reject(error);
     }
 
-    function _resolve() {
+    function _resolve () {
       if (resolved) {
         return;
       }
@@ -63,7 +63,7 @@ module.exports = function init({
       resolve(watcher);
     }
 
-    function timeout() {
+    function timeout () {
       if (resolved) {
         return;
       }
@@ -76,11 +76,11 @@ module.exports = function init({
       resolve(watcher);
     }
   });
-}
+};
 
 module.exports.createOnChange = function (watcher) {
   return (opts) => module.exports.onChange({ watcher, ...opts });
-}
+};
 
 module.exports.onChange = function ({
   watcher,
@@ -101,4 +101,4 @@ module.exports.onChange = function ({
   events.forEach(event => watcher
     .on(event, path =>
       debounced(normalize(path))));
-}
+};

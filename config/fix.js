@@ -2,7 +2,7 @@ const _ = require('lodash');
 const arrify = require('arrify');
 const defaults = require('./defaults');
 
-module.exports = function fix(config) {
+module.exports = function fix (config) {
   config = fixArrays(config);
   config = fixDuplicates(config);
   config = fixSourceAndTestFiles(config);
@@ -11,9 +11,9 @@ module.exports = function fix(config) {
   config = removeDuplicates(config);
   config = fixDefaults(config);
   return config;
-}
+};
 
-function fixArrays(config) {
+function fixArrays (config) {
   for (const key in config) {
     if (defaults[key] && defaults[key].type === 'array') {
       config[key] = arrify(config[key]);
@@ -22,14 +22,14 @@ function fixArrays(config) {
   return config;
 }
 
-function fixDuplicates(config) {
+function fixDuplicates (config) {
   for (const key in config)
-    if (config[key] instanceof Array && defaults[key] && defaults[key].type !== 'array')
-      config[key] = config[key].pop();
+    {if (config[key] instanceof Array && defaults[key] && defaults[key].type !== 'array')
+      config[key] = config[key].pop();}
   return config;
 }
 
-function removeDuplicates(config) {
+function removeDuplicates (config) {
   for (const key in config) {
     if (_.isArray(config[key])) {
       config[key] = _.uniq(config[key]);
@@ -38,16 +38,16 @@ function removeDuplicates(config) {
   return config;
 }
 
-function fixDefaults(config) {
+function fixDefaults (config) {
   for (const key in config) {
     if (_.isArray(config[key]) && !config[key].length && defaults[key] && defaults[key].default) {
-      config[key] = defaults[key].default
+      config[key] = defaults[key].default;
     }
   }
   return config;
 }
 
-function fixSourceAndTestFiles(config) {
+function fixSourceAndTestFiles (config) {
   config.testFiles = arrify(config.testFiles);
   config.testFilesExclude = arrify(config.testFilesExclude);
   config.sourceFiles = arrify(config.sourceFiles);
@@ -57,7 +57,7 @@ function fixSourceAndTestFiles(config) {
   return config;
 }
 
-function separateBangExcludes(config) {
+function separateBangExcludes (config) {
   const { includes: testFiles, excludes: testFilesExclude } = separateBangExcludes(config.testFiles);
   config.testFiles = testFiles;
   config.testFilesExclude.push(...testFilesExclude);
@@ -68,7 +68,7 @@ function separateBangExcludes(config) {
 
   return config;
 
-  function separateBangExcludes(arr) {
+  function separateBangExcludes (arr) {
     if (!arr || !arr.forEach) {
       throw new Error('Expected it to be an array: ' + arr);
     }
@@ -92,8 +92,8 @@ function separateBangExcludes(config) {
   }
 }
 
-function checkTestExcludes(config) {
-  const offendingPatterns = []
+function checkTestExcludes (config) {
+  const offendingPatterns = [];
   config.sourceFilesExclude.forEach(sfx => {
     if (config.testFiles.includes(sfx)) {
       offendingPatterns.push(sfx);

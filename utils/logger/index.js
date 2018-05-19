@@ -5,9 +5,9 @@ const modErr = require('./err');
 
 debugLogger.levels = levels;
 
-function config(config, namespace = pkg.name) {
+function config (config, namespace = pkg.name) {
   debugLogger.inspectOptions = {
-    colors: config.noColors ? false : config.colors,
+    colors: config.noColors ? false : config.colors
   };
 
   debugLogger.debug.enable(Object.entries({
@@ -19,11 +19,11 @@ function config(config, namespace = pkg.name) {
     verbose: config.verbose,
     silly: config.verbose >= 3,
     trace: config.verbose >= 3,
-    '*': config.verbose >= 3,
+    '*': config.verbose >= 3
   }).filter(([, v]) => v).map(([l]) => l).map(e => namespace + ':' + e).join(','));
-};
+}
 
-function createLogger(namespace = pkg.name, argConfig = {}) {
+function createLogger (namespace = pkg.name, argConfig = {}) {
   config(argConfig, namespace);
 
   const logger = debugLogger(namespace);

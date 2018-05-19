@@ -1,7 +1,7 @@
-const {get } = require('lodash');
+const { get } = require('lodash');
 const defaults = require('../../config/defaults');
 
-module.exports = function getDefaultss(option) {
+module.exports = function getDefaultss (option) {
   let def = get(defaults, `${option}.default`);
   if (def instanceof Array) {
     def = def.join(' ');
@@ -10,4 +10,4 @@ module.exports = function getDefaultss(option) {
     def = 'no default';
   }
   return def;
-}
+};

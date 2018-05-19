@@ -26,7 +26,7 @@ defaults.cache = {
 
 defaults.all = {
   // alias: [],
-  type: 'boolean',
+  type: 'boolean'
   // default: false
 };
 
@@ -38,7 +38,7 @@ defaults.checkCoverage = {
 
 defaults.instrument = {
   type: 'boolean',
-  default: true,
+  default: true
 };
 
 defaults.coverageVariable = {

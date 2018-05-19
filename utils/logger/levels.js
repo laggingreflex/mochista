@@ -1,13 +1,13 @@
 const levels = {};
 
-function createLevel(name, color = 6, fd = 1) {
+function createLevel (name, color = 6, fd = 1) {
   let level = Object.keys(levels).length;
   let suffix, prefix;
   if (name.length <= 5) {
     suffix = `:${name}`;
-    prefix = Array(6 - name.length).join(' ')
+    prefix = Array(6 - name.length).join(' ');
   } else {
-    suffix = `:${name.substr(0,4)}`;
+    suffix = `:${name.substr(0, 4)}`;
     prefix = ' ';
   }
   return {
@@ -15,9 +15,9 @@ function createLevel(name, color = 6, fd = 1) {
       level,
       color,
       prefix,
-      namespaceSuffix: suffix,
+      namespaceSuffix: suffix
     }
-  }
+  };
 }
 
 const add = (...args) => Object.assign(levels, createLevel(...args));

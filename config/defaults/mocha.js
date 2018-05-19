@@ -15,17 +15,17 @@ defaults.asyncOnly = {
 };
 defaults.colors = {
   // alias: [ 'c' ],
-  type: 'boolean',
+  type: 'boolean'
   // default: true
 };
 defaults.noColors = {
   // alias: [ 'C' ],
-  type: 'boolean',
+  type: 'boolean'
   // default: true
 };
 defaults.growl = {
   alias: ['G'],
-  type: 'boolean',
+  type: 'boolean'
   // default: true
 };
 defaults.testReporter = {
@@ -35,12 +35,12 @@ defaults.testReporter = {
 };
 defaults.sort = {
   alias: ['S'],
-  type: 'boolean',
+  type: 'boolean'
   // default: false
 };
 defaults.bail = {
   alias: ['b'],
-  type: 'boolean',
+  type: 'boolean'
   // default: false
 };
 defaults.grep = {
@@ -63,7 +63,7 @@ defaults.slow = {
 defaults.timeout = {
   alias: ['t'],
   type: 'number',
-  default: 2000,
+  default: 2000
 };
 defaults.ui = {
   alias: ['u'],
@@ -71,27 +71,27 @@ defaults.ui = {
   default: 'bdd'
 };
 defaults.checkLeaks = {
-  type: 'boolean',
+  type: 'boolean'
   // default: false,
 };
 defaults.fullTrace = {
-  type: 'boolean',
+  type: 'boolean'
   // default: false,
 };
 defaults.globals = {
-  type: 'array',
+  type: 'array'
   // default: false,
 };
 defaults.globals = {
-  type: 'array',
+  type: 'array'
   // default: false,
 };
 defaults.noExit = {
-  type: 'boolean',
+  type: 'boolean'
   // default: false,
 };
 defaults.noTimeouts = {
-  type: 'boolean',
+  type: 'boolean'
   // default: false,
 };
 

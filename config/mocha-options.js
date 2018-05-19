@@ -5,21 +5,26 @@ const fix = require('./fix');
 
 const args = process.argv;
 
-module.exports = function getOptions() {
+module.exports = function getOptions () {
   let opts, optsPath = args.indexOf('--opts') > -1 && args[args.indexOf('--opts') + 1];
 
-  if (optsPath) try {
-    opts = fs.readFileSync(optsPath, 'utf8');
-  } catch (err) {
-    err.message = `Couldn't read --opts file: ${optsPath}. ` + err.message;
-    throw err;
+  if (optsPath) {
+    try {
+      opts = fs.readFileSync(optsPath, 'utf8');
+    } catch (err) {
+      err.message = `Couldn't read --opts file: ${optsPath}. ` + err.message;
+      throw err;
+    }
   } else {
     const optsTryPaths = ['mocha.opts', 'test/mocha.opts', 'tests/mocha.opts'];
-    for (const path of optsTryPaths)
-      if (!opts) try {
-        opts = fs.readFileSync(path, 'utf8');
-        optsPath = path;
-      } catch (err) {}
+    for (const path of optsTryPaths) {
+      if (!opts) {
+        try {
+          opts = fs.readFileSync(path, 'utf8');
+          optsPath = path;
+        } catch (err) {}
+      }
+    }
   }
 
   if (!opts) return {};
@@ -42,4 +47,4 @@ module.exports = function getOptions() {
     err.message = `Couldn't correctly parse --opts from the file: ${optsPath}. ` + err.message;
     throw err;
   }
-}
+};

@@ -3,9 +3,9 @@ const reports = require('istanbul-reports');
 const arrify = require('arrify');
 const log = require('../../utils/logger');
 
-module.exports = async function report(coverageMap, {
+module.exports = async function report (coverageMap, {
   reportDir: dir = 'coverage',
-  reporters = ['lcov', 'text'],
+  reporters = ['lcov', 'text']
 } = {}) {
   const context = createContext({ dir });
   const tree = summarizers.pkg(coverageMap);
@@ -15,4 +15,4 @@ module.exports = async function report(coverageMap, {
       context
     )
   );
-}
+};

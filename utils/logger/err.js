@@ -1,6 +1,6 @@
 const levels = require('./levels');
 
-module.exports = function modErr(logger) {
+module.exports = function modErr (logger) {
   logger._err = logger.err;
   logger.err = (...errs) => {
     const errObjects = [];
@@ -9,7 +9,7 @@ module.exports = function modErr(logger) {
       if (err && err.message) {
         errObjects.push(err);
         return err.message;
-      } else if (i == errs.length - 1 && Object.keys(levels).includes(err)) {
+      } else if (i === errs.length - 1 && Object.keys(levels).includes(err)) {
         _logger = logger[err].bind(logger);
         return '__remove__';
       } else {
@@ -19,5 +19,5 @@ module.exports = function modErr(logger) {
 
     logger._err(...errs);
     _logger(...errObjects);
-  }
-}
+  };
+};

@@ -4,7 +4,7 @@ const arrayEqual = require('array-equal');
 const defaults = require('./defaults/defaults');
 // console.log(`defaults:`, defaults);
 
-module.exports = function merge(...configs) {
+module.exports = function merge (...configs) {
   const mergedConfig = {};
   for (const newConfig of configs) {
     for (const key in newConfig) {
@@ -12,7 +12,7 @@ module.exports = function merge(...configs) {
       const newValue = newConfig[key];
       const defValue = defaults[key];
       if (!(key in mergedConfig)) {
-        mergedConfig[key] = newValue
+        mergedConfig[key] = newValue;
       } else if (_.isArray(newValue) || _.isArray(oldValue)) {
         mergedConfig[key] = arrify(oldValue).concat(arrify(newValue));
       } else if (_.isPlainObject(newValue) && _.isPlainObject(oldValue)) {
@@ -27,4 +27,4 @@ module.exports = function merge(...configs) {
     }
   }
   return mergedConfig;
-}
+};

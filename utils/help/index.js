@@ -61,4 +61,4 @@ module.exports.printUsage = function (exit) {
   if (exit) {
     process.exit(0);
   }
-}
+};

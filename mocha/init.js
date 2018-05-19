@@ -1,7 +1,7 @@
 const Mocha = require('mocha');
 const log = require('../utils/logger');
 
-module.exports = function load(config) {
+module.exports = function load (config) {
   const mocha = new Mocha(config);
 
   if (config.colors) {
@@ -55,4 +55,4 @@ module.exports = function load(config) {
   // }
   // mocha.ui( config.ui );
   return mocha;
-}
+};

@@ -3,13 +3,13 @@ const { props } = require('bluebird');
 const _glob = require('globby');
 const log = require('../utils/logger');
 
-module.exports = async function init({
+module.exports = async function init ({
   root = process.cwd(),
   sourceGlobs = [],
   sourceGlobsExclude = [],
   testGlobs = [],
   testGlobsExclude = [],
-  fileCountLimit = 1000,
+  fileCountLimit = 1000
 }) {
   log('Globing files...');
 
@@ -19,36 +19,35 @@ module.exports = async function init({
       include: testGlobs,
       exclude: testGlobsExclude,
       label: 'testFiles',
-      fileCountLimit,
+      fileCountLimit
     }),
     sourceFiles: glob({
       root,
       include: sourceGlobs,
       exclude: sourceGlobsExclude.concat(testGlobs),
       label: 'sourceFiles',
-      fileCountLimit,
+      fileCountLimit
     })
   });
-}
+};
 
-async function glob({
+async function glob ({
   root,
   include = [],
   exclude = [],
   fileCountLimit = 1000,
-  label = 'files',
+  label = 'files'
 } = {}) {
-
   const pLabel = _.startCase(label).toLowerCase();
 
   log.verbose(`Globing ${pLabel}...`);
 
   const files = await _glob([
     ...include,
-    ...exclude.map(p => '!' + p),
+    ...exclude.map(p => '!' + p)
   ], {
     cwd: root,
-    root,
+    root
   });
 
   if (!files.length) {

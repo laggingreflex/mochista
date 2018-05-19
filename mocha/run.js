@@ -2,7 +2,7 @@ const { promisify } = require('bluebird');
 const init = require('./init');
 const log = require('../utils/logger');
 
-module.exports = async function run({ files, ...config }) {
+module.exports = async function run ({ files, ...config }) {
   log('Running mocha...');
   log.time('Mocha finished in');
 
@@ -12,11 +12,12 @@ module.exports = async function run({ files, ...config }) {
   try {
     await promisify(mocha.run.bind(mocha))();
   } catch (err) {
-    if (!err.message.match(/^[0-9]+$/))
+    if (!err.message.match(/^[0-9]+$/)) {
       throw err;
+    }
   }
 
   log.timeEnd('Mocha finished in', 'info');
 
   return mocha;
-}
+};

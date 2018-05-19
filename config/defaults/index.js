@@ -5,7 +5,7 @@ const fix = require('./fix');
 
 let defaultConfig = {
   ...mocha,
-  ...istanbul,
+  ...istanbul
 };
 
 defaultConfig.root = {
@@ -15,7 +15,7 @@ defaultConfig.root = {
 defaultConfig.sourceFiles = {
   alias: ['include'],
   type: 'array',
-  default: ['**/*.js', ],
+  default: ['**/*.js' ]
   // default: [
   //   // '**/*.{js,coffee}',
   //   // './**/*.{js,coffee}',
@@ -36,15 +36,15 @@ defaultConfig.sourceFilesExclude = {
     // '**/node_modules/**',
     // '**node_modules**/**',
     // '**/**node_modules**/**',
-    'coverage/**',
-  ],
+    'coverage/**'
+  ]
 };
 defaultConfig.testFiles = {
   type: 'array',
   default: [
     '**/*test.js',
-    '*test*/**/*.js',
-  ],
+    '*test*/**/*.js'
+  ]
   // default: [
   //   '*{test,tests}*.{js,coffee}',
   //   '{test,tests,__test__,__tests__}/**/*.{js,coffee}',
@@ -54,7 +54,7 @@ defaultConfig.testFiles = {
 defaultConfig.testFilesExclude = {
   alias: ['ignore'],
   type: 'array',
-  default: ['**/node_modules/**'],
+  default: ['**/node_modules/**']
   // default: defaults.sourceFilesExclude.default,
 };
 
@@ -99,7 +99,6 @@ defaultConfig.help = {
   type: 'boolean'
 };
 
-
-defaultConfig = fix(defaultConfig)
+defaultConfig = fix(defaultConfig);
 
 module.exports = defaultConfig;

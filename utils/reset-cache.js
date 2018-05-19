@@ -1,7 +1,7 @@
 const path = require('path');
 const log = require('./logger');
 
-module.exports = function resetRequireCache(filesToDelete, { root = process.cwd() } = {}) {
+module.exports = function resetRequireCache (filesToDelete, { root = process.cwd() } = {}) {
   filesToDelete = filesToDelete.map(f => path.resolve(root, f));
   log.verbose(`Resetting ${filesToDelete.length} files`);
 
@@ -11,7 +11,7 @@ module.exports = function resetRequireCache(filesToDelete, { root = process.cwd(
       delete require.cache[cacheFile];
     }
   }
-}
+};
 
 module.exports.resetEntireRequireCache = function () {
   log.warn('Resetting entire require cache');
@@ -23,4 +23,4 @@ module.exports.resetEntireRequireCache = function () {
       delete require.cache[cacheFile];
     }
   }
-}
+};

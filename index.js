@@ -6,7 +6,7 @@ const resetRequireCache = require('./utils/reset-cache');
 const log = require('./utils/logger');
 const { instrument, report } = require('./istanbul');
 
-module.exports = async function mochista(configArg) {
+module.exports = async function mochista (configArg) {
   const config = { ...defaults, ...configArg };
   log.config(config);
 
@@ -15,7 +15,7 @@ module.exports = async function mochista(configArg) {
     onChange,
     initialAllFiles,
     initialTestFiles,
-    initialSourceFiles,
+    initialSourceFiles
   } = await Watcher(config);
 
   const mocha = await Mocha({ ...config });
@@ -28,13 +28,13 @@ module.exports = async function mochista(configArg) {
   let running = false;
   let firstTime = true;
 
-  async function run({
+  async function run ({
     allFiles = initialAllFiles,
     changedFiles = initialAllFiles,
     testFiles = initialTestFiles,
     changedTestFiles = initialTestFiles,
     sourceFiles = initialSourceFiles,
-    changedSourceFiles = initialSourceFiles,
+    changedSourceFiles = initialSourceFiles
   } = {}) {
     if (running) {
       log.verbose('A previous version is already running');
@@ -86,4 +86,4 @@ module.exports = async function mochista(configArg) {
   }
 
   return { watcher, mocha, onChange, run };
-}
+};

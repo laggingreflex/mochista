@@ -10,10 +10,10 @@ const { resetEntireRequireCache } = require('./utils/reset-cache');
 process.stdin.setEncoding('utf8');
 process.stdin.setRawMode(true);
 
-async function main() {
+async function main () {
   if (config.bs) {
     const [cmd, ...args] = `browser-sync start --server ${config.reportDir}/lcov-report --files ${config.reportDir}/lcov-report/**/*.html`
-    .split(/[\s]+/g);
+      .split(/[\s]+/g);
     spawn(cmd, args, {
       stdio: 'inherit',
       shell: true
@@ -34,7 +34,7 @@ async function main() {
     process.exit(0);
   }
 
-  async function onKeypress() {
+  async function onKeypress () {
     const input = process.stdin.read();
     if (!input) {
       return;
@@ -42,7 +42,7 @@ async function main() {
 
     log.verbose(`You entered: ${input} (${JSON.stringify(input)})`);
 
-    const restart = async() => {
+    const restart = async () => {
       try {
         await run();
         keyPressLog();
@@ -65,13 +65,13 @@ async function main() {
       q: exit,
       '♥': exit,
       '\\u0003': exit,
-      '"\\u0003"': exit,
+      '"\\u0003"': exit
     };
 
     if (inputMapFns[input]) {
-      inputMapFns[input]()
+      inputMapFns[input]();
     } else if (inputMapFns[JSON.stringify(input)]) {
-      inputMapFns[JSON.stringify(input)]()
+      inputMapFns[JSON.stringify(input)]();
     } else {
       log.silly('Nothing to do for that input');
     }
