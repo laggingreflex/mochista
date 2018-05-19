@@ -32,18 +32,10 @@
     "prompt-promise": "^1.0.3",
     "req-from": "^1.0.1",
     "require-up": "^0.4.0",
-    "source-map-support": "^0.4.11",
     "update-notifier": "^2.1.0",
-    "yargs": "^9.1.0",
-    "yargs-parser": "^7.0.0"
+    "yargs": "^11.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.22.2",
-    "babel-preset-es2015-node6": "^0.4.0",
-    "babel-preset-stage-0": "^6.22.0",
-    "eslint": "^3.15.0",
-    "eslint-config-canonical": "^7.1.0",
-    "eslint-config-relaxed": "^2.3.0",
-    "rimraf": "^2.5.4"
+    "semistandard": "^12.0.1"
   }
 }

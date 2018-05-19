@@ -1,6 +1,1 @@
-{
-  "extends": ["canonical", "relaxed"],
-  "rules": {
-    "import/no-unresolved": 0
-  }
-}
+{ "extends": ["semistandard"] }
