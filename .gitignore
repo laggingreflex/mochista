@@ -1,8 +1,0 @@
-
-.idea
-.vscode
-test
-tests-coverage
-dist
-node_modules
-npm-debug.log
