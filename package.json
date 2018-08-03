@@ -13,17 +13,17 @@
     "array-equal": "^1.0.0",
     "arrify": "^1.0.1",
     "bluebird": "^3.5.1",
-    "chokidar": "^2.0.3",
+    "chokidar": "^2.0.4",
     "convert-source-map": "^1.5.1",
     "debounce-queue": "^0.2.2",
     "debug-logger": "^0.4.1",
-    "fs-extra": "^6.0.1",
+    "fs-extra": "^7.0.0",
     "globby": "^8.0.1",
-    "istanbul-lib-hook": "^1.2.0",
-    "istanbul-lib-instrument": "^2.1.0",
-    "istanbul-lib-report": "^1.1.4",
-    "istanbul-lib-source-maps": "^1.2.5",
-    "istanbul-reports": "^1.4.1",
+    "istanbul-lib-hook": "^2.0.1",
+    "istanbul-lib-instrument": "^2.3.2",
+    "istanbul-lib-report": "^2.0.1",
+    "istanbul-lib-source-maps": "^2.0.1",
+    "istanbul-reports": "^2.0.0",
     "lodash": "^4.17.10",
     "md5-hex": "^2.0.0",
     "micromatch": "^3.1.10",
@@ -35,7 +35,7 @@
     "req-from": "^2.0.0",
     "require-up": "^0.4.0",
     "update-notifier": "^2.5.0",
-    "yargs": "^11.1.0"
+    "yargs": "^12.0.1"
   },
   "devDependencies": {
     "semistandard": "^12.0.1"
