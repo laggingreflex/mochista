@@ -6,7 +6,12 @@ const defaults = require('./defaults');
 const fix = require('./fix');
 const merge = require('./merge');
 
-let config = yargs.options(defaults).argv;
+let config = yargs
+  .scriptName(require('../package.json').name)
+  // .wrap(null)
+  .options(defaults)
+  .argv;
+
 const mochaOpts = getMochaOpts();
 const argv = fix(yargs.options(defaults).parse(process.argv.slice(2)));
 config = merge(config, mochaOpts, argv);
