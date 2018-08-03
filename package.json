@@ -4,6 +4,9 @@
   "description": "Mocha + Istanbul in a single process",
   "main": "./index.js",
   "bin": "./bin.js",
+  "scripts": {
+    "test": "node ./bin"
+  },
   "repository": "laggingreflex/mochista",
   "dependencies": {
     "anymatch": "^2.0.0",
