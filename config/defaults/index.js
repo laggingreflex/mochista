@@ -29,14 +29,18 @@ defaultConfig.sourceFilesExclude = {
   default: [
     // 'node_modules',
     // '*node_modules*',
-    'node_modules/**',
-    '.git/**',
+    'node_modules',
+    // 'node_modules/**',
+    // 'node_modules/.*',
+    '.git',
+    // '.git/**',
+    // '.git/.*',
     // './node_modules/**',
     // './**node_modules**/**',
     // '**/node_modules/**',
     // '**node_modules**/**',
     // '**/**node_modules**/**',
-    'coverage/**'
+    'coverage'
   ]
 };
 defaultConfig.testFiles = {
@@ -85,7 +89,7 @@ defaultConfig.browserSync = {
 
 defaultConfig.verbose = {
   alias: ['v'],
-  type: 'count',
+  type: 'number',
   default: 0
 };
 defaultConfig.debug = {

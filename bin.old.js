@@ -11,15 +11,15 @@ process.stdin.setEncoding('utf8');
 process.stdin.setRawMode(true);
 
 async function main () {
-  if (config.bs) {
-    const [cmd, ...args] = `browser-sync start --server ${config.reportDir}/lcov-report --files ${config.reportDir}/lcov-report/**/*.html`
-      .split(/[\s]+/g);
-    spawn(cmd, args, {
-      stdio: 'inherit',
-      shell: true
-    });
-    return;
-  }
+  // if (config.bs) {
+  //   const [cmd, ...args] = `browser-sync start --server ${config.reportDir}/lcov-report --files ${config.reportDir}/lcov-report/**/*.html`
+  //     .split(/[\s]+/g);
+  //   spawn(cmd, args, {
+  //     stdio: 'inherit',
+  //     shell: true
+  //   });
+  //   return;
+  // }
 
   const { run } = await mochista(config);
 
@@ -27,12 +27,14 @@ async function main () {
 
   await run();
 
-  if (config.watch) {
-    keyPressLog();
-    process.stdin.on('readable', onKeypress);
-  } else {
-    process.exit(0);
-  }
+  console.log('over?');
+
+  // if (config.watch) {
+  //   keyPressLog();
+  //   process.stdin.on('readable', onKeypress);
+  // } else {
+  //   // process.exit(0);
+  // }
 
   async function onKeypress () {
     const input = process.stdin.read();
@@ -53,7 +55,7 @@ async function main () {
 
     const exit = () => {
       log.verbose('Exiting');
-      process.exit(0);
+      // process.exit(0);
     };
 
     const inputMapFns = {
@@ -80,4 +82,4 @@ async function main () {
 
 main().catch(handleErrors);
 
-require('update-notifier')({ pkg: require('./package.json') }).notify();
+// require('update-notifier')({ pkg: require('./package.json') }).notify();

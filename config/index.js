@@ -1,3 +1,4 @@
+require('dotenv').load();
 const _ = require('lodash');
 const yargs = require('yargs');
 const getMochaOpts = require('./mocha-options');
@@ -10,6 +11,7 @@ let config = yargs
   .scriptName(require('../package.json').name)
   // .wrap(null)
   .options(defaults)
+  .env()
   .argv;
 
 const mochaOpts = getMochaOpts();
