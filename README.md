@@ -2,39 +2,86 @@
 # Mochista
 [![npm](https://img.shields.io/npm/v/mochista.svg)](https://www.npmjs.com/package/mochista)
 
-[Mocha] + [Istanbul] in a single process.
+***Like***[\*][like-*] [Mocha] + ~~[Istanbul]~~ [c8] in a single process.
 
-Mochista uses Mocha and Istanbul's programatic API to run both in a single process yeilding fastest test results and coverage reports.
+[like-*]: #not-all-features-of-mocha-and-istanbul-supported
+
+Mochista uses [Mocha] and ~~[Istanbul]~~ [c8]'s[*][c8-fork] programmatic API to run both in a single process yielding fastest test results and coverage reports.
+
+[c8-fork]: #c8-fork
 
 Its `--watch` feature runs modified tests and generates coverage using cache for unmodified files instantly:
 
-[![][scr]][scr]
+<a href="https://gfycat.com/MinorTightItalianbrownbear">
+<video muted autoplay loop>
+<source src="https://giant.gfycat.com/MinorTightItalianbrownbear.mp4"/>
+<img src="https://thumbs.gfycat.com/MinorTightItalianbrownbear-size_restricted.gif">
+</video>
+</a>
+
+<!-- [![][scr_gif]][scr_ext] -->
+
+[scr_mp4]: https://giant.gfycat.com/MinorTightItalianbrownbear.mp4
+[scr_gif]: https://thumbs.gfycat.com/MinorTightItalianbrownbear-size_restricted.gif
+[scr_ext]: https://gfycat.com/MinorTightItalianbrownbear
+
+Protip: Use [live-server] on the `coverage` dir
+
+[live-server]: https://github.com/tapio/live-server
+
+## Update: Major Rewrite
+
+### Uses [c8]
+
+After recently discovering **[c8]** I decided to rewrite this to use that  instead of [Istanbul]. But [c8] still uses [Istanbul] under the hood to generate reports and such, so the overall outcome of this change should be more or less the same as before.
+
+[c8]: https://github.com/bcoe/c8
+
+<a id="c8-fork"></a> Actually it uses a [fork][laggingreflex/c8] that offers a [feature][c8/pull/19] not yet integrated into [c8].
+
+[laggingreflex/c8]: https://github.com/laggingreflex/c8
+[c8/pull/19]: https://github.com/bcoe/c8/pull/19
+
+### Not all features of [Mocha] and [Istanbul] supported
+
+Incorporating ***all*** functionalities of both [Mocha] and [Istanbul] is no longer the intent of this project. Earlier this project may have claimed to be a drop-in replacement for both, but that is no longer the case (in hindsight it wasn't a wise decision to begin with, since there were/would've been a lot of flag/features collisions).
+
+### Node v10
+
+Another thing this rewrite did was to massively simplify the code (1.3k->300 LOC), and some of the features ([Async Iteration]) are heavily reliant on latest NodeJS (v10).
+
+I don't currently plan to use babel to transpile-down.
+
+[Async Iteration]: https://github.com/tc39/proposal-async-iteration
+
 
 ## Features
 
+Note: Some of the features have been removed since the [update](#update-major-rewrite).
+
 * Run tests and generate coverage reports
 
-* Like `mocha --watch` but with Istanbul coverage reports.
+* Like `mocha --watch` but with [Istanbul] coverage reports.
 
-* Run only modified tests.
+* ~~Run only modified tests.~~
 
-* Instrumentation caching on disk and memory for fastest coverage report generation and re-generation.
+* ~~Instrumentation caching on disk and memory for fastest coverage report generation and re-generation.~~
 
-* Supports `mocha.opts` with [extra features](#multiline-mochaopts).
+* ~~Supports `mocha.opts` with [extra features](#multiline-mochaopts).~~
 
 * [Exclude](#excludes) files from tests in mocha; test files auto-excluded from source for coverage.
 
-* Built in support for ES6/ES2015+ by using [coverage source-maps][istanbul-lib-source-maps].
+* ~~Built in support for ES6/ES2015+ by using [coverage source-maps][istanbul-lib-source-maps].~~
 
 ## Why?
 
-Why not just use [nyc]? It already supports mocha: `nyc --reporter=lcov mocha`
+Why not just use [nyc] (or [c8])?
 
 * Agreed. But I wrote mochista more for its `--watch` feature.
 
 Why not just use nodemon or something?
 
-* Multiprocess overhead. `mocha --watch` is so fast on subsequent runs because it does it all in the same process. Mochista builds on this and uses both Mocha and Istanbul's programatic API to do both for all subsequent runs in the same process. And with smart instrumentation caching, Mochista's `--watch` feature aims to be the fastest tool to run tests and generate coverage reports on file modifictaions.
+* Multiprocess overhead. `mocha --watch` is so fast on subsequent runs because it does it all in the same process. Mochista builds on this and uses both [Mocha] and [c8]'s programmatic API to do both for all subsequent runs in the same process. Mochista's `--watch` feature aims to be the fastest tool to run tests and generate coverage reports on file modifications.
 
 
 ## Install
@@ -43,7 +90,7 @@ npm i -g mochista
 ```
 ## Usage
 ```sh
-mochista [OPTIONS] [test-files]
+mochista [options]
 ```
 ```
 --root                   Base directory from which watch paths are to be derived.
@@ -70,22 +117,22 @@ mochista [OPTIONS] [test-files]
 --help,                  Print this and exit.
   -h, /?
 
-Options from Mocha:
+Options from [Mocha]:
 
 --compilers              Use the given module(s) to compile files.
                            Eg.: --compilers js:babel-register
 --require                Require the given module(s).
                            Eg.: --require source-map-support/register tests/_/first.js
 
---test-reporter,         Reporter to use for Mocha
+--test-reporter,         Reporter to use for [Mocha]
   --reporter,              Default: spec
   -R                       Eg.: --require spec
 
 ...and most other mocha options
 
-Options from Istanbul/nyc:
+Options from [Istanbul]/nyc:
 
---coverage-reporter,     Reporter(s) to use for Istanbul coverage.
+--coverage-reporter,     Reporter(s) to use for [Istanbul] coverage.
   --report                 Default: lcov text
                            Eg.: --report lcov text
 
