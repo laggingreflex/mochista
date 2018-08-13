@@ -64,5 +64,5 @@ async function main(argv = {}) {
       break;
     }
   }
-  interrupt.resolve()
+  interrupt.resolve();
 }
