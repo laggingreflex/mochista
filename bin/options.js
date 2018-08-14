@@ -6,7 +6,10 @@ module.exports = {
   },
   testFiles: {
     type: 'array',
-    default: ['test', 'tests', '__test__', '__tests__', 'test*.*', '**/*.test.*', '**/*.spec.*'],
+    default: [
+      '*test*/**',
+      '**/*.test.*',
+    ],
     description: 'Files to test (chokidar compatible)',
   },
   sourceFiles: {
