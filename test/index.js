@@ -1,5 +1,5 @@
 describe('test', () => {
   it('should pass', () => {
-    // throw new Error('hi1');
+    throw new Error('hi1');
   });
 });

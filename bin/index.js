@@ -28,7 +28,7 @@ main(argv).catch(error => {
 
 async function main(argv = {}) {
 
-  const interrupt = new utils.defer();
+  const interrupt = new utils.Defer();
 
   const { watcher, run } = await mochista({ ...argv, interrupt });
   const stdin = argv.watch && streamAsync(process.stdin.setEncoding('utf8'), { interrupt });
