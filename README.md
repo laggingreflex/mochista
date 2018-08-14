@@ -2,9 +2,7 @@
 # Mochista
 [![npm](https://img.shields.io/npm/v/mochista.svg)](https://www.npmjs.com/package/mochista)
 
-***Like***[\*][like-*] [Mocha] + ~~[Istanbul]~~ [c8] in a single process.
-
-[like-*]: #not-all-features-of-mocha-and-istanbul-supported
+***Like***[\*](#not-all) [Mocha] + ~~[Istanbul]~~ [c8*](#uses-c8) in a single process.
 
 Mochista uses [Mocha] and ~~[Istanbul]~~ [c8]'s[*][c8-fork] programmatic API to run both in a single process yielding fastest test results and coverage reports.
 
@@ -12,18 +10,18 @@ Mochista uses [Mocha] and ~~[Istanbul]~~ [c8]'s[*][c8-fork] programmatic API to 
 
 Its `--watch` feature runs modified tests and generates coverage using cache for unmodified files instantly:
 
-<a href="https://gfycat.com/MinorTightItalianbrownbear">
+<a href="https://gfycat.com/IdleSoreHammerheadshark">
 <video muted autoplay loop>
-<source src="https://giant.gfycat.com/MinorTightItalianbrownbear.mp4"/>
-<img src="https://thumbs.gfycat.com/MinorTightItalianbrownbear-size_restricted.gif">
+<source src="https://giant.gfycat.com/IdleSoreHammerheadshark.mp4"/>
+<img src="https://thumbs.gfycat.com/IdleSoreHammerheadshark-size_restricted.gif">
 </video>
 </a>
 
 <!-- [![][scr_gif]][scr_ext] -->
 
-[scr_mp4]: https://giant.gfycat.com/MinorTightItalianbrownbear.mp4
-[scr_gif]: https://thumbs.gfycat.com/MinorTightItalianbrownbear-size_restricted.gif
-[scr_ext]: https://gfycat.com/MinorTightItalianbrownbear
+[scr_mp4]: https://giant.gfycat.com/IdleSoreHammerheadshark.mp4
+[scr_gif]: https://thumbs.gfycat.com/IdleSoreHammerheadshark-size_restricted.gif
+[scr_ext]: https://gfycat.com/IdleSoreHammerheadshark
 
 Protip: Use [live-server] on the `coverage` dir
 
@@ -37,12 +35,12 @@ After recently discovering **[c8]** I decided to rewrite this to use that  inste
 
 [c8]: https://github.com/bcoe/c8
 
-<a id="c8-fork"></a> Actually it uses a [fork][laggingreflex/c8] that offers a [feature][c8/pull/19] not yet integrated into [c8].
+<a id="c8-fork"></a> Actually it uses a [fork][laggingreflex/c8] that offers a feature ([Node API][c8/pull/19]) not yet integrated into [c8].
 
 [laggingreflex/c8]: https://github.com/laggingreflex/c8
 [c8/pull/19]: https://github.com/bcoe/c8/pull/19
 
-### Not all features of [Mocha] and [Istanbul] supported
+### <a id="not-all"></a> Not all features of [Mocha] and [Istanbul] supported
 
 Incorporating ***all*** functionalities of both [Mocha] and [Istanbul] is no longer the intent of this project. Earlier this project may have claimed to be a drop-in replacement for both, but that is no longer the case (in hindsight it wasn't a wise decision to begin with, since there were/would've been a lot of flag/features collisions).
 
@@ -66,23 +64,16 @@ I don't currently plan to use babel to transpile-down.
 Note: Following features have been removed since the [update](#update-major-rewrite).
 
 * ~~Run only modified tests.~~
+It's easier (and not that slow) to just re-run everything.
 
 * ~~Instrumentation caching on disk and memory for fastest coverage report generation and re-generation.~~
+Not needed anymore.
 
 * ~~Supports `mocha.opts` with [extra features](#multiline-mochaopts).~~
+See [above](#not-all)
 
 * ~~Built in support for ES6/ES2015+ by using [coverage source-maps][istanbul-lib-source-maps].~~
-
-## Why?
-
-Why not just use [nyc] (or [c8])?
-
-* Agreed. But I wrote mochista more for its `--watch` feature.
-
-Why not just use nodemon or something?
-
-* Multiprocess overhead. `mocha --watch` is so fast on subsequent runs because it does it all in the same process. Mochista builds on this and uses both [Mocha] and [c8]'s programmatic API to do both for all subsequent runs in the same process. Mochista's `--watch` feature aims to be the fastest tool to run tests and generate coverage reports on file modifications.
-
+See [below](#transpilers)
 
 ## Install
 ```sh
@@ -107,101 +98,11 @@ Options:
   --coverageReporter, --report  Istanbul coverage reporters  [array] [default: ["text","lcov","html"]]
 ```
 
-## Extras
-
-#### Excludes
-You can specify excludes for test-files. Eg.:
-```
-mochista --testFiles test/** --testFilesExclude test/fixtures
-```
-Files/globs beginning with `!` are added to their respective excludes. Eg.:
-```
-mochista test/** !test/fixtures --sourceFiles src/** !src/vendor
-```
-is equivalent to
-```
-mochista --testFiles test/** --testFilesExclude test/fixtures --sourceFiles src/** --sourceFilesExclude src/vendor
-```
-Note: It automatically excludes test files from source files for coverage reports, so no need to do this:
-<strike>
-```
---test-files test/** --source-files-exclude test/**
-```
-</strike>
-
-#### Multiline `mocha.opts`
-Line beginning with `#` in `mocha.opts` are ignored. Eg.:
-```sh
---compilers js:babel-register
---require source-map-support/register
---reporter spec
-# --debug
-```
-
 ## Issues
 
-If you're facing issues, use maximum verbosity level to get more info for reporting
+### Transpilers
 
-```
--vvv
-```
-
-### Known issues
-
-#### Running only tests that were affected by the changed files
-
-This is something that isn't trivial. [Jest] does a marvelous job at actually detecting which test files need to be run based on analyzing import/requires of each file. Mochista in this regard has a much simpler logic:
-
-* If a test file was changed, it just runs that test file again. Any imports and requires in that test files are loaded from cache by NodeJS default require caching mechanism, other that the test file itself whose cache is reset.
-
-* If a source file was changed, NodeJS require caches for that source file, and all test files are reset, and all tests are run again. Mochista doesn't try to analyze which tests were affected by that source file, it just runs them all.
-
-But resetting the cache for only the changed files may cause undesired behavior in some cases. For example:
-```
-// foo.js
-module.exports = 'This is foo'
-```
-```
-// bar.js
-const foo = require('./foo')
-module.exports = foo.replace('foo', 'bar')
-```
-```
-// bar.test.js
-const bar = require('./bar')
-assert(bar === 'This is bar')
-```
-Now suppose you changed `foo.js`:
-```
-// foo.js modified
-module.exports = 'This is fuu' // this should make the above test fail
-```
-assuming `foo.js` is considered a source file which will trigger all tests to be run, the `bar.test.js` test will still (incorrectly) pass! This is because `bar.test.js` and `bar.js` weren't modified, they're still cached by NodeJS which use the previously cached version of `foo.js`.
-
-This is especially troublesome when using babel-rewire. It might fail to re-wire your dependencies.
-
-For this reason there's a third option, enabled by pressing "r" or using the switch `--run-all`, which resets all require cache for all test and all source files. This is probably the most fool proof way to re-run all tests. It's still a lot faster that running the process again.
-
-#### Chokidar
-
-Mochista uses [chokidar] for watching file changes.
-
-If you see a warning like
-```
-Timed out (3s) waiting for watcher "ready" event.
-```
-It might mean you have specified a glob/dir that doesn't actually contain any files.
-Checkout [chokidar#449]. It will try to continue on after that warning given that other globs were still able to find some files (use `-vvv` for more info). If no files were found it will definitely have thrown an unrecoverable error.
-
-If Mochista fails to monitor the files you specified, try to simplify or reduce the glob patterns specified. See chokidar#561.
-
-####  Invalid coverage with babel
-
-In some cases you might see inaccurate coverage reports when using babel: [nyc#501](https://github.com/istanbuljs/nyc/issues/501)
-
-Use [babel-plugin-istanbul] with `--instrument=false` to solve this issue.
-
-This will however take a hit on speed because it won't be able to cache the instrumentation.
+Personally not a huge fan of transpilers (babel, typescript) so they've neither been tested nor support for them is provided currently.
 
 [scr]: misc/scr.gif
 
@@ -223,3 +124,23 @@ This will however take a hit on speed because it won't be able to cache the inst
 
 [pita]: http://www.urbandictionary.com/define.php?term=pita
 
+
+## Libraries used
+
+* **[mocha]**
+* **[c8]**
+* [yargs]
+* [dotenv]
+* *[file-watch-iterator]*
+* *[merge-async-iterators]*
+* *[streams-to-async-iterator]*
+* *[map-better]*
+* *[debounce-queue]*
+
+[file-watch-iterator]: https://github.com/laggingreflex/file-watch-iterator
+[map-better]: https://github.com/laggingreflex/map-better
+[merge-async-iterators]: https://github.com/laggingreflex/merge-async-iterators
+[streams-to-async-iterator]: https://github.com/laggingreflex/streams-to-async-iterator
+[yargs]: https://github.com/yargs/yargs
+[debounce-queue]: https://github.com/laggingreflex/debounce-queue
+[dotenv]: https://github.com/motdotla/dotenv

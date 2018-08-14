@@ -10,7 +10,6 @@
   "repository": "laggingreflex/mochista",
   "dependencies": {
     "c8": "laggingreflex/c8",
-    "chokidar": "^2.0.4",
     "debounce-queue": "^0.2.2",
     "dotenv": "^6.0.0",
     "file-watch-iterator": "^0.3.0",
