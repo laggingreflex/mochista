@@ -1,35 +1,49 @@
 module.exports = {
   cwd: {
     type: 'string',
-    default: process.cwd()
+    default: process.cwd(),
+    description: 'Current dir'
   },
   testFiles: {
     type: 'array',
-    default: ['test']
+    default: ['test', 'tests', '__test__', '__tests__', 'test*.*', '**/*.test.*', '**/*.spec.*'],
+    description: 'Files to test (chokidar compatible)',
   },
   sourceFiles: {
     type: 'array',
-    default: ['.']
+    default: ['.'],
+    description: 'Source files (for coverage) (chokidar compatible)',
   },
   exclude: {
     type: 'array',
-    default: ['.*', 'node_modules', 'coverage']
+    default: ['.*', 'node_modules', 'coverage'],
+    description: 'Files to exclude (chokidar compatible)',
   },
   extensions: {
     type: 'array',
-    default: ['.js']
+    default: ['.js'],
+    description: 'Extensions to monitor (all other files ignored)',
   },
   watch: {
-    alias: ['w']
-    // type: 'boolean'
+    alias: ['w'],
+    // type: 'boolean',
+    description: 'Watch for file changes and re-run. `--watch=i` only re-runs on key input',
   },
   coverage: {
     type: 'boolean',
-    default: true
+    default: true,
+    description: 'Collect coverage',
+  },
+  mochaReporter: {
+    alias: ['reporter'],
+    type: 'string',
+    default: 'spec',
+    description: 'Mocha reporter',
   },
   coverageReporter: {
     alias: ['report'],
     type: 'array',
-    default: ['text', 'lcov', 'html']
-  }
+    default: ['text', 'lcov', 'html'],
+    description: 'Istanbul coverage reporters',
+  },
 };

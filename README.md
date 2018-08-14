@@ -57,19 +57,19 @@ I don't currently plan to use babel to transpile-down.
 
 ## Features
 
-Note: Some of the features have been removed since the [update](#update-major-rewrite).
-
 * Run tests and generate coverage reports
 
 * Like `mocha --watch` but with [Istanbul] coverage reports.
+
+* [Exclude](#excludes) files from tests in mocha; test files auto-excluded from source for coverage.
+
+Note: Following features have been removed since the [update](#update-major-rewrite).
 
 * ~~Run only modified tests.~~
 
 * ~~Instrumentation caching on disk and memory for fastest coverage report generation and re-generation.~~
 
 * ~~Supports `mocha.opts` with [extra features](#multiline-mochaopts).~~
-
-* [Exclude](#excludes) files from tests in mocha; test files auto-excluded from source for coverage.
 
 * ~~Built in support for ES6/ES2015+ by using [coverage source-maps][istanbul-lib-source-maps].~~
 
@@ -93,65 +93,18 @@ npm i -g mochista
 mochista [options]
 ```
 ```
---root                   Base directory from which watch paths are to be derived.
-                           Default: result of process.cwd()
-
---test-files             Files/globs that should be tested by mocha.
-                           Default: test*/**/*.js **/*.{test,spec}.js
---test-files-exclude,    Files/globs ignored from test-files.
-  --ignore                 Default: **/node_modules/**
-
---source-files,          Files/globs that should be covered by istanbul.
-  --include                Default: src/**/*.js
---source-files-exclude,  Files/globs ignored from source-files. (test-files auto excluded)
-  --exclude                Default: node_modules/**
-
---file-count-limit       Throws error if source/test files exceed this value. (handy to detect unnecessary inclusions leak in file-watchers)
-                           Default: 1000
-
---watch,                 Watch for file modification.
-  -w                       Default: false
---run-all                Run all tests on any test file modifications.
-                           Default: false (runs only modified tests; still runs all tests on source modification)
-
---help,                  Print this and exit.
-  -h, /?
-
-Options from [Mocha]:
-
---compilers              Use the given module(s) to compile files.
-                           Eg.: --compilers js:babel-register
---require                Require the given module(s).
-                           Eg.: --require source-map-support/register tests/_/first.js
-
---test-reporter,         Reporter to use for [Mocha]
-  --reporter,              Default: spec
-  -R                       Eg.: --require spec
-
-...and most other mocha options
-
-Options from [Istanbul]/nyc:
-
---coverage-reporter,     Reporter(s) to use for [Istanbul] coverage.
-  --report                 Default: lcov text
-                           Eg.: --report lcov text
-
---report-dir,            Directory to output coverage reports in.
-  --report                 Default: coverage
-
-...and most other istanbul/nyc options
-```
-
-Replace your mocha and istanbul/nyc statements
-```json
-"test": "mocha test/**/*.js src/**/*.{test,spec}.js --compilers js:babel-register",
-"cover": "istanbul cover -x \"test/**/*.js src/**/*.{test,spec}.js\" _mocha -- test/**/*.js src/**/*.{test,spec}.js --compilers js:babel-register",
-"nyc": "nyc --reporter=lcov --reporter=text npm test",
-```
-with mochista:
-```json
-"test": "mochista test/**/*.js src/**/*.{test,spec}.js --compilers js:babel-register",
-"tdd": "npm run test -- --watch",
+Options:
+  --help                        Show help  [boolean]
+  --version                     Show version number  [boolean]
+  --cwd                         Current dir  [string]
+  --testFiles                   Files to test (chokidar compatible)  [array] [default: ["test","tests","__test__","__tests__","test*.*","**/*.test.*","**/*.spec.*"]]
+  --sourceFiles                 Source files (for coverage) (chokidar compatible)  [array] [default: ["."]]
+  --exclude                     Files to exclude (chokidar compatible)  [array] [default: [".*","node_modules","coverage"]]
+  --extensions                  Extensions to monitor (all other files ignored)  [array] [default: [".js"]]
+  --watch, -w                   Watch for file changes and re-run. `--watch=i` only re-runs on key input
+  --coverage                    Collect coverage  [boolean] [default: true]
+  --mochaReporter, --reporter   Mocha reporter  [string] [default: "spec"]
+  --coverageReporter, --report  Istanbul coverage reporters  [array] [default: ["text","lcov","html"]]
 ```
 
 ## Extras

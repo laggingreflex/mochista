@@ -5,7 +5,7 @@
   "main": "lib",
   "bin": "bin/index.js",
   "scripts": {
-    "test": "node ./bin"
+    "test": "node bin"
   },
   "repository": "laggingreflex/mochista",
   "dependencies": {
