@@ -13,6 +13,7 @@
     "array.prototype.flat": "^1.2.1",
     "arrify": "^1.0.1",
     "c8": "laggingreflex/c8",
+    "camelcase": "^5.0.0",
     "dotenv": "^6.0.0",
     "file-watch-iterator": "^0.5.0",
     "merge-async-iterators": "^0.1.2",
