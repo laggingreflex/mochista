@@ -88,11 +88,11 @@ Options:
   --help                        Show help  [boolean]
   --version                     Show version number  [boolean]
   --cwd                         Current dir  [string]
-  --testFiles                   Files to test (chokidar compatible)  [array] [default: ["test","tests","__test__","__tests__","test*.*","**/*.test.*","**/*.spec.*"]]
-  --sourceFiles                 Source files (for coverage) (chokidar compatible)  [array] [default: ["."]]
-  --exclude                     Files to exclude (chokidar compatible)  [array] [default: [".*","node_modules","coverage"]]
+  --testFiles                   Files to test (anymatch)  [array] [default: ["*test*/**","**/*.test.*"]]
+  --sourceFiles                 Source files (for coverage) (anymatch)  [array] [default: ["."]]
+  --exclude                     Files to exclude (anymatch)  [array] [default: [".*","node_modules","coverage"]]
   --extensions                  Extensions to monitor (all other files ignored)  [array] [default: [".js"]]
-  --watch, -w                   Watch for file changes and re-run. `--watch=i` only re-runs on key input
+  --watch, -w                   Watch for file changes and re-run. `--watch=i` to only re-run on pressing Enter
   --coverage                    Collect coverage  [boolean] [default: true]
   --mochaReporter, --reporter   Mocha reporter  [string] [default: "spec"]
   --coverageReporter, --report  Istanbul coverage reporters  [array] [default: ["text","lcov","html"]]

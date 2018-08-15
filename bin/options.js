@@ -1,7 +1,7 @@
 module.exports = {
   cwd: {
     type: 'string',
-    default: process.cwd(),
+    // default: process.cwd(),
     description: 'Current dir'
   },
   testFiles: {
@@ -10,17 +10,17 @@ module.exports = {
       '*test*/**',
       '**/*.test.*',
     ],
-    description: 'Files to test (chokidar compatible)',
+    description: 'Files to test (anymatch)',
   },
   sourceFiles: {
     type: 'array',
     default: ['.'],
-    description: 'Source files (for coverage) (chokidar compatible)',
+    description: 'Source files (for coverage) (anymatch)',
   },
   exclude: {
     type: 'array',
     default: ['.*', 'node_modules', 'coverage'],
-    description: 'Files to exclude (chokidar compatible)',
+    description: 'Files to exclude (anymatch)',
   },
   extensions: {
     type: 'array',
@@ -30,7 +30,7 @@ module.exports = {
   watch: {
     alias: ['w'],
     // type: 'boolean',
-    description: 'Watch for file changes and re-run. `--watch=i` only re-runs on key input',
+    description: 'Watch for file changes and re-run. `--watch=i` to only re-run on pressing Enter',
   },
   coverage: {
     type: 'boolean',
