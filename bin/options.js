@@ -22,6 +22,11 @@ module.exports = {
     default: ['.*', 'node_modules', 'coverage'],
     description: 'Files to exclude (anymatch)',
   },
+  gitignore: {
+    type: 'string',
+    default: ['.gitignore', '~/.gitignore'],
+    description: 'Files to exclude based on .gitignore',
+  },
   extensions: {
     type: 'array',
     default: ['.js'],

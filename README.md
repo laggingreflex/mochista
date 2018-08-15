@@ -91,6 +91,7 @@ Options:
   --testFiles                   Files to test (anymatch)  [array] [default: ["*test*/**","**/*.test.*"]]
   --sourceFiles                 Source files (for coverage) (anymatch)  [array] [default: ["."]]
   --exclude                     Files to exclude (anymatch)  [array] [default: [".*","node_modules","coverage"]]
+  --gitignore                   Files to exclude based on .gitignore  [string] [default: [".gitignore","~/.gitignore"]]
   --extensions                  Extensions to monitor (all other files ignored)  [array] [default: [".js"]]
   --watch, -w                   Watch for file changes and re-run. `--watch=i` to only re-run on pressing Enter
   --coverage                    Collect coverage  [boolean] [default: true]
@@ -131,16 +132,19 @@ Personally not a huge fan of transpilers (babel, typescript) so they've neither 
 * **[c8]**
 * [yargs]
 * [dotenv]
+* [anymatch]
+* [parse-gitignore]
+* [untildify]
 * *[file-watch-iterator]*
 * *[merge-async-iterators]*
 * *[streams-to-async-iterator]*
-* *[map-better]*
-* *[debounce-queue]*
 
 [file-watch-iterator]: https://github.com/laggingreflex/file-watch-iterator
 [map-better]: https://github.com/laggingreflex/map-better
 [merge-async-iterators]: https://github.com/laggingreflex/merge-async-iterators
 [streams-to-async-iterator]: https://github.com/laggingreflex/streams-to-async-iterator
 [yargs]: https://github.com/yargs/yargs
-[debounce-queue]: https://github.com/laggingreflex/debounce-queue
+[anymatch]: https://github.com/micromatch/anymatch
+[parse-gitignore]: https://github.com/jonschlinkert/parse-gitignore
+[untildify]: https://github.com/sindresorhus/untildify
 [dotenv]: https://github.com/motdotla/dotenv
