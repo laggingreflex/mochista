@@ -38,12 +38,12 @@ async function main(argv = {}) {
 
   for await (const { iterator, data: { value: data } } of merged) {
     try {
-      if (firstRun) {
-        await run({ all: true });
+      if (
+        firstRun
+        || iterator === stdin
+        || !(typeof argv.watch === 'string' && argv.watch.startsWith('i'))
+      ) {
         firstRun = false;
-      } else if (iterator === stdin) {
-        await run({ all: true });
-      } else if (!(typeof argv.watch === 'string' && argv.watch.startsWith('i'))) {
         await run();
       }
     } catch (error) {
@@ -64,5 +64,4 @@ async function main(argv = {}) {
       break;
     }
   }
-  interrupt.resolve();
 }

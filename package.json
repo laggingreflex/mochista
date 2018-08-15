@@ -9,11 +9,11 @@
   },
   "repository": "laggingreflex/mochista",
   "dependencies": {
+    "anymatch": "^2.0.0",
     "c8": "laggingreflex/c8",
     "debounce-queue": "^0.3.0",
     "dotenv": "^6.0.0",
     "file-watch-iterator": "^0.5.0",
-    "map-better": "^0.2.0",
     "merge-async-iterators": "^0.1.2",
     "mocha": "^5.2.0",
     "streams-to-async-iterator": "^0.3.0",
