@@ -58,6 +58,12 @@ module.exports = {
     default: ['text', 'lcov', 'html'],
     description: 'Istanbul reporters',
   },
+  require: {
+    alias: ['r'],
+    type: 'array',
+    default: [],
+    description: 'Require the given module',
+  },
   'mocha-xxx': {
     description: 'All mocha-related options, like --mocha-fgrep etc',
   },
