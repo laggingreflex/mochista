@@ -1,12 +1,9 @@
-
 # Mochista
 [![npm](https://img.shields.io/npm/v/mochista.svg)](https://www.npmjs.com/package/mochista)
 
 ***Like***[\*](#not-all) [Mocha] + ~~[Istanbul]~~ [c8*](#uses-c8) in a single process.
 
-Mochista uses [Mocha] and ~~[Istanbul]~~ [c8]'s[*][c8-fork] programmatic API to run both in a single process yielding fastest test results and coverage reports.
-
-[c8-fork]: #c8-fork
+Mochista uses [Mocha] and ~~[Istanbul]~~ [c8]'s[*](#c8-fork) programmatic API to run both in a single process yielding fastest test results and coverage reports.
 
 Its `--watch` feature runs modified tests and generates coverage using cache for unmodified files instantly:
 
@@ -17,15 +14,8 @@ Its `--watch` feature runs modified tests and generates coverage using cache for
 </video>
 </a>
 
-<!-- [![][scr_gif]][scr_ext] -->
-
-[scr_mp4]: https://giant.gfycat.com/IdleSoreHammerheadshark.mp4
-[scr_gif]: https://thumbs.gfycat.com/IdleSoreHammerheadshark-size_restricted.gif
-[scr_ext]: https://gfycat.com/IdleSoreHammerheadshark
-
 Protip: Use [live-server] on the `coverage` dir
 
-[live-server]: https://github.com/tapio/live-server
 
 ## Update: Major Rewrite
 
@@ -33,12 +23,7 @@ Protip: Use [live-server] on the `coverage` dir
 
 After recently discovering **[c8]** I decided to rewrite this to use that  instead of [Istanbul]. But [c8] still uses [Istanbul] under the hood to generate reports and such, so the overall outcome of this change should be more or less the same as before.
 
-[c8]: https://github.com/bcoe/c8
-
 <a id="c8-fork"></a> Actually it uses a [fork][laggingreflex/c8] that offers a feature ([Node API][c8/pull/19]) not yet integrated into [c8].
-
-[laggingreflex/c8]: https://github.com/laggingreflex/c8
-[c8/pull/19]: https://github.com/bcoe/c8/pull/19
 
 ### <a id="not-all"></a> Not all features of [Mocha] and [Istanbul] supported
 
@@ -50,8 +35,6 @@ Another thing this rewrite did was to massively simplify the code (1.3k->300 LOC
 
 I don't currently plan to use babel to transpile-down.
 
-[Async Iteration]: https://github.com/tc39/proposal-async-iteration
-
 
 ## Features
 
@@ -59,12 +42,10 @@ I don't currently plan to use babel to transpile-down.
 
 * Like `mocha --watch` but with [Istanbul] coverage reports.
 
-* [Exclude](#excludes) files from tests in mocha; test files auto-excluded from source for coverage.
-
 Note: Following features have been removed since the [update](#update-major-rewrite).
 
 * ~~Run only modified tests.~~
-It's easier (and not that slow) to just re-run everything.
+It's far simpler (and not *that* slow) to just re-run everything.
 
 * ~~Instrumentation caching on disk and memory for fastest coverage report generation and re-generation.~~
 Not needed anymore.
@@ -72,7 +53,6 @@ Not needed anymore.
 * ~~Supports `mocha.opts` with [extra features](#multiline-mochaopts).~~
 See [above](#not-all). It does support `.env` file (via [dotenv]) and all can take all command-line flags from it (via [yargs]' [.env][yargs-env] feature)
 
-[yargs-env]: https://github.com/yargs/yargs/blob/master/docs/api.md#envprefix
 
 * ~~Built in support for ES6/ES2015+ by using [coverage source-maps][istanbul-lib-source-maps].~~
 See [below](#transpilers)
@@ -103,32 +83,19 @@ Options:
   --mocha-xxx        All mocha-related options, like --mocha-fgrep etc
 ```
 
+Options can be provided in `--camelCase`, `--hyphen-case` or set as environment variables (which can also be read from `.env` file) in `UPPER_SNAKE_CASE=`.
+
+Other than explicitly setting a boolean to `=false`, you can also use the `--no-` prefix, like `--no-coverage`
+
 ## Issues
 
 ### Transpilers
 
 Personally not a huge fan of transpilers (babel, typescript) so they've neither been tested nor support for them is provided currently.
 
-[scr]: misc/scr.gif
+### Sub-process spawning
 
-[mocha]: http://mochajs.org
-[istanbul]: https://istanbul.js.org
-[nyc]: https://github.com/istanbuljs/nyc
-[babel-istanbul]: https://github.com/jmcriffey/babel-istanbul
-[istanbul-lib-source-maps]: https://github.com/istanbuljs/istanbul-lib-source-maps
-[chokidar]: https://github.com/paulmillr/chokidar
-[chokidar#561]: https://github.com/paulmillr/chokidar/issues/561
-[chokidar#449]: https://github.com/paulmillr/chokidar/issues/449
-[watch]: https://github.com/mochajs/mocha/search?q=watch&type=issues
-[exclude files]: https://github.com/mochajs/mocha/search?q=exclude+files&type=issues
-
-[mocha-istanbul]: https://github.com/arikon/mocha-istanbul
-[mocha-lcov-reporter]: https://github.com/StevenLooman/mocha-lcov-reporter
-
-[babel-plugin-istanbul]: https://github.com/istanbuljs/babel-plugin-istanbul
-
-[pita]: http://www.urbandictionary.com/define.php?term=pita
-
+Currently sub-process spawning (if your test spawns another process) isn't supported.
 
 ## Libraries used
 
@@ -143,12 +110,35 @@ Personally not a huge fan of transpilers (babel, typescript) so they've neither 
 * *[merge-async-iterators]*
 * *[streams-to-async-iterator]*
 
-[file-watch-iterator]: https://github.com/laggingreflex/file-watch-iterator
-[map-better]: https://github.com/laggingreflex/map-better
-[merge-async-iterators]: https://github.com/laggingreflex/merge-async-iterators
-[streams-to-async-iterator]: https://github.com/laggingreflex/streams-to-async-iterator
+
+<!-- LINKS -->
+[mocha]: http://mochajs.org
+[istanbul]: https://istanbul.js.org
+[c8]: https://github.com/bcoe/c8
+[live-server]: https://github.com/tapio/live-server
+[laggingreflex/c8]: https://github.com/laggingreflex/c8
+[c8/pull/19]: https://github.com/bcoe/c8/pull/19
+[Async Iteration]: https://github.com/tc39/proposal-async-iteration
+[mocha-watching]: https://github.com/mochajs/mocha/search?q=watch&type=issues
+[dotenv]: https://github.com/motdotla/dotenv
 [yargs]: https://github.com/yargs/yargs
+[yargs-env]: https://github.com/yargs/yargs/blob/master/docs/api.md#envprefix
 [anymatch]: https://github.com/micromatch/anymatch
 [parse-gitignore]: https://github.com/jonschlinkert/parse-gitignore
 [untildify]: https://github.com/sindresorhus/untildify
-[dotenv]: https://github.com/motdotla/dotenv
+[file-watch-iterator]: https://github.com/laggingreflex/file-watch-iterator
+[merge-async-iterators]: https://github.com/laggingreflex/merge-async-iterators
+[streams-to-async-iterator]: https://github.com/laggingreflex/streams-to-async-iterator
+<!-- -->
+[map-better]: https://github.com/laggingreflex/map-better
+[nyc]: https://github.com/istanbuljs/nyc
+[babel-istanbul]: https://github.com/jmcriffey/babel-istanbul
+[istanbul-lib-source-maps]: https://github.com/istanbuljs/istanbul-lib-source-maps
+[chokidar]: https://github.com/paulmillr/chokidar
+[chokidar#561]: https://github.com/paulmillr/chokidar/issues/561
+[chokidar#449]: https://github.com/paulmillr/chokidar/issues/449
+[exclude files]: https://github.com/mochajs/mocha/search?q=exclude+files&type=issues
+[mocha-istanbul]: https://github.com/arikon/mocha-istanbul
+[mocha-lcov-reporter]: https://github.com/StevenLooman/mocha-lcov-reporter
+[babel-plugin-istanbul]: https://github.com/istanbuljs/babel-plugin-istanbul
+[pita]: http://www.urbandictionary.com/define.php?term=pita
