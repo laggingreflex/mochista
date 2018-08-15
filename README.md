@@ -97,6 +97,7 @@ Options:
   --extensions       Extensions to monitor (all other files ignored)  [array] [default: [".js"]]
   --watch, -w        Watch for file changes and re-run. `--watch=i` to only re-run on pressing Enter
   --coverage         Collect coverage (use --no-coverage to disable)  [boolean] [default: true]
+  --coverageFirst    Show coverage before test results (patches console)  [boolean]
   --reporter         Mocha reporter  [string] [default: "spec"]
   --report           Istanbul reporters  [array] [default: ["text","lcov","html"]]
   --mocha-xxx        All mocha-related options, like --mocha-fgrep etc

@@ -44,6 +44,10 @@ module.exports = {
     default: true,
     description: 'Collect coverage (use --no-coverage to disable)',
   },
+  coverageFirst: {
+    type: 'boolean',
+    description: 'Show coverage before test results (patches console)',
+  },
   reporter: {
     type: 'string',
     default: 'spec',

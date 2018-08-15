@@ -17,7 +17,7 @@ const argv = yargs
 
 main(argv).catch(error => {
   process.exitCode = error.exitCode || 1;
-  if (error instanceof utils.Error) {
+  if (error instanceof utils.Error && !error.failures) {
     console.error(error.message);
   } else {
     if (!error.failures) {
