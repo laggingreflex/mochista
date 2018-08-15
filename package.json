@@ -16,6 +16,7 @@
     "camelcase": "^5.0.0",
     "dotenv": "^6.0.0",
     "file-watch-iterator": "^0.5.0",
+    "intercept-stdout": "^0.1.2",
     "merge-async-iterators": "^0.1.2",
     "mocha": "^5.2.0",
     "parse-gitignore": "^1.0.1",
