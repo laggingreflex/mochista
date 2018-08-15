@@ -85,18 +85,19 @@ mochista [options]
 ```
 ```
 Options:
-  --help                        Show help  [boolean]
-  --version                     Show version number  [boolean]
-  --cwd                         Current dir  [string]
-  --testFiles                   Files to test (anymatch)  [array] [default: ["*test*/**","**/*.test.*"]]
-  --sourceFiles                 Source files (for coverage) (anymatch)  [array] [default: ["."]]
-  --exclude                     Files to exclude (anymatch)  [array] [default: [".*","node_modules","coverage"]]
-  --gitignore                   Files to exclude based on .gitignore  [string] [default: [".gitignore","~/.gitignore"]]
-  --extensions                  Extensions to monitor (all other files ignored)  [array] [default: [".js"]]
-  --watch, -w                   Watch for file changes and re-run. `--watch=i` to only re-run on pressing Enter
-  --coverage                    Collect coverage  [boolean] [default: true]
-  --mochaReporter, --reporter   Mocha reporter  [string] [default: "spec"]
-  --coverageReporter, --report  Istanbul coverage reporters  [array] [default: ["text","lcov","html"]]
+  --help             Show help  [boolean]
+  --version          Show version number  [boolean]
+  --cwd              Current dir  [string]
+  --testFiles, -t    Files to test (anymatch)  [array] [default: ["*test*/**","**/*.test.*"]]
+  --sourceFiles, -s  Source files (for coverage) (anymatch)  [array] [default: ["."]]
+  --exclude          Files to exclude (anymatch)  [array] [default: [".*","node_modules","coverage"]]
+  --gitignore        Files to exclude based on .gitignore  [string] [default: [".gitignore","~/.gitignore"]]
+  --extensions       Extensions to monitor (all other files ignored)  [array] [default: [".js"]]
+  --watch, -w        Watch for file changes and re-run. `--watch=i` to only re-run on pressing Enter
+  --coverage         Collect coverage (use --no-coverage to disable)  [boolean] [default: true]
+  --reporter         Mocha reporter  [string] [default: "spec"]
+  --report           Istanbul reporters  [array] [default: ["text","lcov","html"]]
+  --mocha-xxx        All mocha-related options, like --mocha-fgrep etc
 ```
 
 ## Issues

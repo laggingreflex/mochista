@@ -5,6 +5,7 @@ module.exports = {
     description: 'Current dir'
   },
   testFiles: {
+    alias: ['t'],
     type: 'array',
     default: [
       '*test*/**',
@@ -13,6 +14,7 @@ module.exports = {
     description: 'Files to test (anymatch)',
   },
   sourceFiles: {
+    alias: ['s'],
     type: 'array',
     default: ['.'],
     description: 'Source files (for coverage) (anymatch)',
@@ -40,18 +42,19 @@ module.exports = {
   coverage: {
     type: 'boolean',
     default: true,
-    description: 'Collect coverage',
+    description: 'Collect coverage (use --no-coverage to disable)',
   },
-  mochaReporter: {
-    alias: ['reporter'],
+  reporter: {
     type: 'string',
     default: 'spec',
     description: 'Mocha reporter',
   },
-  coverageReporter: {
-    alias: ['report'],
+  report: {
     type: 'array',
     default: ['text', 'lcov', 'html'],
-    description: 'Istanbul coverage reporters',
+    description: 'Istanbul reporters',
+  },
+  'mocha-xxx': {
+    description: 'All mocha-related options, like --mocha-fgrep etc',
   },
 };
