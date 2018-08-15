@@ -42,7 +42,7 @@ After recently discovering **[c8]** I decided to rewrite this to use that  inste
 
 ### <a id="not-all"></a> Not all features of [Mocha] and [Istanbul] supported
 
-Incorporating ***all*** functionalities of both [Mocha] and [Istanbul] is no longer the intent of this project. Earlier this project may have claimed to be a drop-in replacement for both, but that is no longer the case (in hindsight it wasn't a wise decision to begin with, since there were/would've been a lot of flag/features collisions).
+Incorporating ***all*** functionalities of both [Mocha] and [Istanbul] is no longer the intent of this project. Earlier this project may have claimed to be a drop-in replacement for both, but that is no longer the case (in hindsight it wasn't a wise decision to begin with, since there were/would've been a lot of flag/features collisions). It'll however still try to support some of the most common features (bail, fgrep) with direct flags or --mocha-xxx prefix.
 
 ### Node v10
 
@@ -70,7 +70,9 @@ It's easier (and not that slow) to just re-run everything.
 Not needed anymore.
 
 * ~~Supports `mocha.opts` with [extra features](#multiline-mochaopts).~~
-See [above](#not-all)
+See [above](#not-all). It does support `.env` file (via [dotenv]) and all can take all command-line flags from it (via [yargs]' [.env][yargs-env] feature)
+
+[yargs-env]: https://github.com/yargs/yargs/blob/master/docs/api.md#envprefix
 
 * ~~Built in support for ES6/ES2015+ by using [coverage source-maps][istanbul-lib-source-maps].~~
 See [below](#transpilers)
