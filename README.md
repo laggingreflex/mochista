@@ -81,6 +81,7 @@ Options:
   --reporter         Mocha reporter  [string] [default: "spec"]
   --report           Istanbul reporters  [array] [default: ["text","lcov","html"]]
   --require, -r      Require the given module  [array] [default: []]
+  --all, -a          Instrument all files  [boolean]
   --mocha-xxx        All mocha-related options, like --mocha-fgrep etc
 ```
 

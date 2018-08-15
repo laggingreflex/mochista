@@ -64,6 +64,11 @@ module.exports = {
     default: [],
     description: 'Require the given module',
   },
+  all: {
+    alias: ['a'],
+    type: 'boolean',
+    description: 'Instrument all files',
+  },
   'mocha-xxx': {
     description: 'All mocha-related options, like --mocha-fgrep etc',
   },
