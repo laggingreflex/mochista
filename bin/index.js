@@ -28,10 +28,8 @@ main(argv).catch(error => {
 
 async function main(argv = {}) {
 
-  const interrupt = new utils.Defer();
-
-  const { watcher, run } = await mochista({ ...argv, interrupt });
-  const stdin = argv.watch && streamAsync(process.stdin.setEncoding('utf8'), { interrupt });
+  const { watcher, run } = await mochista(argv);
+  const stdin = argv.watch && streamAsync(process.stdin.setEncoding('utf8'));
   const merged = merge([watcher, stdin].filter(Boolean), { yieldIterator: true });
 
   let firstRun = true;
@@ -52,8 +50,6 @@ async function main(argv = {}) {
           console.error(error);
         }
       } else {
-        watcher.throw(error);
-        interrupt.reject(error);
         throw error;
       }
     }
