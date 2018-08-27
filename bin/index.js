@@ -34,7 +34,7 @@ async function main(argv = {}) {
 
   let firstRun = true;
 
-  for await (const { iterator, data: { value: data } } of merged) {
+  for await (const { iterator } of merged) {
     try {
       if (
         firstRun
