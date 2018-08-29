@@ -83,6 +83,7 @@ Options:
   --require, -r      Require the given module  [array] [default: []]
   --all, -a          Instrument all files  [boolean]
   --mocha-xxx        All mocha-related options, like --mocha-fgrep etc
+  --opts             Opts file path  [default: "tests/mochista.opts"]
 ```
 
 Options can be provided in `--camelCase`, `--hyphen-case` or set as environment variables (which can also be read from `.env` file) in `UPPER_SNAKE_CASE=`.

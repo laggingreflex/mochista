@@ -72,4 +72,8 @@ module.exports = {
   'mocha-xxx': {
     description: 'All mocha-related options, like --mocha-fgrep etc',
   },
+  'opts': {
+    description: 'Opts file path',
+    default: 'tests/mochista.opts',
+  },
 };
