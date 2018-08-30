@@ -10,6 +10,7 @@ module.exports = {
     default: [
       '*test*/**',
       '**/*.test.*',
+      '**/test.*',
     ],
     description: 'Files to test (anymatch)',
   },
