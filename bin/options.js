@@ -45,6 +45,11 @@ module.exports = {
     default: true,
     description: 'Collect coverage (use --no-coverage to disable)',
   },
+  coverageDir: {
+    type: 'string',
+    default: './coverage',
+    description: 'Directory to output coverage and reports',
+  },
   coverageFirst: {
     type: 'boolean',
     description: 'Show coverage before test results (patches console)',
