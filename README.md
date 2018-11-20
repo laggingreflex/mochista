@@ -70,20 +70,21 @@ Options:
   --help             Show help  [boolean]
   --version          Show version number  [boolean]
   --cwd              Current dir  [string]
-  --testFiles, -t    Files to test (anymatch)  [array] [default: ["*test*/**","**/*.test.*"]]
+  --testFiles, -t    Files to test (anymatch)  [array] [default: ["*test*/**","**/*.test.*","**/test.*"]]
   --sourceFiles, -s  Source files (for coverage) (anymatch)  [array] [default: ["."]]
   --exclude          Files to exclude (anymatch)  [array] [default: [".*","node_modules","coverage"]]
   --gitignore        Files to exclude based on .gitignore  [string] [default: [".gitignore","~/.gitignore"]]
   --extensions       Extensions to monitor (all other files ignored)  [array] [default: [".js"]]
   --watch, -w        Watch for file changes and re-run. `--watch=i` to only re-run on pressing Enter
   --coverage         Collect coverage (use --no-coverage to disable)  [boolean] [default: true]
+  --coverageDir      Directory to output coverage and reports  [string] [default: "./coverage"]
   --coverageFirst    Show coverage before test results (patches console)  [boolean]
   --reporter         Mocha reporter  [string] [default: "spec"]
   --report           Istanbul reporters  [array] [default: ["text","lcov","html"]]
   --require, -r      Require the given module  [array] [default: []]
   --all, -a          Instrument all files  [boolean]
   --mocha-xxx        All mocha-related options, like --mocha-fgrep etc
-  --opts             Opts file path  [default: "tests/mochista.opts"]
+  --config           JS/JSON config file path
 ```
 
 Options can be provided in `--camelCase`, `--hyphen-case` or set as environment variables (which can also be read from `.env` file) in `UPPER_SNAKE_CASE=`.

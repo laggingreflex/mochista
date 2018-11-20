@@ -1,29 +1,32 @@
 #!/usr/bin/env node
 
-const dotenv = require('dotenv');
-dotenv.load();
+require('dotenv').load();
 const Path = require('path');
-let yargs = require('yargs');
+const yargs = require('yargs');
 const merge = require('merge-async-iterators');
 const streamAsync = require('streams-to-async-iterator')
 const options = require('./options');
-const mochista = require('..');
+const mochista = require('lib');
 const utils = require('lib/utils');
 
-yargs = yargs
+const { argv: config } = yargs
   .scriptName(require('../package.json').name)
   .wrap(null)
   .options(options)
-  .env('MOCHISTA');
+  .env('MOCHISTA')
+  .pkgConf('mochista');
 
-let argv = yargs.argv;
-dotenv.load({ path: argv.opts });
-yargs = yargs.env();
-argv = yargs.argv;
+config.cwd = config.cwd || process.cwd();
+config.coverageDir = utils.absOrRel(config.coverageDir, config.cwd);
+config.coverageTempDir = config.coverageTempDir ? utils.absOrRel(config.coverageTempDir, config.cwd) : Path.join(config.coverageDir, '.tmp');
+process.env.NODE_V8_COVERAGE = config.coverageTempDir;
 
-process.env.NODE_V8_COVERAGE = argv.coverageDir = process.env.NODE_V8_COVERAGE || Path.join(argv.cwd || process.cwd(), argv.coverageDir || 'coverage', '.tmp');
+if (config.config) {
+  config.config = utils.absOrRel(config.config, config.cwd);
+  Object.assign(config, require(config.config))
+}
 
-main(argv).catch(error => {
+main(config).catch(error => {
   process.exitCode = error.exitCode || 1;
   if (error instanceof utils.Error && !error.failures) {
     console.error(error.message);
@@ -34,10 +37,10 @@ main(argv).catch(error => {
   }
 });
 
-async function main(argv = {}) {
+async function main(config = {}) {
 
-  const { watcher, run } = await mochista(argv);
-  const stdin = argv.watch && streamAsync(process.stdin.setEncoding('utf8'));
+  const { watcher, run } = await mochista(config);
+  const stdin = config.watch && streamAsync(process.stdin.setEncoding('utf8'));
   const merged = merge([watcher, stdin].filter(Boolean), { yieldIterator: true });
 
   let firstRun = true;
@@ -47,13 +50,13 @@ async function main(argv = {}) {
       if (
         firstRun
         || iterator === stdin
-        || !(typeof argv.watch === 'string' && argv.watch.startsWith('i'))
+        || !(typeof config.watch === 'string' && config.watch.startsWith('i'))
       ) {
         firstRun = false;
         await run();
       }
     } catch (error) {
-      if (argv.watch) {
+      if (config.watch) {
         if (!error.failures) {
           console.error(error);
         }
@@ -61,7 +64,7 @@ async function main(argv = {}) {
         throw error;
       }
     }
-    if (argv.watch) {
+    if (config.watch) {
       process.stdout.write('Press Enter to re-run');
       process.stdout.cursorTo(0);
     } else {
