@@ -2,23 +2,26 @@
 
 const dotenv = require('dotenv');
 dotenv.load();
+const Path = require('path');
 let yargs = require('yargs');
 const merge = require('merge-async-iterators');
 const streamAsync = require('streams-to-async-iterator')
 const options = require('./options');
 const mochista = require('..');
-const utils = require('../lib/utils');
+const utils = require('lib/utils');
 
 yargs = yargs
   .scriptName(require('../package.json').name)
   .wrap(null)
   .options(options)
-  .env('MOCHISTA')
+  .env('MOCHISTA');
 
 let argv = yargs.argv;
 dotenv.load({ path: argv.opts });
 yargs = yargs.env();
 argv = yargs.argv;
+
+process.env.NODE_V8_COVERAGE = argv.coverageDir = process.env.NODE_V8_COVERAGE || Path.join(argv.cwd || process.cwd(), argv.coverageDir || 'coverage', '.tmp');
 
 main(argv).catch(error => {
   process.exitCode = error.exitCode || 1;
