@@ -2,6 +2,7 @@
 
 require('dotenv').load();
 const Path = require('path');
+const fs = require('fs');
 const { spawn } = require('child_process');
 const yargs = require('yargs');
 const merge = require('merge-async-iterators');
@@ -22,9 +23,15 @@ config.coverageDir = utils.absOrRel(config.coverageDir, config.cwd);
 config.coverageTempDir = config.coverageTempDir ? utils.absOrRel(config.coverageTempDir, config.cwd) : Path.join(config.coverageDir, '.tmp');
 process.env.NODE_V8_COVERAGE = config.coverageTempDir;
 
-if (config.config) {
-  config.config = utils.absOrRel(config.config, config.cwd);
-  Object.assign(config, require(config.config))
+config.config = utils.absOrRel(config.config, config.cwd);
+if (fs.existsSync(config.config)) try {
+  let userConfig = require(config.config);
+  if (typeof userConfig === 'function') {
+    userConfig = userConfig(config);
+  }
+  Object.assign(config, userConfig);
+} catch (error) {
+  throw new Error(`Couldn't read config file '${config.config}'. ${error.message}`);
 }
 
 main(config).catch(error => {

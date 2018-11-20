@@ -79,6 +79,8 @@ module.exports = {
     description: 'All mocha-related options, like --mocha-fgrep etc',
   },
   'config': {
-    description: 'JS/JSON config file path'
+    type: 'string',
+    default: 'mochista.config.js',
+    description: 'JS file path that exports config or a function that does'
   },
 };
