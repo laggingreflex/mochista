@@ -3,7 +3,7 @@
 
 ***Like***[\*](#not-all) [Mocha] + ~~[Istanbul]~~ [c8*](#uses-c8) in a single process.
 
-Mochista uses [Mocha] and ~~[Istanbul]~~ [c8]'s[*](#c8-fork) programmatic API to run both in a single process yielding fastest test results and coverage reports.
+Mochista uses [Mocha] and ~~[Istanbul]~~ [c8]'s[*](#c8-fork) programmatic API ~~to run both in a single process~~* yielding fastest test results and coverage reports.
 
 Its `--watch` feature runs modified tests and generates coverage using cache for unmodified files instantly:
 
@@ -16,25 +16,25 @@ Its `--watch` feature runs modified tests and generates coverage using cache for
 
 Protip: Use [live-server] on the `coverage` dir
 
-
 ## Update: Major Rewrite
 
 ### Uses [c8]
 
 After recently discovering **[c8]** I decided to rewrite this to use that  instead of [Istanbul]. But [c8] still uses [Istanbul] under the hood to generate reports and such, so the overall outcome of this change should be more or less the same as before.
 
-<a id="c8-fork"></a> Actually it uses a [fork][laggingreflex/c8] that offers a feature ([Node API][c8/pull/19]) not yet integrated into [c8].
+Also running everything in single-process is also no longer the case, since c8 uses Node's built in coverage functionality which only outputs coverage data once the Node processes has exited, tests now need to be run in a separate (forked) process. There doesn't seem to be too much of a noticeable performance hit, since forked processes are still quicker than separate shell commands.
 
 ### <a id="not-all"></a> Not all features of [Mocha] and [Istanbul] supported
 
 Incorporating ***all*** functionalities of both [Mocha] and [Istanbul] is no longer the intent of this project. Earlier this project may have claimed to be a drop-in replacement for both, but that is no longer the case (in hindsight it wasn't a wise decision to begin with, since there were/would've been a lot of flag/features collisions). It'll however still try to support some of the most common features (bail, fgrep) with direct flags or --mocha-xxx prefix.
 
-### Node v10
+### Node v10.10
 
 Another thing this rewrite did was to massively simplify the code (1.3k->300 LOC), and some of the features ([Async Iteration]) are heavily reliant on latest NodeJS (v10).
 
 I don't currently plan to use babel to transpile-down.
 
+Also c8 uses Node's built in coverage functionality which requires Node >= v10.10.
 
 ## Features
 
@@ -96,9 +96,11 @@ Other than explicitly setting a boolean to `=false`, you can also use the `--no-
 
 Personally not a huge fan of transpilers (babel, typescript) so they've neither been tested nor support for them is provided currently.
 
-### Sub-process spawning
+### ~~Sub-process spawning~~
 
-Currently sub-process spawning (if your test spawns another process) isn't supported.
+~~Currently sub-process spawning (if your test spawns another process) isn't supported.~~
+
+Fixed
 
 ## Libraries used
 
