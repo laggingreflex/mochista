@@ -50,10 +50,6 @@ module.exports = {
     default: './coverage',
     description: 'Directory to output coverage and reports',
   },
-  coverageFirst: {
-    type: 'boolean',
-    description: 'Show coverage before test results (patches console)',
-  },
   reporter: {
     type: 'string',
     default: 'spec',

@@ -78,7 +78,6 @@ Options:
   --watch, -w        Watch for file changes and re-run. `--watch=i` to only re-run on pressing Enter
   --coverage         Collect coverage (use --no-coverage to disable)  [boolean] [default: true]
   --coverageDir      Directory to output coverage and reports  [string] [default: "./coverage"]
-  --coverageFirst    Show coverage before test results (patches console)  [boolean]
   --reporter         Mocha reporter  [string] [default: "spec"]
   --report           Istanbul reporters  [array] [default: ["text","lcov","html"]]
   --require, -r      Require the given module  [array] [default: []]
