@@ -14,7 +14,7 @@ Its `--watch` feature runs modified tests and generates coverage using cache for
 </video>
 </a>
 
-Protip: Use [live-server] on the `coverage` dir
+Protip: Use `--coverage-server` flag to run [live-server] (via [npx]) on the `coverage` dir to view live changes to coverage reports.
 
 ## Update: Major Rewrite
 
@@ -119,6 +119,7 @@ Fixed
 [istanbul]: https://istanbul.js.org
 [c8]: https://github.com/bcoe/c8
 [live-server]: https://github.com/tapio/live-server
+[npx]: https://blog.npmjs.org/post/162869356040/introducing-npx-an-npm-package-runner
 [laggingreflex/c8]: https://github.com/laggingreflex/c8
 [c8/pull/19]: https://github.com/bcoe/c8/pull/19
 [Async Iteration]: https://github.com/tc39/proposal-async-iteration
