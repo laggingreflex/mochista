@@ -3,7 +3,7 @@
 
 ***Like***[\*](#not-all) [Mocha] + ~~[Istanbul]~~ [c8*](#uses-c8) in a single process.
 
-Mochista uses [Mocha] and ~~[Istanbul]~~ [c8]'s[*](#c8-fork) programmatic API ~~to run both in a single process~~* yielding fastest test results and coverage reports.
+Mochista uses [Mocha] and ~~[Istanbul]~~ [c8]'s programmatic API ~~to run both in a single process~~[*](#uses-c8) yielding fastest test results and coverage reports.
 
 Its `--watch` feature runs modified tests and generates coverage using cache for unmodified files instantly:
 
@@ -97,10 +97,6 @@ Other than explicitly setting a boolean to `=false`, you can also use the `--no-
 
 Personally not a huge fan of transpilers (babel, typescript) so they've neither been tested nor support for them is provided currently.
 
-### ~~Sub-process spawning~~
-
-~~Currently sub-process spawning (if your test spawns another process) isn't supported.~~
-
 Fixed
 
 ## Libraries used
@@ -115,6 +111,7 @@ Fixed
 * *[file-watch-iterator]*
 * *[merge-async-iterators]*
 * *[streams-to-async-iterator]*
+* *[fork-acknowledge]*
 
 
 <!-- LINKS -->
@@ -135,6 +132,7 @@ Fixed
 [file-watch-iterator]: https://github.com/laggingreflex/file-watch-iterator
 [merge-async-iterators]: https://github.com/laggingreflex/merge-async-iterators
 [streams-to-async-iterator]: https://github.com/laggingreflex/streams-to-async-iterator
+[fork-acknowledge]: https://github.com/laggingreflex/fork-acknowledge
 <!-- -->
 [map-better]: https://github.com/laggingreflex/map-better
 [nyc]: https://github.com/istanbuljs/nyc
