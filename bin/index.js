@@ -2,6 +2,7 @@
 
 require('dotenv').load();
 const Path = require('path');
+const { spawn } = require('child_process');
 const yargs = require('yargs');
 const merge = require('merge-async-iterators');
 const streamAsync = require('streams-to-async-iterator')
@@ -52,8 +53,15 @@ async function main(config = {}) {
         || iterator === stdin
         || !(typeof config.watch === 'string' && config.watch.startsWith('i'))
       ) {
-        firstRun = false;
-        await run();
+        try {
+          await run();
+        } finally {
+          if (firstRun && config.coverageServer) {
+            console.log('Running coverage live-server...');
+            spawn('npx', ['live-server', config.coverageDir], { shell: true, stdio: ['ignore', 'pipe', 'inherit'] });
+          }
+          firstRun = false;
+        }
       }
     } catch (error) {
       if (config.watch) {

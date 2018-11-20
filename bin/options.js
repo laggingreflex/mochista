@@ -50,6 +50,10 @@ module.exports = {
     default: './coverage',
     description: 'Directory to output coverage and reports',
   },
+  coverageServer: {
+    type: 'boolean',
+    description: 'Run live-server (via npx) on coverage dir',
+  },
   reporter: {
     type: 'string',
     default: 'spec',
