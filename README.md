@@ -98,8 +98,6 @@ Other than explicitly setting a boolean to `=false`, you can also use the `--no-
 
 Personally not a huge fan of transpilers (babel, typescript) so they've neither been tested nor support for them is provided currently.
 
-Fixed
-
 ## Libraries used
 
 * **[mocha]**
