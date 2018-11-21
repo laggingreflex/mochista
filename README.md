@@ -76,6 +76,7 @@ Options:
   --gitignore        Files to exclude based on .gitignore  [string] [default: [".gitignore","~/.gitignore"]]
   --extensions       Extensions to monitor (all other files ignored)  [array] [default: [".js"]]
   --watch, -w        Watch for file changes and re-run. `--watch=i` to only re-run on pressing Enter
+  --parallel         Use mocha-parallel-tests to run each of your test files in a separate process
   --coverage         Collect coverage (use --no-coverage to disable)  [boolean] [default: true]
   --coverageDir      Directory to output coverage and reports  [string] [default: "./coverage"]
   --coverageServer   Run live-server (via npx) on coverage dir  [boolean]
@@ -103,6 +104,7 @@ Fixed
 
 * **[mocha]**
 * **[c8]**
+* [mocha-parallel-tests]
 * [yargs]
 * [dotenv]
 * [anymatch]
@@ -118,6 +120,7 @@ Fixed
 [mocha]: http://mochajs.org
 [istanbul]: https://istanbul.js.org
 [c8]: https://github.com/bcoe/c8
+[mocha-parallel-tests]: https://github.com/mocha-parallel/mocha-parallel-tests
 [live-server]: https://github.com/tapio/live-server
 [npx]: https://blog.npmjs.org/post/162869356040/introducing-npx-an-npm-package-runner
 [laggingreflex/c8]: https://github.com/laggingreflex/c8

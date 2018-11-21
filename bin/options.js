@@ -40,6 +40,10 @@ module.exports = {
     // type: 'boolean',
     description: 'Watch for file changes and re-run. `--watch=i` to only re-run on pressing Enter',
   },
+  parallel: {
+    type: 'boolean',
+    description: 'Use mocha-parallel-tests to run each of your test files in a separate process',
+  },
   coverage: {
     type: 'boolean',
     default: true,

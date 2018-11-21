@@ -26,6 +26,7 @@
     "link-local-dependencies": "^0.1.2",
     "merge-async-iterators": "^0.1.2",
     "mocha": "^5.2.0",
+    "mocha-parallel-tests": "^2.0.6-alpha.3",
     "parse-gitignore": "^1.0.1",
     "streams-to-async-iterator": "^0.3.0",
     "untildify": "^3.0.3",
