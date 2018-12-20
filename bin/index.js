@@ -8,8 +8,8 @@ const yargs = require('yargs');
 const merge = require('merge-async-iterators');
 const streamAsync = require('streams-to-async-iterator')
 const options = require('./options');
-const mochista = require('lib');
-const utils = require('lib/utils');
+const mochista = require('../lib');
+const utils = require('../lib/utils');
 
 const { argv: config } = yargs
   .scriptName(require('../package.json').name)

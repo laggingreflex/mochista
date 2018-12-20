@@ -5,13 +5,9 @@
   "main": "lib",
   "bin": "bin/index.js",
   "scripts": {
-    "test": "node bin",
-    "postinstall": "link-local-dependencies"
+    "test": "node bin"
   },
   "repository": "laggingreflex/mochista",
-  "localDependencies": {
-    "lib": "lib"
-  },
   "dependencies": {
     "anymatch": "^2.0.0",
     "array.prototype.flat": "^1.2.1",
@@ -23,7 +19,6 @@
     "fork-acknowledge": "^0.2.0",
     "import-cwd": "^2.1.0",
     "intercept-stdout": "^0.1.2",
-    "link-local-dependencies": "^0.1.2",
     "merge-async-iterators": "^0.1.2",
     "mocha": "^5.2.0",
     "mocha-parallel-tests": "^2.0.6-alpha.3",
