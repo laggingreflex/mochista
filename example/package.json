@@ -1,0 +1,11 @@
+{
+  "name": "example",
+  "version": "0.0.0",
+  "main": "lib",
+  "scripts": {
+    "test": "mochista"
+  },
+  "devDependencies": {
+    "mochista": "file:.."
+  }
+}

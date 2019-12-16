@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-require('dotenv').load();
+require('dotenv').config();
 const Path = require('path');
 const fs = require('fs');
 const { spawn } = require('child_process');
